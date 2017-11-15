@@ -1,0 +1,31 @@
+{
+	"name": "bootstrap-less-port",
+	"version": "0.0.1",
+	"description": "A Less port of Bootstrap v4",
+	"keywords": [
+		"bootstrap",
+		"less",
+		"css",
+		"framework",
+		"port"
+	],
+	"homepage": "https://github.com/seanCodes/bootstrap-less-port#readme",
+	"author": "Sean Juárez <seanjcodes+bs-less-port@gmail.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/seanCodes/bootstrap-less-port.git"
+	},
+	"bugs": {
+		"url": "https://github.com/seanCodes/bootstrap-less-port/issues"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"main": "index.js",
+	"style": "dist/css/bootstrap.css",
+	"less": "less/bootstrap.less",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	}
+}
