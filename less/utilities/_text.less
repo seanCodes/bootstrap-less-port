@@ -1,0 +1,73 @@
+//
+// Text
+//
+
+// Alignment
+
+.text-justify  { text-align: justify !important; }
+.text-nowrap   { white-space: nowrap !important; }
+.text-truncate { #text-truncate(); }
+
+// Responsive alignment
+
+//@each $breakpoint in map-keys($grid-breakpoints) {
+//  @include media-breakpoint-up($breakpoint) {
+//    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+//
+//    .text#{$infix}-left   { text-align: left !important; }
+//    .text#{$infix}-right  { text-align: right !important; }
+//    .text#{$infix}-center { text-align: center !important; }
+//  }
+//}
+#each-breakpoint-text(@i: 1) when (@i =< length(@grid-breakpoints)) {
+	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+
+	#media-breakpoint-up(@breakpoint, {
+		#breakpoint-infix(@breakpoint, @grid-breakpoints);
+		@infix: @return--breakpoint-infix;
+
+		.text@{infix}-left   { text-align: left !important; }
+		.text@{infix}-right  { text-align: right !important; }
+		.text@{infix}-center { text-align: center !important; }
+	});
+
+	#each-breakpoint-text((@i + 1));
+} #each-breakpoint-text();
+
+// Transformation
+
+.text-lowercase  { text-transform: lowercase !important; }
+.text-uppercase  { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+// Weight and italics
+
+.font-weight-light  { font-weight: @font-weight-light !important; }
+.font-weight-normal { font-weight: @font-weight-normal !important; }
+.font-weight-bold   { font-weight: @font-weight-bold !important; }
+.font-italic        { font-style: italic !important; }
+
+// Contextual colors
+
+.text-white { color: #fff !important; }
+
+//@each $color, $value in $theme-colors {
+//  @include text-emphasis-variant('.text-#{$color}', $value);
+//}
+#each-theme-color-text(@i: 1) when (@i =< length(@theme-colors)) {
+	@item: extract(@theme-colors, @i);
+	@color: extract(@item, 1);
+	@value: extract(@item, 2);
+
+	#text-emphasis-variant(~".text-@{color}", @value);
+
+	#each-theme-color-text((@i + 1));
+} #each-theme-color-text();
+
+.text-muted { color: @text-muted !important; }
+
+// Misc
+
+.text-hide {
+	#text-hide();
+}

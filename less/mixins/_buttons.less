@@ -1,0 +1,96 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+#button-variant(@background, @border, @hover-background: darken(@background, 7.5%), @hover-border: darken(@border, 10%), @active-background: darken(@background, 10%), @active-border: darken(@border, 12.5%)) {
+	color: color-yiq(@background);
+	#gradient-bg(@background);
+	border-color: @border;
+	#box-shadow(@btn-box-shadow);
+
+	#hover({
+		color: color-yiq(@hover-background);
+		#gradient-bg(@hover-background);
+		border-color: @hover-border;
+	});
+
+	&:focus,
+	&.focus {
+		// Avoid using mixin so we can pass custom focus shadow properly
+		& when (@enable-shadows) {
+			box-shadow: @btn-box-shadow, 0 0 0 @input-btn-focus-width fade(@border, 50%);
+		}
+		& when not (@enable-shadows) {
+			box-shadow: 0 0 0 @input-btn-focus-width fade(@border, 50%);
+		}
+	}
+
+	// Disabled comes first so active can properly restyle
+	&.disabled,
+	&:disabled {
+		background-color: @background;
+		border-color: @border;
+	}
+
+	&:not([disabled]):not(.disabled):active,
+	&:not([disabled]):not(.disabled).active,
+	.show > &.dropdown-toggle {
+		color: color-yiq(@active-background);
+		background-color: @active-background;
+		& when (@enable-gradients) {
+			background-image: none; // Remove the gradient for the pressed/active state
+		}
+		border-color: @active-border;
+
+		// Avoid using mixin so we can pass custom focus shadow properly
+		& when (@enable-shadows) {
+			box-shadow: @btn-active-box-shadow, 0 0 0 @input-btn-focus-width fade(@border, 50%);
+		}
+		& when not (@enable-shadows) {
+			box-shadow: 0 0 0 @input-btn-focus-width fade(@border, 50%);
+		}
+	}
+}
+
+#button-outline-variant(@color, @color-hover: #fff) {
+	color: @color;
+	background-color: transparent;
+	background-image: none;
+	border-color: @color;
+
+	#hover({
+		color: @color-hover;
+		background-color: @color;
+		border-color: @color;
+	});
+
+	&:focus,
+	&.focus {
+		box-shadow: 0 0 0 @input-btn-focus-width fade(@color, 50%);
+	}
+
+	&.disabled,
+	&:disabled {
+		color: @color;
+		background-color: transparent;
+	}
+
+	&:not([disabled]):not(.disabled):active,
+	&:not([disabled]):not(.disabled).active,
+	.show > &.dropdown-toggle {
+		color: @color-hover;
+		background-color: @color;
+		border-color: @color;
+		// Avoid using mixin so we can pass custom focus shadow properly
+		box-shadow: 0 0 0 @input-btn-focus-width fade(@color, 50%);
+	}
+}
+
+// Button sizes
+#button-size(@padding-y, @padding-x, @font-size, @line-height, @border-radius) {
+	padding: @padding-y @padding-x;
+	font-size: @font-size;
+	line-height: @line-height;
+	#border-radius(@border-radius);
+}

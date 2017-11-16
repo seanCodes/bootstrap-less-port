@@ -1,0 +1,36 @@
+#caret-down() {
+	border-top: @caret-width solid;
+	border-right: @caret-width solid transparent;
+	border-bottom: 0;
+	border-left: @caret-width solid transparent;
+}
+
+#caret-up() {
+	border-top: 0;
+	border-right: @caret-width solid transparent;
+	border-bottom: @caret-width solid;
+	border-left: @caret-width solid transparent;
+}
+
+#caret(@direction: down) {
+	& when (@enable-caret) {
+		&::after {
+			display: inline-block;
+			width: 0;
+			height: 0;
+			margin-left: (@caret-width * 0.85);
+			vertical-align: (@caret-width * 0.85);
+			content: "";
+			& when (@direction = down) {
+				#caret-down();
+			}
+			& when (@direction = up) {
+				#caret-up();
+			}
+		}
+
+		&:empty::after {
+			margin-left: 0;
+		}
+	}
+}

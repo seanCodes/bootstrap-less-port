@@ -1,0 +1,29 @@
+// Width and height
+
+//@each $prop, $abbrev in (width: w, height: h) {
+//  @each $size, $length in $sizes {
+//    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+//  }
+//}
+@sizing-properties: width w, height h;
+
+#each-sizing-property(@i: 1) when (@i =< length(@sizing-properties)) {
+	@sizing-property: extract(@sizing-properties, @i);
+	@prop: extract(@sizing-property, 1);
+	@abbrev: extract(@sizing-property, 2);
+
+	#each-size(@ii: 1) when (@ii =< length(@sizes)) {
+		@item: extract(@sizes, @ii);
+		@size: extract(@item, 1);
+		@length: extract(@item, 2);
+
+		.@{abbrev}-@{size} { @{prop}: @length !important; }
+
+		#each-size((@ii + 1));
+	} #each-size();
+
+	#each-sizing-property((@i + 1));
+} #each-sizing-property();
+
+.mw-100 { max-width: 100% !important; }
+.mh-100 { max-height: 100% !important; }

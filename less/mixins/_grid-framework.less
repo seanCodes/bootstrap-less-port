@@ -1,0 +1,150 @@
+// Framework grid generation
+//
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `$grid-columns`.
+
+//@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+//  // Common properties for all breakpoints
+//  %grid-column {
+//    position: relative;
+//    width: 100%;
+//    min-height: 1px; // Prevent columns from collapsing when empty
+//    padding-right: ($gutter / 2);
+//    padding-left: ($gutter / 2);
+//  }
+//
+//  @each $breakpoint in map-keys($breakpoints) {
+//    $infix: breakpoint-infix($breakpoint, $breakpoints);
+//
+//    // Allow columns to stretch full width below their breakpoints
+//    @for $i from 1 through $columns {
+//      .col#{$infix}-#{$i} {
+//        @extend %grid-column;
+//      }
+//    }
+//    .col#{$infix},
+//    .col#{$infix}-auto {
+//      @extend %grid-column;
+//    }
+//
+//    @include media-breakpoint-up($breakpoint, $breakpoints) {
+//      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+//      .col#{$infix} {
+//        flex-basis: 0;
+//        flex-grow: 1;
+//        max-width: 100%;
+//      }
+//      .col#{$infix}-auto {
+//        flex: 0 0 auto;
+//        width: auto;
+//        max-width: none; // Reset earlier grid tiers
+//      }
+//
+//      @for $i from 1 through $columns {
+//        .col#{$infix}-#{$i} {
+//          @include make-col($i, $columns);
+//        }
+//      }
+//
+//      .order#{$infix}-first {
+//        order: -1;
+//      }
+//
+//      @for $i from 1 through $columns {
+//        .order#{$infix}-#{$i} {
+//          order: $i;
+//        }
+//      }
+//
+//      // `$columns - 1` because offsetting by the width of an entire row isn't possible
+//      @for $i from 0 through ($columns - 1) {
+//        @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+//          .offset#{$infix}-#{$i} {
+//            @include make-col-offset($i, $columns);
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
+#make-grid-columns(@columns: @grid-columns, @gutter: @grid-gutter-width, @breakpoints: @grid-breakpoints) {
+	// Common properties for all breakpoints
+	// LESS PORT: Unfortunately we have to use an actual selector here in order to be able to
+	// `:extend()` it later. This means that the selector is output in the compiled CSS, creating a
+	// small disparity between the Less and Sass versions.
+	.grid-column {
+		position: relative;
+		width: 100%;
+		min-height: 1px; // Prevent columns from collapsing when empty
+		padding-right: (@gutter / 2);
+		padding-left: (@gutter / 2);
+	};
+
+	#each-breakpoint-column(@i: 1) when (@i <= length(@breakpoints)) {
+		@item: extract(@breakpoints, @i);
+		@breakpoint: extract(@item, 1);
+		#breakpoint-infix(@breakpoint, @breakpoints);
+		@infix: @return--breakpoint-infix;
+
+		// Allow columns to stretch full width below their breakpoints
+		#each-column(@ii: 1) when (@ii <= @columns) {
+			.col@{infix}-@{ii} {
+				&:extend(.grid-column);
+			}
+
+			#each-column((@ii + 1));
+		} #each-column();
+		.col@{infix},
+		.col@{infix}-auto {
+			&:extend(.grid-column);
+		}
+
+		#media-breakpoint-up(@breakpoint, {
+			// Provide basic `.col-{bp}` classes for equal-width flexbox columns
+			.col@{infix} {
+				flex-basis: 0;
+				flex-grow: 1;
+				max-width: 100%;
+			}
+			.col@{infix}-auto {
+				flex: 0 0 auto;
+				width: auto;
+				max-width: none; // Reset earlier grid tiers
+			}
+
+			#each-column-col(@iii: 1) when (@iii <= @columns) {
+				.col@{infix}-@{iii} {
+					#make-col(@iii, @columns);
+				}
+
+				#each-column-col((@iii + 1));
+			} #each-column-col();
+
+			.order@{infix}-first {
+				order: -1;
+			}
+
+			#each-column-order(@iii: 1) when (@iii <= @columns) {
+				.order@{infix}-@{iii} {
+					order: @iii;
+				}
+
+				#each-column-order((@iii + 1));
+			} #each-column-order();
+
+			// `@iii < @columns` because offsetting by the width of an entire row isn't possible
+			#each-column-offset(@iii: 0) when (@iii < @columns) {
+				& when not (@iii = 0),
+				(@iii = 0) and not (@infix = ~"") {
+					.offset@{infix}-@{iii} {
+						#make-col-offset(@iii, @columns);
+					}
+				}
+
+				#each-column-offset((@iii + 1));
+			} #each-column-offset();
+		});
+
+		#each-breakpoint-column((@i + 1));
+	} #each-breakpoint-column();
+}

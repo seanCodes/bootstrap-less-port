@@ -1,0 +1,41 @@
+// Common values
+
+// Less list not in variables since it's not intended for customization.
+@positions: static, relative, absolute, fixed, sticky;
+
+//@each $position in $positions {
+//  .position-#{$position} { position: $position !important; }
+//}
+#each-position(@i: 1) when (@i =< length(@positions)) {
+	@position: extract(@positions, @i);
+
+	.position-@{position} { position: @position !important; }
+
+	#each-position((@i + 1));
+} #each-position();
+
+// Shorthand
+
+.fixed-top {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: @zindex-fixed;
+}
+
+.fixed-bottom {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: @zindex-fixed;
+}
+
+.sticky-top {
+	@supports (position: sticky) {
+		position: sticky;
+		top: 0;
+		z-index: @zindex-sticky;
+	}
+}

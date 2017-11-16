@@ -1,0 +1,36 @@
+//@each $color, $value in $theme-colors {
+//  @include bg-variant('.bg-#{$color}', $value);
+//}
+#each-theme-color-bg(@i: 1) when (@i =< length(@theme-colors)) {
+	@item: extract(@theme-colors, @i);
+	@color: extract(@item, 1);
+	@value: extract(@item, 2);
+
+	#bg-variant(~".bg-@{color}", @value);
+
+	#each-theme-color-bg((@i + 1));
+} #each-theme-color-bg();
+
+//@if $enable-gradients {
+//  @each $color, $value in $theme-colors {
+//    @include bg-gradient-variant(".bg-gradient-#{$color}", $value);
+//  }
+//}
+#each-theme-color-bg-gradient(@i: 1) when (@i =< length(@theme-colors)) and (@enable-gradients) {
+	@item: extract(@theme-colors, @i);
+	@color: extract(@item, 1);
+	@value: extract(@item, 2);
+
+	#bg-gradient-variant(~".bg-gradient-@{color}", @value);
+
+	#each-theme-color-bg-gradient((@i + 1));
+} #each-theme-color-bg-gradient();
+
+
+.bg-white {
+	background-color: @white !important;
+}
+
+.bg-transparent {
+	background-color: transparent !important;
+}

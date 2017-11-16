@@ -1,0 +1,24 @@
+//@mixin box-shadow($shadow...) {
+//  @if $enable-shadows {
+//    box-shadow: $shadow;
+//  }
+//}
+#box-shadow(@shadow...) when (@enable-shadows) {
+	// LESS PORT: In order to output the shadows correctly we have to iterate over the list and use
+	// Less’s merge feature. Without this, shadows will be output space-separated instead of comma-
+	// separated. Also, since a single shadow can be misinterpreted as multiple shadows (since it
+	// will have a length > 1) we have to include a check for the length of the first item in the
+	// list. If the length is greater than 1, then we have a list of separate shadows. If the the
+	// length is 1, then we’re looking at the first value of a single shadow, so we output `@shadow`
+	// as-is.
+	& when (length(@shadow) > 0) and (length(extract(@shadow, 1)) = 1) {
+		box-shadow: @shadow;
+	}
+	& when (length(@shadow) > 0) and (length(extract(@shadow, 1)) > 1) {
+		#each-shadow(@i: 1) when (@i =< length(@shadow)) {
+			box-shadow+: extract(@shadow, @i);
+
+			#each-shadow((@i + 1));
+		} #each-shadow();
+	}
+}
