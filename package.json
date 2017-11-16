@@ -28,6 +28,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"css-compile": "lessc --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
+		"css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\"",
 		"css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css"
 	},
 	"devDependencies": {
@@ -37,5 +38,15 @@
 	"dependencies": {
 		"autoprefixer": "^7.1.6",
 		"postcss-cli": "^4.1.1"
-	}
+	},
+	"browserslist": [
+		"Chrome >= 45",
+		"Firefox ESR",
+		"Edge >= 12",
+		"Explorer >= 10",
+		"iOS >= 9",
+		"Safari >= 9",
+		"Android >= 4.4",
+		"Opera >= 30"
+	]
 }
