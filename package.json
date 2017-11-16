@@ -32,11 +32,9 @@
 		"css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css"
 	},
 	"devDependencies": {
-		"clean-css-cli": "^4.1.10",
-		"less": "^2.7.3"
-	},
-	"dependencies": {
 		"autoprefixer": "^7.1.6",
+		"clean-css-cli": "^4.1.10",
+		"less": "^2.7.3",
 		"postcss-cli": "^4.1.1"
 	},
 	"files": [
