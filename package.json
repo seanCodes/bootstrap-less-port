@@ -39,6 +39,11 @@
 		"autoprefixer": "^7.1.6",
 		"postcss-cli": "^4.1.1"
 	},
+	"files": [
+		"dist",
+		"build",
+		"less"
+	],
 	"browserslist": [
 		"Chrome >= 45",
 		"Firefox ESR",
