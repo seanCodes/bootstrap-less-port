@@ -27,5 +27,8 @@
 	"less": "less/bootstrap.less",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"devDependencies": {
+		"less": "^2.7.3"
 	}
 }
