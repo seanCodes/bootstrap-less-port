@@ -27,7 +27,8 @@
 	"less": "less/bootstrap.less",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"css-compile": "lessc --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css"
+		"css-compile": "lessc --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
+		"css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css"
 	},
 	"devDependencies": {
 		"clean-css-cli": "^4.1.10",
