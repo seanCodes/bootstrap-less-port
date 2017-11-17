@@ -187,10 +187,8 @@
 	//}
 	#each-breakpoint-responsive-table(@i: 1) when (@i =< length(@grid-breakpoints)) {
 		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-		#breakpoint-next(@breakpoint);
-		@next: @return--breakpoint-next;
-		#breakpoint-infix(@next);
-		@infix: @return--breakpoint-infix;
+		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
 		&@{infix} {
 			#media-breakpoint-down(@breakpoint, {

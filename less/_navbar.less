@@ -196,10 +196,8 @@
 	//}
 	#each-breakpoint-navbar(@i: 1) when (@i =< length(@grid-breakpoints)) {
 		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-		#breakpoint-next(@breakpoint, @grid-breakpoints);
-		#breakpoint-infix(@next, @grid-breakpoints);
-		@next: @return--breakpoint-next;
-		@infix: @return--breakpoint-infix;
+		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
 		&@{infix} {
 			#media-breakpoint-down(@breakpoint, {
@@ -240,7 +238,7 @@
 
 				.navbar-collapse {
 					display: flex !important;
-					
+
 					// Changes flex-bases to auto because of an IE10 bug
 					flex-basis: auto;
 				}
@@ -248,7 +246,7 @@
 				.navbar-toggler {
 					display: none;
 				}
-				
+
 				.dropup {
 					.dropdown-menu {
 						top: auto;

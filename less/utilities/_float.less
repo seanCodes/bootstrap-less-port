@@ -11,8 +11,7 @@
 	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
 
 	#media-breakpoint-up(@breakpoint, {
-		#breakpoint-infix(@breakpoint, @grid-breakpoints);
-		@infix: @return--breakpoint-infix;
+		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
 		.float@{infix}-left  { #float-left(); }
 		.float@{infix}-right { #float-right(); }

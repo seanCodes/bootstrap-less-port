@@ -81,10 +81,8 @@
 	};
 
 	#each-breakpoint-column(@i: 1) when (@i <= length(@breakpoints)) {
-		@item: extract(@breakpoints, @i);
-		@breakpoint: extract(@item, 1);
-		#breakpoint-infix(@breakpoint, @breakpoints);
-		@infix: @return--breakpoint-infix;
+		@breakpoint: extract(extract(@breakpoints, @i), 1);
+		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
 		// Allow columns to stretch full width below their breakpoints
 		#each-column(@ii: 1) when (@ii <= @columns) {

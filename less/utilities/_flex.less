@@ -46,8 +46,7 @@
 	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
 
 	#media-breakpoint-up(@breakpoint, {
-		#breakpoint-infix(@breakpoint, @grid-breakpoints);
-		@infix: @return--breakpoint-infix;
+		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
 		.flex@{infix}-row            { flex-direction: row !important; }
 		.flex@{infix}-column         { flex-direction: column !important; }

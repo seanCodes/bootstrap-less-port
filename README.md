@@ -41,8 +41,6 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
 1. **Custom functions** Sass allows for custom functions to be written in the sass files themeselves, which isn’t possible in Less. All custom functions have been replaced with Less plugins that add the equivalent functions to the language. Less plugins are JavaScript files and are located in the `less/plugins/` folder. They’re included using the [`@plugin`](http://lesscss.org/3.x/features/#plugin-atrules-feature) at-rule in `_functions.less`.
 
-   The only exception is the functions in `_breakpoints.sass`, which have been replaced with mixins (since they were testing the limits of my Less-plugin knowledge). However, I’d like to convert them to proper functions eventually.
-
    Plugins have also been added to duplicate some native Sass functions for simplicity.
 2. **Sass maps** Less has no _native_ concept of maps, which are used extensively in the Bootstrap Sass files. They can be emulated, however, by using a comma-separated list of space-separated lists, which is the method emloyed in this port.
 3. **Sass loops** Sass `@each` loops are replaced with Less’s method of looping, which requires a mixin every time. This is clunky and makes the code more verbose and harder to read, but it works.

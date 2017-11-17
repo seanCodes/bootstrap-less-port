@@ -20,8 +20,7 @@
 	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
 
 	#media-breakpoint-up(@breakpoint, {
-		#breakpoint-infix(@breakpoint, @grid-breakpoints);
-		@infix: @return--breakpoint-infix;
+		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
 		.d@{infix}-none         { display: none !important; }
 		.d@{infix}-inline       { display: inline !important; }
