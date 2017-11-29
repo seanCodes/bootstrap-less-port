@@ -34,8 +34,7 @@ function listToMap({ value: list } = { value: [] }) {
 			if (Array.isArray(item)) {
 				const [{ value: key }, value] = item || [{}]
 
-				if (typeof key === 'string')
-					map[key] = value
+				map[`${key}`] = value
 			}
 		})
 
