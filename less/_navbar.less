@@ -109,13 +109,18 @@
 	padding: @navbar-toggler-padding-y @navbar-toggler-padding-x;
 	font-size: @navbar-toggler-font-size;
 	line-height: 1;
-	background: transparent; // remove default button style
+	background-color: transparent; // remove default button style
 	border: @border-width solid transparent; // remove default button style
 	#border-radius(@navbar-toggler-border-radius);
 
 	#hover-focus({
 		text-decoration: none;
 	});
+
+	// Opinionated: add "hand" cursor to non-disabled .navbar-toggler elements
+	&:not([disabled]):not(.disabled) {
+		cursor: pointer;
+	}
 }
 
 // Keep as a separate element so folks can easily override it with another icon
@@ -133,12 +138,12 @@
 // Generate series of `.navbar-expand-*` responsive classes for configuring
 // where your navbar collapses.
 .navbar-expand {
-	//@each $breakpoint in map-keys($grid-breakpoints) {
-	//  $next: breakpoint-next($breakpoint, $grid-breakpoints);
-	//  $infix: breakpoint-infix($next, $grid-breakpoints);
+	//@each @breakpoint in map-keys(@grid-breakpoints) {
+	//  @next: breakpoint-next(@breakpoint, @grid-breakpoints);
+	//  @infix: breakpoint-infix(@next, @grid-breakpoints);
 	//
-	//  &#{$infix} {
-	//    @include media-breakpoint-down($breakpoint) {
+	//  &@{infix} {
+	//    @include media-breakpoint-down(@breakpoint) {
 	//      > .container,
 	//      > .container-fluid {
 	//        padding-right: 0;
@@ -146,7 +151,7 @@
 	//      }
 	//    }
 	//
-	//    @include media-breakpoint-up($next) {
+	//    @include media-breakpoint-up(@next) {
 	//      flex-flow: row nowrap;
 	//      justify-content: flex-start;
 	//

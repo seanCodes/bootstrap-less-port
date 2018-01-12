@@ -10,14 +10,17 @@
 	font-size: @progress-font-size;
 	background-color: @progress-bg;
 	#border-radius(@progress-border-radius);
+	#box-shadow(@progress-box-shadow);
 }
 
 .progress-bar {
 	display: flex;
-	align-items: center;
+	flex-direction: column;
 	justify-content: center;
 	color: @progress-bar-color;
+	text-align: center;
 	background-color: @progress-bar-bg;
+	#transition(@progress-bar-transition);
 }
 
 .progress-bar-striped {

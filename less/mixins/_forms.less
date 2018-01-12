@@ -15,13 +15,13 @@
 		color: @input-focus-color;
 		background-color: @input-focus-bg;
 		border-color: @input-focus-border-color;
-		outline: none;
+		outline: 0;
 		// Avoid using mixin so we can pass custom focus shadow properly
 		& when (@enable-shadows) {
-			box-shadow: @input-box-shadow, @input-btn-focus-box-shadow;
+			box-shadow: @input-box-shadow, @input-focus-box-shadow;
 		}
 		& when not (@enable-shadows) {
-			box-shadow: @input-btn-focus-box-shadow;
+			box-shadow: @input-focus-box-shadow;
 		}
 	}
 }
@@ -31,8 +31,9 @@
 
 	.@{state}-feedback {
 		display: none;
-		margin-top: 0.25rem;
-		font-size: 0.875rem;
+		width: 100%;
+		margin-top: @form-feedback-margin-top;
+		font-size: @form-feedback-font-size;
 		color: @color;
 	}
 
@@ -58,7 +59,8 @@
 			border-color: @color;
 
 			&:focus {
-				box-shadow: 0 0 0 0.2rem fade(@color, 25%);
+				border-color: @color;
+				box-shadow: 0 0 0 @input-focus-width fade(@color, 25%);
 			}
 
 			~ .@{state}-feedback,
@@ -68,26 +70,41 @@
 		}
 	}
 
-
-	// TODO: redo check markup lol crap
 	.form-check-input {
 		.was-validated &:@{state},
 		&.is-@{state} {
-			+ .form-check-label {
+			~ .form-check-label {
 				color: @color;
 			}
 		}
 	}
 
-	// custom radios and checks
 	.custom-control-input {
 		.was-validated &:@{state},
 		&.is-@{state} {
-			~ .custom-control-indicator {
-				background-color: fade(@color, 25%);
-			}
-			~ .custom-control-description {
+			~ .custom-control-label {
 				color: @color;
+
+				&::before {
+					background-color: lighten(@color, 25%);
+				}
+			}
+
+			~ .@{state}-feedback,
+			~ .@{state}-tooltip {
+				display: block;
+			}
+
+			&:checked {
+				~ .custom-control-label::before {
+					#gradient-bg(lighten(@color, 10%));
+				}
+			}
+
+			&:focus {
+				~ .custom-control-label::before {
+					box-shadow: 0 0 0 1px @body-bg, 0 0 0 @input-focus-width fade(@color, 25%);
+				}
 			}
 		}
 	}
@@ -96,13 +113,21 @@
 	.custom-file-input {
 		.was-validated &:@{state},
 		&.is-@{state} {
-			~ .custom-file-control {
+			~ .custom-file-label {
 				border-color: @color;
 
 				&::before { border-color: inherit; }
 			}
+
+			~ .@{state}-feedback,
+			~ .@{state}-tooltip {
+				display: block;
+			}
+
 			&:focus {
-				box-shadow: 0 0 0 0.2rem fade(@color, 25%);
+				~ .custom-file-label {
+					box-shadow: 0 0 0 @input-focus-width fade(@color, 25%);
+				}
 			}
 		}
 	}

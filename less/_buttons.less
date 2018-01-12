@@ -9,31 +9,41 @@
 	white-space: nowrap;
 	vertical-align: middle;
 	user-select: none;
-	border: @input-btn-border-width solid transparent;
-	#button-size(@input-btn-padding-y, @input-btn-padding-x, @font-size-base, @input-btn-line-height, @btn-border-radius);
+	border: @btn-border-width solid transparent;
+	#button-size(@btn-padding-y, @btn-padding-x, @font-size-base, @btn-line-height, @btn-border-radius);
 	#transition(@btn-transition);
 
 	// Share hover and focus styles
 	#hover-focus({
 		text-decoration: none;
 	});
+
 	&:focus,
 	&.focus {
 		outline: 0;
-		box-shadow: @input-btn-focus-box-shadow;
+		box-shadow: @btn-focus-box-shadow;
 	}
 
 	// Disabled comes first so active can properly restyle
 	&.disabled,
 	&:disabled {
-		opacity: 0.65;
+		opacity: @btn-disabled-opacity;
 		#box-shadow(none);
+	}
+
+	// Opinionated: add "hand" cursor to non-disabled .btn elements
+	&:not([disabled]):not(.disabled) {
+		cursor: pointer;
 	}
 
 	&:not([disabled]):not(.disabled):active,
 	&:not([disabled]):not(.disabled).active {
 		background-image: none;
-		#box-shadow(@input-btn-focus-box-shadow, @btn-active-box-shadow);
+		#box-shadow(@btn-active-box-shadow);
+
+		&:focus {
+			#box-shadow(@btn-focus-box-shadow, @btn-active-box-shadow);
+		}
 	}
 }
 
@@ -111,6 +121,7 @@ fieldset[disabled] a.btn {
 
 	&:focus,
 	&.focus {
+		text-decoration: @link-hover-decoration;
 		border-color: transparent;
 		box-shadow: none;
 	}
@@ -129,11 +140,11 @@ fieldset[disabled] a.btn {
 //
 
 .btn-lg {
-	#button-size(@input-btn-padding-y-lg, @input-btn-padding-x-lg, @font-size-lg, @input-btn-line-height-lg, @btn-border-radius-lg);
+	#button-size(@btn-padding-y-lg, @btn-padding-x-lg, @font-size-lg, @btn-line-height-lg, @btn-border-radius-lg);
 }
 
 .btn-sm {
-	#button-size(@input-btn-padding-y-sm, @input-btn-padding-x-sm, @font-size-sm, @input-btn-line-height-sm, @btn-border-radius-sm);
+	#button-size(@btn-padding-y-sm, @btn-padding-x-sm, @font-size-sm, @btn-line-height-sm, @btn-border-radius-sm);
 }
 
 
@@ -144,11 +155,11 @@ fieldset[disabled] a.btn {
 .btn-block {
 	display: block;
 	width: 100%;
-}
 
-// Vertically space out multiple block buttons
-.btn-block + .btn-block {
-	margin-top: @btn-block-spacing-y;
+	// Vertically space out multiple block buttons
+	+ .btn-block {
+		margin-top: @btn-block-spacing-y;
+	}
 }
 
 // Specificity overrides

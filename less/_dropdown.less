@@ -27,7 +27,7 @@
 	background-color: @dropdown-bg;
 	background-clip: padding-box;
 	border: @dropdown-border-width solid @dropdown-border-color;
-	#border-radius(@border-radius);
+	#border-radius(@dropdown-border-radius);
 	#box-shadow(@dropdown-box-shadow);
 }
 
@@ -41,6 +41,34 @@
 
 	.dropdown-toggle {
 		#caret(up);
+	}
+}
+
+.dropright {
+	.dropdown-menu {
+		margin-top: 0;
+		margin-left: @dropdown-spacer;
+	}
+
+	.dropdown-toggle {
+		#caret(right);
+		&::after {
+			vertical-align: 0;
+		}
+	}
+}
+
+.dropleft {
+	.dropdown-menu {
+		margin-top: 0;
+		margin-right: @dropdown-spacer;
+	}
+
+	.dropdown-toggle {
+		#caret(left);
+		&::before {
+			vertical-align: 0;
+		}
 	}
 }
 
@@ -61,7 +89,7 @@
 	color: @dropdown-link-color;
 	text-align: inherit; // For `<button>`s
 	white-space: nowrap; // prevent links from randomly breaking onto new lines
-	background: none; // For `<button>`s
+	background-color: transparent; // For `<button>`s
 	border: 0; // For `<button>`s
 
 	#hover-focus({

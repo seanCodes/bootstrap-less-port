@@ -12,6 +12,18 @@
 	border-left: @caret-width solid transparent;
 }
 
+#caret-right() {
+	border-top: @caret-width solid transparent;
+	border-bottom: @caret-width solid transparent;
+	border-left: @caret-width solid;
+}
+
+#caret-left() {
+	border-top: @caret-width solid transparent;
+	border-right: @caret-width solid;
+	border-bottom: @caret-width solid transparent;
+}
+
 #caret(@direction: down) {
 	& when (@enable-caret) {
 		&::after {
@@ -26,6 +38,25 @@
 			}
 			& when (@direction = up) {
 				#caret-up();
+			}
+			& when (@direction = right) {
+				#caret-right();
+			}
+		}
+
+		& when (@direction = left) {
+			&::after {
+				display: none;
+			}
+
+			&::before {
+				display: inline-block;
+				width: 0;
+				height: 0;
+				margin-right: (@caret-width * 0.85);
+				vertical-align: (@caret-width * 0.85);
+				content: "";
+				#caret-left();
 			}
 		}
 

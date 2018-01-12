@@ -79,6 +79,13 @@
 // Set a specific jump point for requesting color jumps
 @theme-color-interval:      8%;
 
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+@yiq-contrasted-threshold: 150;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+@yiq-text-dark: @gray-900;
+@yiq-text-light: @white;
+
 
 // Options
 //
@@ -204,7 +211,7 @@
 // Font, line-height, and color for body text, headings, and more.
 
 @font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-@font-family-monospace:       "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+@font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 @font-family-base:            @font-family-sans-serif;
 
 @font-size-base:              1rem; // Assumes the browser default, typically `16px`
@@ -262,9 +269,11 @@
 @kbd-box-shadow:              inset 0 -0.1rem 0 fade(@black, 25%);
 @nested-kbd-font-weight:      @font-weight-bold;
 
-@list-inline-padding:         5px;
+@list-inline-padding:         0.5rem;
 
 @mark-bg: #fcf8e3;
+
+@hr-margin-y:                 @spacer;
 
 
 // Tables
@@ -280,7 +289,7 @@
 @table-active-bg:             @table-hover-bg;
 
 @table-border-width:          @border-width;
-@table-border-color:          @gray-200;
+@table-border-color:          @gray-300;
 
 @table-head-bg:               @gray-200;
 @table-head-color:            @gray-700;
@@ -292,9 +301,9 @@
 @table-dark-color:            @body-bg;
 
 
-// Buttons
+// Buttons + Forms
 //
-// For each of Bootstrap's buttons, define text, background and border color.
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
 @input-btn-padding-y:         0.375rem;
 @input-btn-padding-x:         0.75rem;
@@ -312,8 +321,32 @@
 @input-btn-padding-x-lg:      1rem;
 @input-btn-line-height-lg:    @line-height-lg;
 
+@input-btn-border-width:      @border-width;
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+@btn-padding-y:               @input-btn-padding-y;
+@btn-padding-x:               @input-btn-padding-x;
+@btn-line-height:             @input-btn-line-height;
+
+@btn-padding-y-sm:            @input-btn-padding-y-sm;
+@btn-padding-x-sm:            @input-btn-padding-x-sm;
+@btn-line-height-sm:          @input-btn-line-height-sm;
+
+@btn-padding-y-lg:            @input-btn-padding-y-lg;
+@btn-padding-x-lg:            @input-btn-padding-x-lg;
+@btn-line-height-lg:          @input-btn-line-height-lg;
+
+@btn-border-width:            @input-btn-border-width;
+
 @btn-font-weight:             @font-weight-normal;
 @btn-box-shadow:              inset 0 1px 0 fade(@white, 15%), 0 1px 1px fade(@black, 7.5%);
+@btn-focus-width:             @input-btn-focus-width;
+@btn-focus-box-shadow:        @input-btn-focus-box-shadow;
+@btn-disabled-opacity:        0.65;
 @btn-active-box-shadow:       inset 0 3px 5px fade(@black, 1.25%);
 
 @btn-link-disabled-color:     @gray-600;
@@ -325,17 +358,29 @@
 @btn-border-radius-lg:        @border-radius-lg;
 @btn-border-radius-sm:        @border-radius-sm;
 
-@btn-transition:              background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+@btn-transition:              color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 
 // Forms
+
+@input-padding-y:                       @input-btn-padding-y;
+@input-padding-x:                       @input-btn-padding-x;
+@input-line-height:                     @input-btn-line-height;
+
+@input-padding-y-sm:                    @input-btn-padding-y-sm;
+@input-padding-x-sm:                    @input-btn-padding-x-sm;
+@input-line-height-sm:                  @input-btn-line-height-sm;
+
+@input-padding-y-lg:                    @input-btn-padding-y-lg;
+@input-padding-x-lg:                    @input-btn-padding-x-lg;
+@input-line-height-lg:                  @input-btn-line-height-lg;
 
 @input-bg:                              @white;
 @input-disabled-bg:                     @gray-200;
 
 @input-color:                           @gray-700;
 @input-border-color:                    @gray-400;
-@input-btn-border-width:                @border-width; // For form controls and buttons
+@input-border-width:                    @input-btn-border-width;
 @input-box-shadow:                      inset 0 1px 1px fade(@black, 7.5%);
 
 @input-border-radius:                   @border-radius;
@@ -345,6 +390,8 @@
 @input-focus-bg:                        @input-bg;
 @input-focus-border-color:              lighten(theme-color(primary), 25%);
 @input-focus-color:                     @input-color;
+@input-focus-width:                     @input-btn-focus-width;
+@input-focus-box-shadow:                @input-btn-focus-box-shadow;
 
 @input-placeholder-color:               @gray-600;
 
@@ -359,16 +406,16 @@
 @input-height-inner-lg:                 (@font-size-lg * @input-btn-line-height-lg + @input-btn-padding-y-lg * 2);
 @input-height-lg:                       calc(~"@{input-height-inner-lg} + @{input-height-border}");
 
-@input-transition:                      border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+@input-transition:                      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 @form-text-margin-top:                  0.25rem;
 
-@form-check-margin-bottom:              0.5rem;
 @form-check-input-gutter:               1.25rem;
-@form-check-input-margin-y:             0.25rem;
+@form-check-input-margin-y:             0.3rem;
 @form-check-input-margin-x:             0.25rem;
 
 @form-check-inline-margin-x:            0.75rem;
+@form-check-inline-input-margin-x:      0.3125rem;
 
 @form-group-margin-bottom:              1rem;
 
@@ -377,16 +424,15 @@
 @input-group-addon-border-color:        @input-border-color;
 
 @custom-control-gutter:                 1.5rem;
-@custom-control-spacer-y:               0.25rem;
 @custom-control-spacer-x:               1rem;
 
 @custom-control-indicator-size:         1rem;
-@custom-control-indicator-bg:           #ddd;
+@custom-control-indicator-bg:           @gray-300;
 @custom-control-indicator-bg-size:      50% 50%;
 @custom-control-indicator-box-shadow:   inset 0 0.25rem 0.25rem fade(@black, 10%);
 
 @custom-control-indicator-disabled-bg:          @gray-200;
-@custom-control-description-disabled-color:     @gray-600;
+@custom-control-label-disabled-color:           @gray-600;
 
 @custom-control-indicator-checked-color:        @white;
 @custom-control-indicator-checked-bg:           theme-color(primary);
@@ -410,7 +456,7 @@
 @custom-radio-indicator-icon-checked:           %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='", replace("@{custom-control-indicator-checked-color}", "#", "%23"), "'/%3E%3C/svg%3E");
 
 @custom-select-padding-y:           0.375rem;
-@custom-select-padding-x:          0.75rem;
+@custom-select-padding-x:           0.75rem;
 @custom-select-height:              @input-height ;
 @custom-select-indicator-padding:   1rem; // Extra padding to account for the presence of the background-image based indicator
 @custom-select-line-height:         @input-btn-line-height;
@@ -419,21 +465,24 @@
 @custom-select-bg:                  @white;
 @custom-select-disabled-bg:         @gray-200;
 @custom-select-bg-size:             8px 10px; // In pixels because image dimensions
-@custom-select-indicator-color:     #333;
+@custom-select-indicator-color:     @gray-800;
 @custom-select-indicator:           %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='", replace("@{custom-select-indicator-color}", "#", "%23"), "' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
 @custom-select-border-width:        @input-btn-border-width;
 @custom-select-border-color:        @input-border-color;
 @custom-select-border-radius:       @border-radius;
 
-@custom-select-focus-border-color:  lighten(theme-color(primary), 25%);
-@custom-select-focus-box-shadow:    inset 0 1px 2px fade(@black, 7.5%), 0 0 5px fade(@custom-select-focus-border-color, 50%);
+@custom-select-focus-border-color:  @input-focus-border-color;
+@custom-select-focus-box-shadow:    inset 0 1px 2px fade(@black, 7.5%), @input-btn-focus-box-shadow;
 
 @custom-select-font-size-sm:        75%;
 @custom-select-height-sm:           @input-height-sm;
 
+@custom-select-font-size-lg:        125%;
+@custom-select-height-lg:           @input-height-lg;
+
 @custom-file-height:                @input-height;
-@custom-file-width:                 14rem;
-@custom-file-focus-box-shadow:      0 0 0 0.075rem @white, 0 0 0 0.2rem theme-color(primary);
+@custom-file-focus-border-color:    @input-focus-border-color;
+@custom-file-focus-box-shadow:      @input-btn-focus-box-shadow;
 
 @custom-file-padding-y:             @input-btn-padding-y;
 @custom-file-padding-x:             @input-btn-padding-x;
@@ -446,22 +495,13 @@
 @custom-file-box-shadow:            @input-box-shadow;
 @custom-file-button-color:          @custom-file-color;
 @custom-file-button-bg:             @input-group-addon-bg;
-// LESS PORT: Double-nested maps aren’t doable in Less, so this has to be handled differently.
-//$custom-file-text: (
-//  placeholder: (
-//    en: "Choose file..."
-//  ),
-//  button-label: (
-//    en: "Browse"
-//  )
-//) !default;
-@custom-file-text--placeholder:
-	en "Choose file...";
-@custom-file-text--button-label:
+@custom-file-text:
 	en "Browse";
 
 
 // Form validation
+@form-feedback-margin-top:          @form-text-margin-top;
+@form-feedback-font-size:           @small-font-size;
 @form-feedback-valid-color:         theme-color(success);
 @form-feedback-invalid-color:       theme-color(danger);
 
@@ -475,6 +515,7 @@
 @dropdown-spacer:                   0.125rem;
 @dropdown-bg:                       @white;
 @dropdown-border-color:             fade(@black, 15%);
+@dropdown-border-radius:            @border-radius;
 @dropdown-border-width:             @border-width;
 @dropdown-divider-bg:               @gray-200;
 @dropdown-box-shadow:               0 0.5rem 1rem fade(@black, 1.75%);
@@ -513,13 +554,13 @@
 @nav-link-padding-x:                1rem;
 @nav-link-disabled-color:           @gray-600;
 
-@nav-tabs-border-color:             #ddd;
+@nav-tabs-border-color:             @gray-300;
 @nav-tabs-border-width:             @border-width;
 @nav-tabs-border-radius:            @border-radius;
-@nav-tabs-link-hover-border-color:  @gray-200;
+@nav-tabs-link-hover-border-color:  @gray-200 @gray-200 @nav-tabs-border-color;
 @nav-tabs-link-active-color:        @gray-700;
 @nav-tabs-link-active-bg:           @body-bg;
-@nav-tabs-link-active-border-color: #ddd;
+@nav-tabs-link-active-border-color: @gray-300 @gray-300 @nav-tabs-link-active-bg;
 
 @nav-pills-border-radius:           @border-radius;
 @nav-pills-link-active-color:       @component-active-color;
@@ -568,11 +609,11 @@
 @pagination-color:                  @link-color;
 @pagination-bg:                     @white;
 @pagination-border-width:           @border-width;
-@pagination-border-color:           #ddd;
+@pagination-border-color:           @gray-300;
 
 @pagination-hover-color:            @link-hover-color;
 @pagination-hover-bg:               @gray-200;
-@pagination-hover-border-color:     #ddd;
+@pagination-hover-border-color:     @gray-300;
 
 @pagination-active-color:           @white;
 @pagination-active-bg:              theme-color(primary);
@@ -580,7 +621,7 @@
 
 @pagination-disabled-color:         @gray-600;
 @pagination-disabled-bg:            @white;
-@pagination-disabled-border-color:  #ddd;
+@pagination-disabled-border-color:  @gray-300;
 
 
 // Jumbotron
@@ -616,13 +657,12 @@
 @tooltip-color:                     @white;
 @tooltip-bg:                        @black;
 @tooltip-opacity:                   0.9;
-@tooltip-padding-y:                 3px;
-@tooltip-padding-x:                 8px;
+@tooltip-padding-y:                 0.25rem;
+@tooltip-padding-x:                 0.5rem;
 @tooltip-margin:                    0;
 
-
-@tooltip-arrow-width:               5px;
-@tooltip-arrow-height:              5px;
+@tooltip-arrow-width:               0.8rem;
+@tooltip-arrow-height:              0.4rem;
 @tooltip-arrow-color:               @tooltip-bg;
 
 
@@ -643,8 +683,8 @@
 @popover-body-padding-y:            @popover-header-padding-y;
 @popover-body-padding-x:            @popover-header-padding-x;
 
-@popover-arrow-width:               0.8rem;
-@popover-arrow-height:              0.4rem;
+@popover-arrow-width:               1rem;
+@popover-arrow-height:              0.5rem;
 @popover-arrow-color:               @popover-bg;
 
 @popover-arrow-outer-color:         fadein(@popover-border-color, 5%);
@@ -667,18 +707,18 @@
 // Modals
 
 // Padding applied to the modal body
-@modal-inner-padding:               15px;
+@modal-inner-padding:               1rem;
 
-@modal-dialog-margin:               10px;
-@modal-dialog-margin-y-sm-up:       30px;
+@modal-dialog-margin:               0.5rem;
+@modal-dialog-margin-y-sm-up:       1.75rem;
 
 @modal-title-line-height:           @line-height-base;
 
 @modal-content-bg:                  @white;
 @modal-content-border-color:        fade(@black, 20%);
 @modal-content-border-width:        @border-width;
-@modal-content-box-shadow-xs:       0 3px 9px fade(@black, 50%);
-@modal-content-box-shadow-sm-up:    0 5px 15px fade(@black, 50%);
+@modal-content-box-shadow-xs:       0 0.25rem 0.5rem fade(@black, 50%);
+@modal-content-box-shadow-sm-up:    0 0.5rem 1rem fade(@black, 50%);
 
 @modal-backdrop-bg:                 @black;
 @modal-backdrop-opacity:            0.5;
@@ -686,7 +726,7 @@
 @modal-footer-border-color:         @modal-header-border-color;
 @modal-header-border-width:         @modal-content-border-width;
 @modal-footer-border-width:         @modal-header-border-width;
-@modal-header-padding:              15px;
+@modal-header-padding:              1rem;
 
 @modal-lg:                          800px;
 @modal-md:                          500px;
@@ -749,10 +789,9 @@
 @thumbnail-padding:                 0.25rem;
 @thumbnail-bg:                      @body-bg;
 @thumbnail-border-width:            @border-width;
-@thumbnail-border-color:            #ddd;
+@thumbnail-border-color:            @gray-300;
 @thumbnail-border-radius:           @border-radius;
 @thumbnail-box-shadow:              0 1px 2px fade(@black, 7.5%);
-@thumbnail-transition:              all 0.2s ease-in-out;
 
 
 // Figures
@@ -806,12 +845,12 @@
 
 // Code
 
-@code-font-size:                    90%;
-@code-padding-y:                    0.2rem;
-@code-padding-x:                    0.4rem;
-@code-color:                        #bd4147;
-@code-bg:                           @gray-100;
+@code-font-size:                    87.5%;
+@code-color:                        @pink;
 
+@kbd-padding-y:                     0.2rem;
+@kbd-padding-x:                     0.4rem;
+@kbd-font-size:                     @code-font-size;
 @kbd-color:                         @white;
 @kbd-bg:                            @gray-900;
 

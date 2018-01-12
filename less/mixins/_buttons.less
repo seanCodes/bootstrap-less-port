@@ -19,10 +19,10 @@
 	&.focus {
 		// Avoid using mixin so we can pass custom focus shadow properly
 		& when (@enable-shadows) {
-			box-shadow: @btn-box-shadow, 0 0 0 @input-btn-focus-width fade(@border, 50%);
+			box-shadow: @btn-box-shadow, 0 0 0 @btn-focus-width fade(@border, 50%);
 		}
 		& when not (@enable-shadows) {
-			box-shadow: 0 0 0 @input-btn-focus-width fade(@border, 50%);
+			box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
 		}
 	}
 
@@ -43,6 +43,7 @@
 		}
 		border-color: @active-border;
 
+		&:focus {
 		// Avoid using mixin so we can pass custom focus shadow properly
 		& when (@enable-shadows) {
 			box-shadow: @btn-active-box-shadow, 0 0 0 @input-btn-focus-width fade(@border, 50%);
@@ -50,24 +51,25 @@
 		& when not (@enable-shadows) {
 			box-shadow: 0 0 0 @input-btn-focus-width fade(@border, 50%);
 		}
+		}
 	}
 }
 
-#button-outline-variant(@color, @color-hover: #fff) {
+#button-outline-variant(@color, @color-hover: #fff, @active-background: @color, @active-border: @color) {
 	color: @color;
 	background-color: transparent;
 	background-image: none;
 	border-color: @color;
 
-	#hover({
-		color: @color-hover;
-		background-color: @color;
-		border-color: @color;
-	});
+	&:hover {
+		color: color-yiq(@color);
+		background-color: @active-background;
+		border-color: @active-border;
+	}
 
 	&:focus,
 	&.focus {
-		box-shadow: 0 0 0 @input-btn-focus-width fade(@color, 50%);
+		box-shadow: 0 0 0 @btn-focus-width fade(@color, 50%);
 	}
 
 	&.disabled,
@@ -79,11 +81,11 @@
 	&:not([disabled]):not(.disabled):active,
 	&:not([disabled]):not(.disabled).active,
 	.show > &.dropdown-toggle {
-		color: @color-hover;
-		background-color: @color;
-		border-color: @color;
+		color: color-yiq(@color-hover);
+		background-color: @active-background;
+		border-color: @active-border;
 		// Avoid using mixin so we can pass custom focus shadow properly
-		box-shadow: 0 0 0 @input-btn-focus-width fade(@color, 50%);
+		box-shadow: 0 0 0 @btn-focus-width fade(@color, 50%);
 	}
 }
 
@@ -92,5 +94,11 @@
 	padding: @padding-y @padding-x;
 	font-size: @font-size;
 	line-height: @line-height;
-	#border-radius(@border-radius);
+	// Manually declare to provide an override to the browser default
+	& when (@enable-rounded) {
+		border-radius: @border-radius;
+	}
+	& when not (@enable-rounded) {
+		border-radius: 0;
+	}
 }

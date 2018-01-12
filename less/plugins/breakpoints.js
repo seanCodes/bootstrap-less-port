@@ -98,7 +98,7 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	if ((breakpointIndex + 1) === breakpointNames.length)
 		return new tree.Quoted('"')
 
-	return new tree.Dimension((breakpointsMap[breakpointNames[breakpointIndex + 1]].value - 1), 'px')
+	return new tree.Dimension((breakpointsMap[breakpointNames[breakpointIndex + 1]].value - 0.01), 'px')
 })
 
 functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {

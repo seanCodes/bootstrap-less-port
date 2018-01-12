@@ -28,7 +28,7 @@ html {
 	-webkit-text-size-adjust: 100%; // 4
 	-ms-text-size-adjust: 100%; // 4
 	-ms-overflow-style: scrollbar; // 5
-	// LESS PORT: Sass version uses `rgba(0,0,0,0)` here but it ends up compiling to `transparent`.
+	// LESS PORT: Sass version uses `rgba(0, 0, 0, 0)` here but it ends up compiling to `transparent`.
 	-webkit-tap-highlight-color: transparent; // 6
 }
 
@@ -67,7 +67,7 @@ body {
 //
 // Credit: https://github.com/suitcss/base
 [tabindex="-1"]:focus {
-	outline: none !important;
+	outline: 0 !important;
 }
 
 
@@ -481,6 +481,7 @@ output {
 
 summary {
 	display: list-item; // Add the correct display in all browsers
+	cursor: pointer;
 }
 
 template {
