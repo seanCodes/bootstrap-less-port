@@ -80,6 +80,32 @@
 .input-group-append { margin-left: -@input-border-width; }
 
 
+// Textual addons
+//
+// Serves as a catch-all element for any text or radio/checkbox input you wish
+// to prepend or append to an input.
+
+.input-group-text {
+	padding: @input-padding-y @input-padding-x;
+	margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
+	font-size: @font-size-base; // Match inputs
+	font-weight: @font-weight-normal;
+	line-height: @input-line-height;
+	color: @input-group-addon-color;
+	text-align: center;
+	white-space: nowrap;
+	background-color: @input-group-addon-bg;
+	border: @input-border-width solid @input-group-addon-border-color;
+	#border-radius(@input-border-radius);
+
+	// Nuke default margins from checkboxes and radios to vertically center within.
+	input[type="radio"],
+	input[type="checkbox"] {
+		margin-top: 0;
+	}
+}
+
+
 // Sizing
 //
 // Remix the default form control sizing classes into new ones for easier
@@ -133,32 +159,6 @@
 	> .input-group-prepend > select.btn:not([size]):not([multiple]),
 	> .input-group-append > select.btn:not([size]):not([multiple]) {
 		&:extend(select.form-control-lg:not([size]):not([multiple]));
-	}
-}
-
-
-// Textual addons
-//
-// Serves as a catch-all element for any text or radio/checkbox input you wish
-// to prepend or append to an input.
-
-.input-group-text {
-	padding: @input-padding-y @input-padding-x;
-	margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
-	font-size: @font-size-base; // Match inputs
-	font-weight: @font-weight-normal;
-	line-height: @input-line-height;
-	color: @input-group-addon-color;
-	text-align: center;
-	white-space: nowrap;
-	background-color: @input-group-addon-bg;
-	border: @input-border-width solid @input-group-addon-border-color;
-	#border-radius(@input-border-radius);
-
-	// Nuke default margins from checkboxes and radios to vertically center within.
-	input[type="radio"],
-	input[type="checkbox"] {
-		margin-top: 0;
 	}
 }
 
