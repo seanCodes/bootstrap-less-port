@@ -21,15 +21,15 @@
 @black:    #000;
 
 @grays:
-	100 @gray-100,
-	200 @gray-200,
-	300 @gray-300,
-	400 @gray-400,
-	500 @gray-500,
-	600 @gray-600,
-	700 @gray-700,
-	800 @gray-800,
-	900 @gray-900;
+	100   @gray-100,
+	200   @gray-200,
+	300   @gray-300,
+	400   @gray-400,
+	500   @gray-500,
+	600   @gray-600,
+	700   @gray-700,
+	800   @gray-800,
+	900   @gray-900;
 
 @blue:    #007bff;
 @indigo:  #6610f2;
@@ -85,7 +85,6 @@
 // Customize the light and dark text colors for use in our YIQ color contrast function.
 @yiq-text-dark: @gray-900;
 @yiq-text-light: @white;
-
 
 // Options
 //
@@ -271,7 +270,7 @@
 
 @list-inline-padding:         0.5rem;
 
-@mark-bg: #fcf8e3;
+@mark-bg:                     #fcf8e3;
 
 @hr-margin-y:                 @spacer;
 
@@ -432,7 +431,7 @@
 @custom-control-indicator-box-shadow:   inset 0 0.25rem 0.25rem fade(@black, 10%);
 
 @custom-control-indicator-disabled-bg:          @gray-200;
-@custom-control-label-disabled-color:           @gray-600;
+@custom-control-label-disabled-color:     @gray-600;
 
 @custom-control-indicator-checked-color:        @white;
 @custom-control-indicator-checked-bg:           theme-color(primary);
@@ -456,7 +455,7 @@
 @custom-radio-indicator-icon-checked:           %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='", replace("@{custom-control-indicator-checked-color}", "#", "%23"), "'/%3E%3C/svg%3E");
 
 @custom-select-padding-y:           0.375rem;
-@custom-select-padding-x:           0.75rem;
+@custom-select-padding-x:          0.75rem;
 @custom-select-height:              @input-height ;
 @custom-select-indicator-padding:   1rem; // Extra padding to account for the presence of the background-image based indicator
 @custom-select-line-height:         @input-btn-line-height;
@@ -653,17 +652,17 @@
 
 // Tooltips
 
-@tooltip-max-width:                 200px;
-@tooltip-color:                     @white;
-@tooltip-bg:                        @black;
-@tooltip-opacity:                   0.9;
-@tooltip-padding-y:                 0.25rem;
-@tooltip-padding-x:                 0.5rem;
-@tooltip-margin:                    0;
+@tooltip-max-width:           200px;
+@tooltip-color:               @white;
+@tooltip-bg:                  @black;
+@tooltip-opacity:             0.9;
+@tooltip-padding-y:           0.25rem;
+@tooltip-padding-x:           0.5rem;
+@tooltip-margin:              0;
 
-@tooltip-arrow-width:               0.8rem;
-@tooltip-arrow-height:              0.4rem;
-@tooltip-arrow-color:               @tooltip-bg;
+@tooltip-arrow-width:         0.8rem;
+@tooltip-arrow-height:        0.4rem;
+@tooltip-arrow-color:         @tooltip-bg;
 
 
 // Popovers
@@ -707,26 +706,26 @@
 // Modals
 
 // Padding applied to the modal body
-@modal-inner-padding:               1rem;
+@modal-inner-padding:         1rem;
 
-@modal-dialog-margin:               0.5rem;
-@modal-dialog-margin-y-sm-up:       1.75rem;
+@modal-dialog-margin:         0.5rem;
+@modal-dialog-margin-y-sm-up: 1.75rem;
 
 @modal-title-line-height:           @line-height-base;
 
-@modal-content-bg:                  @white;
-@modal-content-border-color:        fade(@black, 20%);
-@modal-content-border-width:        @border-width;
-@modal-content-box-shadow-xs:       0 0.25rem 0.5rem fade(@black, 50%);
-@modal-content-box-shadow-sm-up:    0 0.5rem 1rem fade(@black, 50%);
+@modal-content-bg:               @white;
+@modal-content-border-color:     fade(@black, 20%);
+@modal-content-border-width:     @border-width;
+@modal-content-box-shadow-xs:    0 0.25rem 0.5rem fade(@black, 50%);
+@modal-content-box-shadow-sm-up: 0 0.5rem 1rem fade(@black, 50%);
 
-@modal-backdrop-bg:                 @black;
-@modal-backdrop-opacity:            0.5;
-@modal-header-border-color:         @gray-200;
-@modal-footer-border-color:         @modal-header-border-color;
-@modal-header-border-width:         @modal-content-border-width;
-@modal-footer-border-width:         @modal-header-border-width;
-@modal-header-padding:              1rem;
+@modal-backdrop-bg:           @black;
+@modal-backdrop-opacity:      0.5;
+@modal-header-border-color:   @gray-200;
+@modal-footer-border-color:   @modal-header-border-color;
+@modal-header-border-width:   @modal-content-border-width;
+@modal-footer-border-width:   @modal-header-border-width;
+@modal-header-padding:        1rem;
 
 @modal-lg:                          800px;
 @modal-md:                          500px;
