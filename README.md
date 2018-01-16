@@ -1,11 +1,11 @@
 # Bootstrap Less
 
-[![Bootstrap version](https://img.shields.io/badge/Bootstrap-v4.0.0--beta.2-563d7c.svg?colorA=563d7c&colorB=555555)](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.2)
+[![Bootstrap version](https://img.shields.io/badge/Bootstrap-v4.0.0--beta.3-563d7c.svg?colorA=563d7c&colorB=555555)](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.3)
 [![npm version](https://img.shields.io/npm/v/bootstrap-less-port.svg)](https://www.npmjs.com/package/bootstrap-less-port)
 
 This is a Less port of the [Bootstrap v4 beta](http://getbootstrap.com), since Bootstrap will use Sass beginning with version 4. This is purely a Sass→Less port and doesn’t modify or enhance the default styles in any way.
 
-The code is currently aligned with [Bootstrap v4.0.0-beta.2](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.2).
+The code is currently aligned with [Bootstrap v4.0.0-beta.3](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.3).
 
 
 ### DISCLAIMER
