@@ -3,16 +3,9 @@
 [![Bootstrap version](https://img.shields.io/badge/Bootstrap-v4.0.0-563d7c.svg?colorA=563d7c&colorB=555555)](https://github.com/twbs/bootstrap/tree/v4.0.0)
 [![npm version](https://img.shields.io/npm/v/bootstrap-less-port.svg)](https://www.npmjs.com/package/bootstrap-less-port)
 
-This is a Less port of the [Bootstrap v4](http://getbootstrap.com/), since Bootstrap will use Sass beginning with version 4. This is purely a Sass→Less port and doesn’t modify or enhance the default styles in any way.
+This is a Less port of [Bootstrap v4](http://getbootstrap.com/), since Bootstrap now uses Sass for CSS preprocessing. This is purely a Sass→Less port: it doesn’t modify or build on the default Bootstrap styles in any way.
 
 The code is currently aligned with [Bootstrap v4.0.0](https://github.com/twbs/bootstrap/tree/v4.0.0).
-
-
-### DISCLAIMER
-
-Since Bootstrap v4 is still in beta, this port should be considered beta too. **It is not recommended that you use this code for production projects since it is likely to change at any time, without backwards compatibility!**
-
-The goal here is just to get a Less version of Bootstrap v4 started so that the styles can be tested in new or existing Bootstrap+Less projects.
 
 
 
@@ -137,10 +130,10 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
    In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
 
-0. **Code style** While the code style is mostly identical to that used by Bootstrap, a few personal liberties have been taken:
+0. **Code style** While the code style is mostly identical to that used by Bootstrap, a few changes have been made:
+   - Tabs are used instead of spaces
    - Leading zeros have been added to decimal numbers for readability
    - Spaces have been added between the values of comma-separated lists, also for readability
-   - Tabs are used instead of spaces
 
 
 
