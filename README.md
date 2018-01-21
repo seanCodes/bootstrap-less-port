@@ -1,11 +1,11 @@
 # Bootstrap Less
 
-[![Bootstrap version](https://img.shields.io/badge/Bootstrap-v4.0.0--beta.3-563d7c.svg?colorA=563d7c&colorB=555555)](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.3)
+[![Bootstrap version](https://img.shields.io/badge/Bootstrap-v4.0.0-563d7c.svg?colorA=563d7c&colorB=555555)](https://github.com/twbs/bootstrap/tree/v4.0.0)
 [![npm version](https://img.shields.io/npm/v/bootstrap-less-port.svg)](https://www.npmjs.com/package/bootstrap-less-port)
 
-This is a Less port of the [Bootstrap v4 beta](http://getbootstrap.com), since Bootstrap will use Sass beginning with version 4. This is purely a Sass→Less port and doesn’t modify or enhance the default styles in any way.
+This is a Less port of the [Bootstrap v4](http://getbootstrap.com/), since Bootstrap will use Sass beginning with version 4. This is purely a Sass→Less port and doesn’t modify or enhance the default styles in any way.
 
-The code is currently aligned with [Bootstrap v4.0.0-beta.3](https://github.com/twbs/bootstrap/tree/v4.0.0-beta.3).
+The code is currently aligned with [Bootstrap v4.0.0](https://github.com/twbs/bootstrap/tree/v4.0.0).
 
 
 ### DISCLAIMER
@@ -108,7 +108,7 @@ For a more in-depth guide to theming, see the [Bootstrap docs](http://getbootstr
 
 ### JavaScript
 
-This repo does _not_ include the JavaScript component files from Bootstrap v4. If you’d like to use them the easiest way to do so is via [Bootstrap CDN](https://www.bootstrapcdn.com#quickstartjs4_0_0-beta_2). Otherwise, you can get the files from the main Bootstrap repo by downloading it or installing it using a package manager.
+This repo does _not_ include the JavaScript component files from Bootstrap v4. If you’d like to use them the easiest way to do so is via [Bootstrap CDN](https://www.bootstrapcdn.com/#quickstartjsbundle4_0_0_form). Otherwise, you can get the files from the main Bootstrap repo by downloading it or installing it using a package manager.
 
 
 ## Documentation
