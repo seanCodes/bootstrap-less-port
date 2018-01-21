@@ -121,15 +121,24 @@ See the [Bootstrap v4 docs](http://getbootstrap.com/docs/4.0/getting-started/int
 
 This port attempts to mirror the source Sass files as closely as possible in order to make updating it straight-forward. This means that variable/mixin naming, custom functions and most code style match the original project with a few notable exceptions:
 
-1. **Custom functions** Sass allows for custom functions to be written in the sass files themeselves, which isn’t possible in Less. All custom functions have been replaced with Less plugins that add equivalent functions to the language. These plugins are located in `less/plugins/` as JavaScript files.
+1. **Mixins** Mixins work the same as they did in previous Bootstrap versions with the exception that they now use ID selectors instead of class selectors (e.g. `.border-radius()` is now `#border-radius()`). This was done to avoid potential collisions with the user’s class names.
+
+   Variables within mixins are named the same as their Sass counterparts whenever possible, in order to make comparison with the Sass version easier.
+
+1. **Custom functions** Sass allows for custom functions to be written in the sass files themselves, which isn’t possible in Less. All custom functions have been replaced with Less plugins that add equivalent functions to the language. These plugins are located in `less/plugins/` as JavaScript files.
 
    Plugins have also been added to duplicate some native Sass functions for simplicity.
 
    Note: The plugins are included using the [`@plugin`](http://lesscss.org/3.x/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
+
 2. **Maps** Less has no _native_ concept of maps, which are used extensively in the Bootstrap Sass files. They can be emulated, however, by using a comma-separated list of space-separated lists, which is what is done in this port.
-3. **Loops** Sass `@each` loops are replaced with Less’s method of looping which requires a different, named mixin for every loop. This is a bit clunky and means that the loops used in this port are verbose and difficult to read, but until I can figure out how to handle this with a plugin it’s the best we’ve got.
+
+3. **Loops** Sass `@for` and `@each` loops have been replaced with Less’s method of looping which requires unique, named mixins for every loop. This is a bit clunky and means that the loops used in this port are verbose and difficult to read, but it’s the best we’ve got until I can figure out how to overcome this with a plugin.
+
+   In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
+
 4. **Code style** While the code style is mostly identical to that used by Bootstrap, a few personal liberties have been taken:
-   - Leading zeroes have been added to decimal numbers for readability
+   - Leading zeros have been added to decimal numbers for readability
    - Spaces have been added between the values of comma-separated lists, also for readability
    - Tabs are used instead of spaces
 
