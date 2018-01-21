@@ -1,7 +1,7 @@
 // Framework grid generation
 //
 // Used only by Bootstrap to generate the correct number of grid classes given
-// any value of `$grid-columns`.
+// any value of `@grid-columns`.
 
 //@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
 //  // Common properties for all breakpoints
@@ -46,14 +46,12 @@
 //        }
 //      }
 //
-//      .order#{$infix}-first {
-//        order: -1;
-//      }
+//      .order#{$infix}-first { order: -1; }
 //
-//      @for $i from 1 through $columns {
-//        .order#{$infix}-#{$i} {
-//          order: $i;
-//        }
+//      .order#{$infix}-last { order: $columns + 1; }
+//
+//      @for $i from 0 through $columns {
+//        .order#{$infix}-#{$i} { order: $i; }
 //      }
 //
 //      // `$columns - 1` because offsetting by the width of an entire row isn't possible
@@ -118,14 +116,12 @@
 				#each-column-col((@iii + 1));
 			} #each-column-col();
 
-			.order@{infix}-first {
-				order: -1;
-			}
+			.order@{infix}-first { order: -1; }
 
-			#each-column-order(@iii: 1) when (@iii <= @columns) {
-				.order@{infix}-@{iii} {
-					order: @iii;
-				}
+			.order@{infix}-last { order: @columns + 1; }
+
+			#each-column-order(@iii: 0) when (@iii <= @columns) {
+				.order@{infix}-@{iii} { order: @iii; }
 
 				#each-column-order((@iii + 1));
 			} #each-column-order();
