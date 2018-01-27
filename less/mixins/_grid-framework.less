@@ -118,7 +118,7 @@
 
 			.order@{infix}-first { order: -1; }
 
-			.order@{infix}-last { order: @columns + 1; }
+			.order@{infix}-last { order: (@columns + 1); }
 
 			#each-column-order(@iii: 0) when (@iii <= @columns) {
 				.order@{infix}-@{iii} { order: @iii; }
