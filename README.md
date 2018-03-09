@@ -83,7 +83,7 @@ $ lessc --npm-import file.less file.css
 
 ### Theming
 
-The recommended way of customizing Bootstrap is to modify the provided variables. To customize a default variables, copy and paste it from `_variables.less` into your custom Less file and change its value. Custom variables can come before or after you import Bootstrap’s variables.
+The recommended way of customizing Bootstrap is to modify the provided variables. To customize a default variables, copy and paste it from `_variables.less` into your custom Less file and change its value. Overrides can be included anywhere _after_ the defaults have been included; Less will respect the last value assigned.
 
 ```less
 // custom.less
