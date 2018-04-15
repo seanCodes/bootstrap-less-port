@@ -28,7 +28,6 @@ function lookupVariable(context, variableName) {
 
 functions.add('color-yiq', function ({ rgb: [r, g, b] }) {
 	const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
-	let color = {}
 
 	if (yiqThreshold === 0)
 		yiqThreshold = lookupVariable(this.context, '@yiq-contrasted-threshold').value
