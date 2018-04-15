@@ -28,4 +28,8 @@
 			#each-transition((@i + 1));
 		} #each-transition();
 	}
+
+	@media screen and (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
 }

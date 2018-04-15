@@ -74,8 +74,14 @@
 	padding-right: (@btn-padding-x * 0.75);
 	padding-left: (@btn-padding-x * 0.75);
 
-	&::after {
+	&::after,
+	.dropup &::after,
+	.dropright &::after {
 		margin-left: 0;
+	}
+
+	.dropleft &::before {
+		margin-right: 0;
 	}
 }
 

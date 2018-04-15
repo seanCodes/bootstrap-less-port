@@ -48,6 +48,8 @@ function listToMap({ value: list } = { value: [] }) {
 functions.add('theme-color-level', function ({ value: colorName }, { value: level } = { value: 0 }) {
 	const context = this.context
 	const themeColorInterval = lookupVariable(context, '@theme-color-interval').value
+	const black              = lookupVariable(context, '@black').toCSS().substr(1)
+	const white              = lookupVariable(context, '@white').toCSS().substr(1)
 	const mix                = context.pluginManager.less.functions.functionRegistry.get('mix')
 
 	// If `themeColors` hasn’t been defined yet, set it to the value of `@theme-colors`.
@@ -55,7 +57,7 @@ functions.add('theme-color-level', function ({ value: colorName }, { value: leve
 		themeColors = listToMap(lookupVariable(context, '@theme-colors'))
 
 	const color      = themeColors[colorName]
-	const colorBase  = new tree.Color(level > 0 ? '000' : 'fff')
+	const colorBase  = new tree.Color(level > 0 ? black : white)
 	const mixPercent = new tree.Dimension(Math.abs(level * themeColorInterval) + '%')
 
 	if (! color)

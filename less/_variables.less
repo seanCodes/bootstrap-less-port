@@ -80,11 +80,11 @@
 @theme-color-interval:      8%;
 
 // The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
-@yiq-contrasted-threshold: 150;
+@yiq-contrasted-threshold:  150;
 
 // Customize the light and dark text colors for use in our YIQ color contrast function.
-@yiq-text-dark: @gray-900;
-@yiq-text-light: @white;
+@yiq-text-dark:             @gray-900;
+@yiq-text-light:            @white;
 
 // Options
 //
@@ -120,7 +120,8 @@
 	25 25%,
 	50 50%,
 	75 75%,
-	100 100%;
+	100 100%,
+	auto auto;
 
 // Body
 //
@@ -194,6 +195,10 @@
 @border-radius:               0.25rem;
 @border-radius-lg:            0.3rem;
 @border-radius-sm:            0.2rem;
+
+@box-shadow-sm:               0 0.125rem 0.25rem fade(@black, 7.5%);
+@box-shadow:                  0 0.5rem 1rem fade(@black, 15%);
+@box-shadow-lg:               0 1rem 3rem fade(@black, 17.5%);
 
 @component-active-color:      @white;
 @component-active-bg:         theme-color(primary);
@@ -299,6 +304,10 @@
 @table-dark-border-color:     lighten(@gray-900, 7.5%);
 @table-dark-color:            @body-bg;
 
+@table-striped-order:         odd;
+
+@table-caption-color:         @text-muted;
+
 
 // Buttons + Forms
 //
@@ -362,6 +371,8 @@
 
 // Forms
 
+@label-margin-bottom:                   0.5rem;
+
 @input-padding-y:                       @input-btn-padding-y;
 @input-padding-x:                       @input-btn-padding-x;
 @input-line-height:                     @input-btn-line-height;
@@ -393,6 +404,7 @@
 @input-focus-box-shadow:                @input-btn-focus-box-shadow;
 
 @input-placeholder-color:               @gray-600;
+@input-plaintext-color:                 @body-color;
 
 @input-height-border:                   (@input-border-width * 2);
 
@@ -431,7 +443,7 @@
 @custom-control-indicator-box-shadow:   inset 0 0.25rem 0.25rem fade(@black, 10%);
 
 @custom-control-indicator-disabled-bg:          @gray-200;
-@custom-control-label-disabled-color:     @gray-600;
+@custom-control-label-disabled-color:           @gray-600;
 
 @custom-control-indicator-checked-color:        @component-active-color;
 @custom-control-indicator-checked-bg:           @component-active-bg;
@@ -447,22 +459,22 @@
 @custom-checkbox-indicator-border-radius:       @border-radius;
 @custom-checkbox-indicator-icon-checked:        %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='", replace("@{custom-control-indicator-checked-color}", "#", "%23"), "' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
 
-@custom-checkbox-indicator-indeterminate-bg:    @component-active-bg;
-@custom-checkbox-indicator-indeterminate-color: @custom-control-indicator-checked-color;
-@custom-checkbox-indicator-icon-indeterminate:  %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='", replace("@{custom-checkbox-indicator-indeterminate-color}", "#", "%23"), "' d='M0 2h4'/%3E%3C/svg%3E");
-@custom-checkbox-indicator-indeterminate-box-shadow: none;
+@custom-checkbox-indicator-indeterminate-bg:          @component-active-bg;
+@custom-checkbox-indicator-indeterminate-color:       @custom-control-indicator-checked-color;
+@custom-checkbox-indicator-icon-indeterminate:        %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='", replace("@{custom-checkbox-indicator-indeterminate-color}", "#", "%23"), "' d='M0 2h4'/%3E%3C/svg%3E");
+@custom-checkbox-indicator-indeterminate-box-shadow:  none;
 
 @custom-radio-indicator-border-radius:          50%;
 @custom-radio-indicator-icon-checked:           %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='", replace("@{custom-control-indicator-checked-color}", "#", "%23"), "'/%3E%3C/svg%3E");
 
 @custom-select-padding-y:           0.375rem;
-@custom-select-padding-x:          0.75rem;
+@custom-select-padding-x:           0.75rem;
 @custom-select-height:              @input-height;
 @custom-select-indicator-padding:   1rem; // Extra padding to account for the presence of the background-image based indicator
 @custom-select-line-height:         @input-btn-line-height;
 @custom-select-color:               @input-color;
 @custom-select-disabled-color:      @gray-600;
-@custom-select-bg:                  @white;
+@custom-select-bg:                  @input-bg;
 @custom-select-disabled-bg:         @gray-200;
 @custom-select-bg-size:             8px 10px; // In pixels because image dimensions
 @custom-select-indicator-color:     @gray-800;
@@ -479,6 +491,22 @@
 
 @custom-select-font-size-lg:        125%;
 @custom-select-height-lg:           @input-height-lg;
+
+@custom-range-track-width:          100%;
+@custom-range-track-height:         0.5rem;
+@custom-range-track-cursor:         pointer;
+@custom-range-track-bg:             @gray-300;
+@custom-range-track-border-radius:  1rem;
+@custom-range-track-box-shadow:     inset 0 0.25rem 0.25rem fade(@black, 10%);
+
+@custom-range-thumb-width:            1rem;
+@custom-range-thumb-height:           @custom-range-thumb-width;
+@custom-range-thumb-bg:               @component-active-bg;
+@custom-range-thumb-border:           0;
+@custom-range-thumb-border-radius:    1rem;
+@custom-range-thumb-box-shadow:       0 0.1rem 0.25rem fade(@black, 10%);
+@custom-range-thumb-focus-box-shadow: 0 0 0 1px @body-bg, @input-btn-focus-box-shadow;
+@custom-range-thumb-active-bg:        lighten(@component-active-bg, 35%);
 
 @custom-file-height:                @input-height;
 @custom-file-focus-border-color:    @input-focus-border-color;
@@ -566,6 +594,9 @@
 @nav-pills-link-active-color:       @component-active-color;
 @nav-pills-link-active-bg:          @component-active-bg;
 
+@nav-divider-color:                 @gray-200;
+@nav-divider-margin-y:              (@spacer / 2);
+
 // Navbar
 
 @navbar-padding-y:                  (@spacer / 2);
@@ -614,6 +645,7 @@
 @pagination-border-color:           @gray-300;
 
 @pagination-focus-box-shadow:       @input-btn-focus-box-shadow;
+@pagination-focus-outline:          0;
 
 @pagination-hover-color:            @link-hover-color;
 @pagination-hover-bg:               @gray-200;
@@ -657,19 +689,19 @@
 
 // Tooltips
 
-@tooltip-font-size:           @font-size-sm;
-@tooltip-max-width:           200px;
-@tooltip-color:               @white;
-@tooltip-bg:                  @black;
-@tooltip-border-radius:        @border-radius;
-@tooltip-opacity:             0.9;
-@tooltip-padding-y:           0.25rem;
-@tooltip-padding-x:           0.5rem;
-@tooltip-margin:              0;
+@tooltip-font-size:                 @font-size-sm;
+@tooltip-max-width:                 200px;
+@tooltip-color:                     @white;
+@tooltip-bg:                        @black;
+@tooltip-border-radius:             @border-radius;
+@tooltip-opacity:                   0.9;
+@tooltip-padding-y:                 0.25rem;
+@tooltip-padding-x:                 0.5rem;
+@tooltip-margin:                    0;
 
-@tooltip-arrow-width:         0.8rem;
-@tooltip-arrow-height:        0.4rem;
-@tooltip-arrow-color:         @tooltip-bg;
+@tooltip-arrow-width:               0.8rem;
+@tooltip-arrow-height:              0.4rem;
+@tooltip-arrow-color:               @tooltip-bg;
 
 
 // Popovers
@@ -715,26 +747,27 @@
 // Modals
 
 // Padding applied to the modal body
-@modal-inner-padding:         1rem;
+@modal-inner-padding:               1rem;
 
-@modal-dialog-margin:         0.5rem;
-@modal-dialog-margin-y-sm-up: 1.75rem;
+@modal-dialog-margin:               0.5rem;
+@modal-dialog-margin-y-sm-up:       1.75rem;
 
 @modal-title-line-height:           @line-height-base;
 
-@modal-content-bg:               @white;
-@modal-content-border-color:     fade(@black, 20%);
-@modal-content-border-width:     @border-width;
-@modal-content-box-shadow-xs:    0 0.25rem 0.5rem fade(@black, 50%);
-@modal-content-box-shadow-sm-up: 0 0.5rem 1rem fade(@black, 50%);
+@modal-content-bg:                  @white;
+@modal-content-border-color:        fade(@black, 20%);
+@modal-content-border-width:        @border-width;
+@modal-content-border-radius:       @border-radius-lg;
+@modal-content-box-shadow-xs:       0 0.25rem 0.5rem fade(@black, 50%);
+@modal-content-box-shadow-sm-up:    0 0.5rem 1rem fade(@black, 50%);
 
-@modal-backdrop-bg:           @black;
-@modal-backdrop-opacity:      0.5;
-@modal-header-border-color:   @gray-200;
-@modal-footer-border-color:   @modal-header-border-color;
-@modal-header-border-width:   @modal-content-border-width;
-@modal-footer-border-width:   @modal-header-border-width;
-@modal-header-padding:        1rem;
+@modal-backdrop-bg:                 @black;
+@modal-backdrop-opacity:            0.5;
+@modal-header-border-color:         @gray-200;
+@modal-footer-border-color:         @modal-header-border-color;
+@modal-header-border-width:         @modal-content-border-width;
+@modal-footer-border-width:         @modal-header-border-width;
+@modal-header-padding:              1rem;
 
 @modal-lg:                          800px;
 @modal-md:                          500px;
@@ -825,6 +858,8 @@
 @breadcrumb-active-color:           @gray-600;
 @breadcrumb-divider:                "/";
 
+@breadcrumb-border-radius:          @border-radius;
+
 
 // Carousel
 
@@ -845,7 +880,7 @@
 @carousel-control-prev-icon-bg:     %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{carousel-control-color}", "#", "%23"), "' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 @carousel-control-next-icon-bg:     %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{carousel-control-color}", "#", "%23"), "' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 
-@carousel-transition:               transform 0.6s ease;
+@carousel-transition:               transform 0.6s ease; // Define transform transition first if using multiple transitons (e.g., `transform 2s ease, opacity 0.5s ease-out`)
 
 
 // Close
