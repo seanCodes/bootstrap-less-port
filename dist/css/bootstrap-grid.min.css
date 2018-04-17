@@ -1,5 +1,5 @@
 /*!
- * Bootstrap Grid v4.0.0 (https://getbootstrap.com)
+ * Bootstrap Grid v4.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -308,6 +308,11 @@ html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 .flex-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}
 .flex-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}
 .flex-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}
+.flex-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}
+.flex-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}
+.flex-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}
+.flex-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}
+.flex-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}
 .justify-content-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .justify-content-end{-ms-flex-pack:end!important;justify-content:flex-end!important}
 .justify-content-center{-ms-flex-pack:center!important;justify-content:center!important}
@@ -338,6 +343,11 @@ html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 .flex-sm-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}
 .flex-sm-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}
 .flex-sm-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}
+.flex-sm-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}
+.flex-sm-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}
+.flex-sm-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}
+.flex-sm-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}
+.flex-sm-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}
 .justify-content-sm-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .justify-content-sm-end{-ms-flex-pack:end!important;justify-content:flex-end!important}
 .justify-content-sm-center{-ms-flex-pack:center!important;justify-content:center!important}
@@ -369,6 +379,11 @@ html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 .flex-md-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}
 .flex-md-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}
 .flex-md-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}
+.flex-md-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}
+.flex-md-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}
+.flex-md-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}
+.flex-md-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}
+.flex-md-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}
 .justify-content-md-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .justify-content-md-end{-ms-flex-pack:end!important;justify-content:flex-end!important}
 .justify-content-md-center{-ms-flex-pack:center!important;justify-content:center!important}
@@ -400,6 +415,11 @@ html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 .flex-lg-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}
 .flex-lg-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}
 .flex-lg-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}
+.flex-lg-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}
+.flex-lg-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}
+.flex-lg-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}
+.flex-lg-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}
+.flex-lg-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}
 .justify-content-lg-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .justify-content-lg-end{-ms-flex-pack:end!important;justify-content:flex-end!important}
 .justify-content-lg-center{-ms-flex-pack:center!important;justify-content:center!important}
@@ -431,6 +451,11 @@ html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 .flex-xl-wrap{-ms-flex-wrap:wrap!important;flex-wrap:wrap!important}
 .flex-xl-nowrap{-ms-flex-wrap:nowrap!important;flex-wrap:nowrap!important}
 .flex-xl-wrap-reverse{-ms-flex-wrap:wrap-reverse!important;flex-wrap:wrap-reverse!important}
+.flex-xl-fill{-ms-flex:1 1 auto!important;flex:1 1 auto!important}
+.flex-xl-grow-0{-ms-flex-positive:0!important;flex-grow:0!important}
+.flex-xl-grow-1{-ms-flex-positive:1!important;flex-grow:1!important}
+.flex-xl-shrink-0{-ms-flex-negative:0!important;flex-shrink:0!important}
+.flex-xl-shrink-1{-ms-flex-negative:1!important;flex-shrink:1!important}
 .justify-content-xl-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .justify-content-xl-end{-ms-flex-pack:end!important;justify-content:flex-end!important}
 .justify-content-xl-center{-ms-flex-pack:center!important;justify-content:center!important}
