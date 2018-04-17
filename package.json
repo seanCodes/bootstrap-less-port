@@ -1,6 +1,6 @@
 {
 	"name": "bootstrap-less-port",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"description": "A Less port of Bootstrap v4",
 	"keywords": [
 		"bootstrap",
