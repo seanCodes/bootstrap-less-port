@@ -1,0 +1,4 @@
+# .eslintignore
+
+dist/*
+node_modules/*
