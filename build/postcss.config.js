@@ -1,12 +1,12 @@
+/* eslint-env node */
+
 'use strict'
 
-module.exports = (ctx) => ({
-	map: ctx.file.dirname.includes('examples') ? false : {
-		inline: false,
-		annotation: true,
-		sourcesContent: true,
+module.exports = () => ({
+	map: {
+		inline         : false,
+		annotation     : true,
+		sourcesContent : true,
 	},
-	plugins: {
-		autoprefixer: {},
-	},
+	plugins: { autoprefixer: {} },
 })
