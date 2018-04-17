@@ -27,6 +27,7 @@
 	"less": "less/bootstrap.less",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "npm run lint && npm run css",
 		"css": "rm dist/css/* && npm run css-compile && npm run css-prefix && npm run css-minify",
 		"css-compile": "lessc --strict-math=on --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --strict-math=on --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --strict-math=on --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
 		"css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\"",
