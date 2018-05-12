@@ -39,7 +39,7 @@
 	margin-bottom: @popover-arrow-height;
 
 	.arrow {
-		bottom: calc(~"(@{popover-arrow-height} + @{popover-border-width}) * -1");
+		bottom: ~"calc((@{popover-arrow-height} + @{popover-border-width}) * -1)";
 	}
 
 	.arrow::before,
@@ -62,7 +62,7 @@
 	margin-left: @popover-arrow-height;
 
 	.arrow {
-		left: calc(~"(@{popover-arrow-height} + @{popover-border-width}) * -1");
+		left: ~"calc((@{popover-arrow-height} + @{popover-border-width}) * -1)";
 		width: @popover-arrow-height;
 		height: @popover-arrow-width;
 		margin: @border-radius-lg 0; // make sure the arrow does not touch the popover's rounded corners
@@ -88,7 +88,7 @@
 	margin-top: @popover-arrow-height;
 
 	.arrow {
-		top: calc(~"(@{popover-arrow-height} + @{popover-border-width}) * -1");
+		top: ~"calc((@{popover-arrow-height} + @{popover-border-width}) * -1)";
 	}
 
 	.arrow::before,
@@ -123,7 +123,7 @@
 	margin-right: @popover-arrow-height;
 
 	.arrow {
-		right: calc(~"(@{popover-arrow-height} + @{popover-border-width}) * -1");
+		right: ~"calc((@{popover-arrow-height} + @{popover-border-width}) * -1)";
 		width: @popover-arrow-height;
 		height: @popover-arrow-width;
 		margin: @border-radius-lg 0; // make sure the arrow does not touch the popover's rounded corners
@@ -169,7 +169,7 @@
 	color: @popover-header-color;
 	background-color: @popover-header-bg;
 	border-bottom: @popover-border-width solid darken(@popover-header-bg, 5%);
-	@offset-border-width: calc(~"@{border-radius-lg} - @{popover-border-width}");
+	@offset-border-width: ~"calc(@{border-radius-lg} - @{popover-border-width})";
 	#border-top-radius(@offset-border-width);
 
 	&:empty {
