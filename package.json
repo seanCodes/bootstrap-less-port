@@ -28,7 +28,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "npm run lint && npm run css",
-		"css": "rm dist/css/* && npm run css-compile && npm run css-prefix && npm run css-minify",
+		"css": "npm run css-compile && npm run css-prefix && npm run css-minify",
 		"css-compile": "lessc --strict-math=on --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --strict-math=on --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --strict-math=on --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
 		"css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\"",
 		"css-minify": "cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css",
@@ -38,7 +38,7 @@
 		"autoprefixer": "^8.4.1",
 		"clean-css-cli": "^4.1.11",
 		"eslint": "^4.19.1",
-		"less": "^2.7.3",
+		"less": "^3.0.4",
 		"postcss-cli": "^5.0.0"
 	},
 	"files": [
