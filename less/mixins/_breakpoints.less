@@ -69,6 +69,7 @@
 //}
 #media-breakpoint-up(@name, @content, @breakpoints: @grid-breakpoints) {
 	@min: breakpoint-min(@name, @breakpoints);
+
 	& when not (@min = ~"") {
 		@media (min-width: @min) {
 			@content();
@@ -125,8 +126,8 @@
 //  }
 //}
 #media-breakpoint-between(@lower, @upper, @content, @breakpoints: @grid-breakpoints) {
-	@min: @breakpoint-min(@lower, @breakpoints);
-	@max: @breakpoint-max(@upper, @breakpoints);
+	@min: breakpoint-min(@lower, @breakpoints);
+	@max: breakpoint-max(@upper, @breakpoints);
 
 	& when not (@min = ~"") and not (@max = ~"") {
 		@media (min-width: @min) and (max-width: @max) {
@@ -163,8 +164,8 @@
 //  }
 //}
 #media-breakpoint-only(@name, @content, @breakpoints: @grid-breakpoints) {
-	@min: @breakpoint-min(@lower, @breakpoints);
-	@max: @breakpoint-max(@upper, @breakpoints);
+	@min: breakpoint-min(@name, @breakpoints);
+	@max: breakpoint-max(@name, @breakpoints);
 
 	& when not (@min = ~"") and not (@max = ~"") {
 		@media (min-width: @min) and (max-width: @max) {
