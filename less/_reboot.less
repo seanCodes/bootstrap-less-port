@@ -39,7 +39,7 @@ html {
 }
 
 // Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
-article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 	display: block;
 }
 
@@ -228,7 +228,7 @@ pre,
 code,
 kbd,
 samp {
-	font-family: monospace, monospace; // Correct the inheritance and scaling of font size in all browsers.
+	font-family: @font-family-monospace; // Correct the inheritance and scaling of font size in all browsers.
 	font-size: 1em; // Correct the odd `em` font sizing in all browsers.
 }
 

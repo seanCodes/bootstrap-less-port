@@ -509,6 +509,7 @@
 @custom-range-thumb-active-bg:        lighten(@component-active-bg, 35%);
 
 @custom-file-height:                @input-height;
+@custom-file-height-inner:          @input-height-inner;
 @custom-file-focus-border-color:    @input-focus-border-color;
 @custom-file-focus-box-shadow:      @input-btn-focus-box-shadow;
 
@@ -880,7 +881,7 @@
 @carousel-control-prev-icon-bg:     %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{carousel-control-color}", "#", "%23"), "' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 @carousel-control-next-icon-bg:     %(~'url("data:image/svg+xml;charset=utf8,%s%s%s")', "%3Csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{carousel-control-color}", "#", "%23"), "' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 
-@carousel-transition:               transform 0.6s ease; // Define transform transition first if using multiple transitons (e.g., `transform 2s ease, opacity 0.5s ease-out`)
+@carousel-transition:               transform 0.6s ease; // Define transform transition first if using multiple transitions (e.g., `transform 2s ease, opacity 0.5s ease-out`)
 
 
 // Close
