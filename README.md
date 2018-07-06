@@ -122,7 +122,7 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
    Plugins have also been added to duplicate some native Sass functions for simplicity.
 
-   Note: The plugins are included using the [`@plugin`](http://lesscss.org/3.x/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
+   Note: The plugins are included using the [`@plugin`](http://lesscss.org/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
 
 0. **Maps** Less has no _native_ concept of maps, which are used extensively in the Bootstrap Sass files. They can be emulated, however, by using a comma-separated list of space-separated lists, which is what is done in this port.
 
