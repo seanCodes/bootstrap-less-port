@@ -38,7 +38,7 @@
 		"autoprefixer": "^8.4.1",
 		"clean-css-cli": "^4.1.11",
 		"eslint": "^4.19.1",
-		"less": "^3.0.4",
+		"less": "^3.7.1",
 		"postcss-cli": "^5.0.0"
 	},
 	"files": [
