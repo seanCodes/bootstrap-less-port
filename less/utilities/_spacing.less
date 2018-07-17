@@ -47,24 +47,12 @@
 //    }
 //  }
 //}
-#each-breakpoint-spacing(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-
+each(keys(@grid-breakpoints), #(@breakpoint) {
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
-		@spacing-properties: margin m, padding p;
-
-		#each-spacing-property(@ii: 1) when (@ii =< length(@spacing-properties)) {
-			@spacing-property: extract(@spacing-properties, @ii);
-			@prop: extract(@spacing-property, 1);
-			@abbrev: extract(@spacing-property, 2);
-
-			#each-spacer(@iii: 1) when (@iii =< length(@spacers)) {
-				@item: extract(@spacers, @iii);
-				@size: extract(@item, 1);
-				@length: extract(@item, 2);
-
+		each({ margin: m; padding: p; }, #(@abbrev, @prop) {
+			each(@spacers, #(@length, @size) {
 				.@{abbrev}@{infix}-@{size} { @{prop}: @length !important; }
 				.@{abbrev}t@{infix}-@{size},
 				.@{abbrev}y@{infix}-@{size} {
@@ -82,12 +70,8 @@
 				.@{abbrev}x@{infix}-@{size} {
 					@{prop}-left: @length !important;
 				}
-
-				#each-spacer((@iii + 1));
-			} #each-spacer();
-
-			#each-spacing-property((@ii + 1));
-		} #each-spacing-property();
+			});
+		});
 
 		// Some special margin utils
 		.m@{infix}-auto { margin: auto !important; }
@@ -108,6 +92,4 @@
 			margin-left: auto !important;
 		}
 	});
-
-	#each-breakpoint-spacing((@i + 1));
-} #each-breakpoint-spacing();
+})

@@ -188,7 +188,7 @@ each(@theme-colors, #(@value, @color) {
 	//    }
 	//  }
 	//}
-	each(@grid-breakpoints, #(@breakpoint-value, @breakpoint) {
+	each(keys(@grid-breakpoints), #(@breakpoint) {
 		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
 		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
