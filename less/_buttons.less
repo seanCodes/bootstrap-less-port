@@ -62,17 +62,11 @@ fieldset:disabled a.btn {
 //    @include button-variant($value, $value);
 //  }
 //}
-#each-theme-color-button(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-	@value: extract(@item, 2);
-
+each(@theme-colors, #(@value, @color) {
 	.btn-@{color} {
 		#button-variant(@value, @value);
 	}
-
-	#each-theme-color-button((@i + 1));
-} #each-theme-color-button();
+})
 
 //@each $color, $value in $theme-colors {
 //  .btn-outline-#{$color} {
@@ -83,17 +77,11 @@ fieldset:disabled a.btn {
 //    }
 //  }
 //}
-#each-theme-color-button-outline(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-	@value: extract(@item, 2);
-
+each(@theme-colors, #(@value, @color) {
 	.btn-outline-@{color} {
 		#button-outline-variant(@value);
 	}
-
-	#each-theme-color-button-outline((@i + 1));
-} #each-theme-color-button-outline();
+})
 
 
 //

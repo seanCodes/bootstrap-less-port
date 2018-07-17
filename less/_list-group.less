@@ -110,13 +110,9 @@
 // Add modifier classes to change text and background color on individual items.
 // Organizationally, this must come after the `:hover` states.
 
-//@each @color, @value in @theme-colors {
-//  #list-group-item-variant(@color, theme-color-level(@color, -9), theme-color-level(@color, 6));
+//@each $color, $value in $theme-colors {
+//  @include list-group-item-variant($color, theme-color-level($color, -9), theme-color-level($color, 6));
 //}
-#each-theme-color-list-group(@i: 1) when (@i =< length(@theme-colors)) {
-	@color: extract(extract(@theme-colors, @i), 1);
-
+each(@theme-colors, #(@value, @color) {
 	#list-group-item-variant(@color, theme-color-level(@color, -9), theme-color-level(@color, 6));
-
-	#each-theme-color-list-group((@i + 1));
-} #each-theme-color-list-group();
+});

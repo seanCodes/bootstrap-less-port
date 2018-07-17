@@ -20,23 +20,17 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function listToMap({ value: list } = { value: [] }) {
+function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // pull `rules` out of `ruleset`, a key on
 	const map = {}
 
-	// Handle maps that only have one key/value pair (since they will look like a plain list of
-	// length 2).
-	if (list.length === 2 && ! Array.isArray(list[0].value)) {
-		const [{ value: key }, value] = list || [{}]
+	rules.forEach(({ name: key, value: { value:item } }) => {
+		const [value] = item || [{}]
 
-		map[key] = value
-	} else
-		list.forEach(({ value: item } = {}) => {
-			if (Array.isArray(item)) {
-				const [{ value: key }, value] = item || [{}]
+		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // logic borrowed from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
+			key = key[0].value // this may be a touch brittle
 
-				map[`${key}`] = value
-			}
-		})
+		map[`${key}`] = value
+	})
 
 	return map
 }
@@ -54,9 +48,9 @@ functions.add('theme-color-level', function ({ value: colorName }, { value: leve
 
 	// If `themeColors` hasn’t been defined yet, set it to the value of `@theme-colors`.
 	if (Object.keys(themeColors).length === 0)
-		themeColors = listToMap(lookupVariable(context, '@theme-colors'))
+		themeColors = rulesetToMap(lookupVariable(context, '@theme-colors'))
 
-	const color      = themeColors[colorName]
+	const color      = themeColors[colorName].type === 'Expression' ? themeColors[colorName].eval(context) : themeColors[colorName] // .eval() gets the Color node that the Expression node refers to
 	const colorBase  = new tree.Color(level > 0 ? black : white)
 	const mixPercent = new tree.Dimension(Math.abs(level * themeColorInterval) + '%')
 

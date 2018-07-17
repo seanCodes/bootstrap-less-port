@@ -49,13 +49,8 @@
 //    @include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
 //  }
 //}
-#each-theme-color-alert(@i) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-
+each(@theme-colors, #(@value, @color) {
 	.alert-@{color} {
 		#alert-variant(theme-color-level(@color, @alert-bg-level), theme-color-level(@color, @alert-border-level), theme-color-level(@color, @alert-color-level));
 	}
-
-	#each-theme-color-alert((@i + 1));
-} #each-theme-color-alert(1);
+})

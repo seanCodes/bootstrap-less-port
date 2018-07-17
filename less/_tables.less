@@ -103,15 +103,9 @@
 //@each $color, $value in $theme-colors {
 //  @include table-row-variant($color, theme-color-level($color, -9));
 //}
-#each-theme-color-table-row(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-	@colorValue: extract(@item, 2);
-
+each(@theme-colors, #(@value, @color) {
 	#table-row-variant(@color, theme-color-level(@color, -9));
-
-	#each-theme-color-table-row((@i + 1));
-} #each-theme-color-table-row();
+});
 
 #table-row-variant(active, @table-active-bg);
 
@@ -193,8 +187,7 @@
 	//    }
 	//  }
 	//}
-	#each-breakpoint-responsive-table(@i: 1) when (@i =< length(@grid-breakpoints)) {
-		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+	each(@grid-breakpoints, #(@breakpoint-value, @breakpoint) {
 		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
 		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
@@ -212,7 +205,5 @@
 				}
 			});
 		}
-
-		#each-breakpoint-responsive-table((@i + 1));
-	} #each-breakpoint-responsive-table();
+	})
 }
