@@ -20,16 +20,17 @@
 @gray-900: #212529;
 @black:    #000;
 
-@grays:
-	100   @gray-100,
-	200   @gray-200,
-	300   @gray-300,
-	400   @gray-400,
-	500   @gray-500,
-	600   @gray-600,
-	700   @gray-700,
-	800   @gray-800,
-	900   @gray-900;
+@grays: {
+	100: @gray-100;
+	200: @gray-200;
+	300: @gray-300;
+	400: @gray-400;
+	500: @gray-500;
+	600: @gray-600;
+	700: @gray-700;
+	800: @gray-800;
+	900: @gray-900;
+};
 
 @blue:    #007bff;
 @indigo:  #6610f2;
@@ -42,20 +43,21 @@
 @teal:    #20c997;
 @cyan:    #17a2b8;
 
-@colors:
-	blue         @blue,
-	indigo       @indigo,
-	purple       @purple,
-	pink         @pink,
-	red          @red,
-	orange       @orange,
-	yellow       @yellow,
-	green        @green,
-	teal         @teal,
-	cyan         @cyan,
-	white        @white,
-	gray         @gray-600,
-	gray-dark    @gray-800;
+@colors: {
+	blue:       @blue;
+	indigo:     @indigo;
+	purple:     @purple;
+	pink:       @pink;
+	red:        @red;
+	orange:     @orange;
+	yellow:     @yellow;
+	green:      @green;
+	teal:       @teal;
+	cyan:       @cyan;
+	white:      @white;
+	gray:       @gray-600;
+	gray-dark:  @gray-800;
+};
 
 @primary:       @blue;
 @secondary:     @gray-600;
@@ -66,15 +68,16 @@
 @light:         @gray-100;
 @dark:          @gray-800;
 
-@theme-colors:
-	primary      @primary,
-	secondary    @secondary,
-	success      @success,
-	info         @info,
-	warning      @warning,
-	danger       @danger,
-	light        @light,
-	dark         @dark;
+@theme-colors: {
+	primary:     @primary;
+	secondary:   @secondary;
+	success:     @success;
+	info:        @info;
+	warning:     @warning;
+	danger:      @danger;
+	light:       @light;
+	dark:        @dark;
+};
 
 // Set a specific jump point for requesting color jumps
 @theme-color-interval:      8%;
@@ -134,7 +137,7 @@
 //
 // Style anchor elements.
 
-@link-color:                theme-color(primary);
+@link-color:                @theme-colors[primary];
 @link-decoration:           none;
 @link-hover-color:          darken(@link-color, 15%);
 @link-hover-decoration:     underline;
@@ -157,6 +160,13 @@
 	md 768px,
 	lg 992px,
 	xl 1200px;
+@grid-breakpoint: {
+	xs: 0;
+	sm: 576px;
+	md: 768px;
+	lg: 992px;
+	xl: 1200px;
+};
 
 //@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
 //@include _assert-starts-at-zero($grid-breakpoints);
@@ -201,7 +211,7 @@
 @box-shadow-lg:               0 1rem 3rem fade(@black, 17.5%);
 
 @component-active-color:      @white;
-@component-active-bg:         theme-color(primary);
+@component-active-bg:         @theme-colors[primary];
 
 @caret-width:                 0.3em;
 
@@ -449,7 +459,7 @@
 
 @custom-control-indicator-checked-color:        @component-active-color;
 @custom-control-indicator-checked-bg:           @component-active-bg;
-@custom-control-indicator-checked-disabled-bg:  fade(theme-color(primary), 50%);
+@custom-control-indicator-checked-disabled-bg:  fade(@theme-colors[primary], 50%);
 @custom-control-indicator-checked-box-shadow:   none;
 
 @custom-control-indicator-focus-box-shadow:     0 0 0 1px @body-bg, @input-btn-focus-box-shadow;
@@ -537,8 +547,8 @@
 // Form validation
 @form-feedback-margin-top:          @form-text-margin-top;
 @form-feedback-font-size:           @small-font-size;
-@form-feedback-valid-color:         theme-color(success);
-@form-feedback-invalid-color:       theme-color(danger);
+@form-feedback-valid-color:         @theme-colors[success];
+@form-feedback-invalid-color:       @theme-colors[danger];
 
 
 // Dropdowns
@@ -807,7 +817,7 @@
 @progress-border-radius:            @border-radius;
 @progress-box-shadow:               inset 0 0.1rem 0.1rem fade(@black, 10%);
 @progress-bar-color:                @white;
-@progress-bar-bg:                   theme-color(primary);
+@progress-bar-bg:                   @theme-colors[primary];
 @progress-bar-animation-timing:     1s linear infinite;
 @progress-bar-transition:           width 0.6s ease;
 
@@ -914,4 +924,4 @@
 
 // Printing
 @print-page-size:                   a3;
-@print-body-min-width:              map-get(@grid-breakpoints, lg);
+@print-body-min-width:              @grid-breakpoint[lg];

@@ -3,7 +3,6 @@
 // Utility mixins and functions for evaluating source code across our variables, maps, and mixins.
 
 @plugin "plugins/index";
-@plugin "plugins/map-get";
 
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.
@@ -66,22 +65,6 @@
 //  }
 //}
 @plugin "plugins/color-yiq";
-
-// Retreive color Sass maps
-//@function color($key: "blue") {
-//  @return map-get($colors, $key);
-//}
-@plugin "plugins/color";
-
-//@function theme-color($key: "primary") {
-//  @return map-get($theme-colors, $key);
-//}
-@plugin "plugins/theme-color";
-
-//@function gray($key: "100") {
-//  @return map-get($grays, $key);
-//}
-@plugin "plugins/gray";
 
 // Request a theme color level
 //@function theme-color-level($color-name: "primary", $level: 0) {

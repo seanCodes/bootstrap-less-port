@@ -16,6 +16,8 @@ function lookupVariable(context, variableName) {
 		if (important && importantScope[importantScope.length - 1])
 			importantScope[importantScope.length - 1].important = important
 
+		//console.log(JSON.stringify(value))
+
 		return value.eval(context)
 	})
 }
@@ -48,7 +50,6 @@ function getBreakpoints(context, breakpoints) {
 
 		breakpoints = gridBreakpoints
 	}
-
 	return listToMap(breakpoints)
 }
 
@@ -56,7 +57,7 @@ function getBreakpoints(context, breakpoints) {
 // Less Functions
 //
 
-functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoints) {
+functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoints) {return
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
@@ -71,7 +72,7 @@ functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoint
 	return new tree.Quoted('"', breakpointNames[breakpointIndex + 1])
 })
 
-functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints) {
+functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints) {return
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
@@ -86,7 +87,7 @@ functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints
 	return breakpointsMap[breakpointName]
 })
 
-functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints) {
+functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints) {return
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
@@ -101,7 +102,7 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	return new tree.Dimension((breakpointsMap[breakpointNames[breakpointIndex + 1]].value - 0.02), 'px')
 })
 
-functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {
+functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {return
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
