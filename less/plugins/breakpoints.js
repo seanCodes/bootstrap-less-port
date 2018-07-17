@@ -16,31 +16,27 @@ function lookupVariable(context, variableName) {
 		if (important && importantScope[importantScope.length - 1])
 			importantScope[importantScope.length - 1].important = important
 
-		//console.log(JSON.stringify(value))
-
 		return value.eval(context)
 	})
 }
 
-function listToMap({ value: list } = { value: [] }) {
+function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // @TODO: unify this function between files, maybe even canonize it as a Ruleset/DetachedRuleset method at some point.
 	const map = {}
 
-	// Handle maps that only have one key/value pair (since they will look like a plain list of
-	// length 2).
-	if (list.length === 2 && ! Array.isArray(list[0].value)) {
-		const [{ value: key }, value] = list || [{}]
+	rules.forEach(({ name: key, value: { value } }) => {
+		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // logic adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
+			key = key[0].value
 
-		map[key] = value
-	} else
-		list.forEach(({ value: item } = {}) => {
-			if (Array.isArray(item)) {
-				const [{ value: key }, value] = item || [{}]
-
-				map[`${key}`] = value
-			}
-		})
+		map[`${key}`] = value
+	})
 
 	return map
+}
+
+function parseUnit(str) {
+	strValue = parseFloat(str)
+
+	return str.replace(`${strValue}`, '')
 }
 
 function getBreakpoints(context, breakpoints) {
@@ -50,14 +46,14 @@ function getBreakpoints(context, breakpoints) {
 
 		breakpoints = gridBreakpoints
 	}
-	return listToMap(breakpoints)
+	return rulesetToMap(breakpoints)
 }
 
 //
 // Less Functions
 //
 
-functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoints) {return
+functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoints) {
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
@@ -72,7 +68,7 @@ functions.add('breakpoint-next', function ({ value: breakpointName }, breakpoint
 	return new tree.Quoted('"', breakpointNames[breakpointIndex + 1])
 })
 
-functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints) {return
+functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints) {
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
@@ -87,10 +83,14 @@ functions.add('breakpoint-min', function ({ value: breakpointName }, breakpoints
 	return breakpointsMap[breakpointName]
 })
 
-functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints) {return
+functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints) {
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
+
+	let nextBreakpoint
+	let nextBreakpointValue
+	let nextBreakpointUnit
 
 	if (breakpointIndex === -1)
 		return new tree.Quoted('"')
@@ -99,10 +99,12 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	if ((breakpointIndex + 1) === breakpointNames.length)
 		return new tree.Quoted('"')
 
-	return new tree.Dimension((breakpointsMap[breakpointNames[breakpointIndex + 1]].value - 0.02), 'px')
+	nextBreakpoint = breakpointsMap[breakpointNames[breakpointIndex + 1]]
+
+	return new tree.Dimension((parseFloat(nextBreakpoint) - 0.02), parseUnit(nextBreakpoint))
 })
 
-functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {return
+functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {
 	const breakpointsMap  = getBreakpoints(this.context, breakpoints)
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
