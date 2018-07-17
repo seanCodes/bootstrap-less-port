@@ -7,9 +7,7 @@
 //    .float#{$infix}-none  { @include float-none; }
 //  }
 //}
-#each-breakpoint-float(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-
+each(keys(@grid-breakpoints), #(@breakpoint) {
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
@@ -17,6 +15,4 @@
 		.float@{infix}-right { #float-right(); }
 		.float@{infix}-none  { #float-none(); }
 	});
-
-	#each-breakpoint-float((@i + 1));
-} #each-breakpoint-float();
+})

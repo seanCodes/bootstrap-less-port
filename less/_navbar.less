@@ -187,8 +187,7 @@
 	//    }
 	//  }
 	//}
-	#each-breakpoint-navbar(@i: 1) when (@i =< length(@grid-breakpoints)) {
-		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+	each(keys(@grid-breakpoints), #(@breakpoint) {
 		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
 		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
@@ -236,9 +235,7 @@
 				}
 			});
 		}
-
-		#each-breakpoint-navbar((@i + 1));
-	} #each-breakpoint-navbar();
+	});
 }
 
 

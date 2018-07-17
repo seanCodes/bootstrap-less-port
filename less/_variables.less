@@ -110,21 +110,23 @@
 // You can add more entries to the @spacers map, should you need more variation.
 
 @spacer: 1rem;
-@spacers:
-	0 0,
-	1 (@spacer * 0.25),
-	2 (@spacer * 0.5),
-	3 @spacer,
-	4 (@spacer * 1.5),
-	5 (@spacer * 3);
+@spacers: {
+	0: 0;
+	1: (@spacer * 0.25);
+	2: (@spacer * 0.5);
+	3: @spacer;
+	4: (@spacer * 1.5);
+	5: (@spacer * 3);
+};
 
 // This variable affects the `.h-*` and `.w-*` classes.
-@sizes:
-	25 25%,
-	50 50%,
-	75 75%,
-	100 100%,
-	auto auto;
+@sizes: {
+	25:   25%;
+	50:   50%;
+	75:   75%;
+	100:  100%;
+	auto: auto;
+};
 
 // Body
 //
@@ -154,13 +156,7 @@
 // Define the minimum dimensions at which your layout will change,
 // adapting to different screen sizes, for use in media queries.
 
-@grid-breakpoints:
-	xs 0,
-	sm 576px,
-	md 768px,
-	lg 992px,
-	xl 1200px;
-@grid-breakpoint: {
+@grid-breakpoints: {
 	xs: 0;
 	sm: 576px;
 	md: 768px;
@@ -176,11 +172,12 @@
 //
 // Define the maximum width of `.container` for different screen sizes.
 
-@container-max-widths:
-	sm 540px,
-	md 720px,
-	lg 960px,
-	xl 1140px;
+@container-max-widths: {
+	sm: 540px;
+	md: 720px;
+	lg: 960px;
+	xl: 1140px;
+};
 
 //@include _assert-ascending($container-max-widths, "$container-max-widths");
 
@@ -540,8 +537,9 @@
 @custom-file-box-shadow:            @input-box-shadow;
 @custom-file-button-color:          @custom-file-color;
 @custom-file-button-bg:             @input-group-addon-bg;
-@custom-file-text:
-	en "Browse";
+@custom-file-text: {
+	en: "Browse";
+};
 
 
 // Form validation
@@ -924,4 +922,4 @@
 
 // Printing
 @print-page-size:                   a3;
-@print-body-min-width:              @grid-breakpoint[lg];
+@print-body-min-width:              @grid-breakpoints[lg];

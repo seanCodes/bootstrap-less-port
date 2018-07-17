@@ -78,18 +78,17 @@
 		padding-left: (@gutter / 2);
 	};
 
-	#each-breakpoint-column(@i: 1) when (@i <= length(@breakpoints)) {
-		@breakpoint: extract(extract(@breakpoints, @i), 1);
+	each(keys(@breakpoints), #(@breakpoint) {
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
-		// Allow columns to stretch full width below their breakpoints
-		#each-column(@ii: 1) when (@ii <= @columns) {
-			.col@{infix}-@{ii} {
+		#for-1-to-columns(@i: 1) when (@i <= @columns) {
+			.col@{infix}-@{i} {
 				&:extend(.grid-column);
 			}
 
-			#each-column((@ii + 1));
-		} #each-column();
+			#for-1-to-columns((@i + 1));
+		} #for-1-to-columns();
+
 		.col@{infix},
 		.col@{infix}-auto {
 			&:extend(.grid-column);
@@ -108,37 +107,35 @@
 				max-width: none; // Reset earlier grid tiers
 			}
 
-			#each-column-col(@iii: 1) when (@iii <= @columns) {
-				.col@{infix}-@{iii} {
-					#make-col(@iii, @columns);
+			#for-1-to-columns-col(@ii: 1) when (@ii <= @columns) {
+				.col@{infix}-@{ii} {
+					#make-col(@ii, @columns);
 				}
 
-				#each-column-col((@iii + 1));
-			} #each-column-col();
+				#for-1-to-columns-col((@ii + 1));
+			} #for-1-to-columns-col();
 
 			.order@{infix}-first { order: -1; }
 
 			.order@{infix}-last { order: (@columns + 1); }
 
-			#each-column-order(@iii: 0) when (@iii <= @columns) {
-				.order@{infix}-@{iii} { order: @iii; }
+			#for-1-to-columns-order(@ii: 0) when (@ii <= @columns) {
+				.order@{infix}-@{ii} { order: @ii; }
 
-				#each-column-order((@iii + 1));
-			} #each-column-order();
+				#for-1-to-columns-order((@ii + 1));
+			} #for-1-to-columns-order();
 
-			// `@iii < @columns` because offsetting by the width of an entire row isn't possible
-			#each-column-offset(@iii: 0) when (@iii < @columns) {
-				& when not (@iii = 0),
-				(@iii = 0) and not (@infix = ~"") {
-					.offset@{infix}-@{iii} {
-						#make-col-offset(@iii, @columns);
+			// `@ii < @columns` because offsetting by the width of an entire row isn't possible
+			#for-1-to-columns-offset(@ii: 0) when (@ii < @columns) {
+				& when not (@ii = 0),
+				(@ii = 0) and not (@infix = ~"") {
+					.offset@{infix}-@{ii} {
+						#make-col-offset(@ii, @columns);
 					}
 				}
 
-				#each-column-offset((@iii + 1));
-			} #each-column-offset();
+				#for-1-to-columns-offset((@ii + 1));
+			} #for-1-to-columns-offset();
 		});
-
-		#each-breakpoint-column((@i + 1));
-	} #each-breakpoint-column();
+	});
 }

@@ -7,8 +7,8 @@
 //    }
 //  }
 //}
-#transition(@transition...) when (@enable-transitions) {
-	& when (length(@transition) = 0) {
+#transition(@transitions...) when (@enable-transitions) {
+	& when (length(@transitions) = 0) {
 		transition: @transition-base;
 	}
 	// LESS PORT: In order to output the transitions correctly we have to iterate over the list and
@@ -18,15 +18,13 @@
 	// in the list. If the length is greater than 1, then we have a list of separate transitions. If
 	// the the length is 1, then we’re looking at the first value of a single transition, so we
 	// output `@transition` as-is.
-	& when (length(@transition) > 0) and (length(extract(@transition, 1)) = 1) {
-		transition: @transition;
+	& when (length(@transitions) > 0) and (length(extract(@transitions, 1)) = 1) {
+		transition: @transitions;
 	}
-	& when (length(@transition) > 0) and (length(extract(@transition, 1)) > 1) {
-		#each-transition(@i: 1) when (@i =< length(@transition)) {
-			transition+: extract(@transition, @i);
-
-			#each-transition((@i + 1));
-		} #each-transition();
+	& when (length(@transitions) > 0) and (length(extract(@transitions, 1)) > 1) {
+		each(@transitions, #(@transition) {
+			transition+: @transition;
+		});
 	}
 
 	@media screen and (prefers-reduced-motion: reduce) {
