@@ -20,7 +20,7 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // pull `rules` out of `ruleset`, a key on
+function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
 	rules.forEach(({ name: key, value: { value:item } }) => {
