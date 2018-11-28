@@ -11,12 +11,10 @@ The code is currently aligned with [Bootstrap v4.1.1](https://github.com/twbs/bo
 
 ## Getting Started
 
-Options for installing Bootstrap Less in your project:
+Options for installing Bootstrap Less in your project (Less v3.7+ required):
 
-- Install with [npm](https://www.npmjs.com/): `npm install bootstrap-less-port`
-- Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap-less-port`
-- Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
-- [Download the latest release](https://github.com/seanCodes/bootstrap-less-port/archive/master.zip)
+- Install with [npm](https://www.npmjs.com/): `npm install less bootstrap-less-port`
+- Install with [yarn](https://yarnpkg.com/): `yarn add less bootstrap-less-port`
 
 Note that this code is only necessary if you want to use Less in your project and want to import and/or customize Bootstrap’s variables, mixins or styles. If you plan to use the CSS framework wholesale, you can get the compiled CSS files from the main Bootstrap repo, so there’s no need for this code.
 
@@ -36,48 +34,34 @@ your-project/
              └─ ...
 ```
 
-In this case, you could then import what you need into `custom.less` using relative paths to the files in the `node_modules` folder:
+In this case, you could then import what you need into `custom.less` using module-relative paths:
 
 ```less
 // custom.less
 
 
 // Required Files
-@import "../../node_modules/bootstrap-less-port/less/_functions";
-@import "../../node_modules/bootstrap-less-port/less/_variables";
-@import "../../node_modules/bootstrap-less-port/less/_mixins";
+@import "bootstrap-less-port/less/_functions";
+@import "bootstrap-less-port/less/_variables";
+@import "bootstrap-less-port/less/_mixins";
 
 // Optional Files
-@import "../../node_modules/bootstrap-less-port/less/_reboot";
-@import "../../node_modules/bootstrap-less-port/less/_utilities";
-@import "../../node_modules/bootstrap-less-port/less/_type";
-@import "../../node_modules/bootstrap-less-port/less/_grid";
+@import "bootstrap-less-port/less/_reboot";
+@import "bootstrap-less-port/less/_utilities";
+@import "bootstrap-less-port/less/_type";
+@import "bootstrap-less-port/less/_grid";
 ...
 ```
 
 This approach is recommended since it will result in a smaller CSS file by omitting the styles you don’t need. (Just be aware that some files are dependent on others.)
 
-Alternatively, you can get the entire framework by importing the main `bootstrap.less` file:
+Alternatively, you can get the entire framework by importing the default `bootstrap.less` file:
 
 ```less
 // custom.less
 
 
-@import "../../node_modules/bootstrap-less-port/less/bootstrap";
-```
-
-#### Usage with `less-plugin-npm-import`
-
-If you’re using `lessc` on the command line, you can use [`less-plugin-npm-import`](https://github.com/less/less-plugin-npm-import) to import the files in a much cooler and more maintainable way. Just install the plugin via npm and then reference the Bootstrap Less files using the plugin’s default `npm://` prefix:
-
-```less
-@import "npm://bootstrap-less-port/less/bootstrap";
-```
-
-Then simply include the `--npm-import` flag when compiling:
-
-```bash
-$ lessc --npm-import file.less file.css
+@import "bootstrap-less-port";
 ```
 
 
@@ -89,7 +73,7 @@ The recommended way of customizing Bootstrap is to modify the provided variables
 // custom.less
 
 
-@import "../../node_modules/bootstrap-less-port/less/bootstrap";
+@import "bootstrap-less-port";
 
 // Variable Overrides
 @body-bg: @black;
@@ -124,9 +108,7 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
    Note: The plugins are included using the [`@plugin`](http://lesscss.org/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
 
-0. **Maps** Less has no _native_ concept of maps, which are used extensively in the Bootstrap Sass files. They can be emulated, however, by using a comma-separated list of space-separated lists, which is what is done in this port.
-
-0. **Loops** Sass `@for` and `@each` loops have been replaced with Less’s method of looping which requires unique, named mixins for every loop. This is a bit clunky and means that the loops used in this port are verbose and difficult to read, but it’s the best we’ve got until I can figure out how to overcome this with a plugin.
+0. **Loops** Where possible, Sass `@each` loops have been replaced by the Less `each()` function. Sass `@for` directives are trickier and have no direct Less analog (yet), so they are replaced with a method of looping which requires unique, named mixins for every loop. This is a bit clunky, and means that in some places, loops are verbose and difficult to read, but it’s the best we’ve got until I can figure out how to overcome this with a plugin or Less has a native equivalent.
 
    In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
 
@@ -138,6 +120,9 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
 
 ## Contributing
+
+- Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
+- [Download the latest release](https://github.com/seanCodes/bootstrap-less-port/archive/master.zip)
 
 For bugs, feature-requests, or issues with the compiled CSS, please create an issue in the main Bootstrap repo.
 
