@@ -49,13 +49,9 @@
 //    @include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
 //  }
 //}
-#each-theme-color-alert(@i) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-
-	.alert-@{color} {
+each(@theme-colors, {
+  @color: extract(@value, 1);
+  .alert-@{color} {
 		#alert-variant(theme-color-level(@color, @alert-bg-level), theme-color-level(@color, @alert-border-level), theme-color-level(@color, @alert-color-level));
 	}
-
-	#each-theme-color-alert((@i + 1));
-} #each-theme-color-alert(1);
+});

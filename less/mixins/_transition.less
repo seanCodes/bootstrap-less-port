@@ -22,11 +22,9 @@
 		transition: @transition;
 	}
 	& when (length(@transition) > 0) and (length(extract(@transition, 1)) > 1) {
-		#each-transition(@i: 1) when (@i =< length(@transition)) {
-			transition+: extract(@transition, @i);
-
-			#each-transition((@i + 1));
-		} #each-transition();
+    each(@transition, .(@value) {
+			transition+: @value;
+		});
 	}
 
 	@media screen and (prefers-reduced-motion: reduce) {

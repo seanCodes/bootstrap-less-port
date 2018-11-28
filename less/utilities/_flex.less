@@ -47,8 +47,8 @@
 //    .align-self#{$infix}-stretch  { align-self: stretch !important; }
 //  }
 //}
-#each-breakpoint-flex(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+each(@grid-breakpoints, .(@item) {
+	@breakpoint: extract(@item, 1);
 
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
@@ -94,5 +94,4 @@
 		.align-self@{infix}-stretch  { align-self: stretch !important; }
 	});
 
-	#each-breakpoint-flex((@i + 1));
-} #each-breakpoint-flex();
+});

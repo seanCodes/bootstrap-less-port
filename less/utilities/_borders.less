@@ -19,17 +19,14 @@
 //    border-color: $value !important;
 //  }
 //}
-#each-theme-color-border(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
+each(@theme-colors, .(@item) {
 	@color: extract(@item, 1);
 	@value: extract(@item, 2);
 
 	.border-@{color} {
 		border-color: @value !important;
 	}
-
-	#each-theme-color-border((@i + 1));
-} #each-theme-color-border();
+});
 
 .border-white {
 	border-color: @white !important;

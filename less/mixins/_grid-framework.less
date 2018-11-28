@@ -77,9 +77,8 @@
 		padding-right: (@gutter / 2);
 		padding-left: (@gutter / 2);
 	};
-
-	#each-breakpoint-column(@i: 1) when (@i <= length(@breakpoints)) {
-		@breakpoint: extract(extract(@breakpoints, @i), 1);
+  each(@breakpoints, .(@item) {
+		@breakpoint: extract(@item, 1);
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
 		// Allow columns to stretch full width below their breakpoints
@@ -139,6 +138,5 @@
 			} #each-column-offset();
 		});
 
-		#each-breakpoint-column((@i + 1));
-	} #each-breakpoint-column();
+	});
 }

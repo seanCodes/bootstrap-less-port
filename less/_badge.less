@@ -45,14 +45,11 @@
 //    @include badge-variant($value);
 //  }
 //}
-#each-theme-color-badge(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
+each(@theme-colors, .(@item) {
 	@color: extract(@item, 1);
 	@value: extract(@item, 2);
 
 	.badge-@{color} {
 		#badge-variant(@value);
 	}
-
-	#each-theme-color-badge((@i + 1));
-} #each-theme-color-badge();
+});

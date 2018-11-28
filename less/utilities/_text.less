@@ -21,8 +21,8 @@
 //    .text#{$infix}-center { text-align: center !important; }
 //  }
 //}
-#each-breakpoint-text(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+each(@grid-breakpoints, .(@item) {
+	@breakpoint: extract(@item, 1);
 
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
@@ -31,9 +31,7 @@
 		.text@{infix}-right  { text-align: right !important; }
 		.text@{infix}-center { text-align: center !important; }
 	});
-
-	#each-breakpoint-text((@i + 1));
-} #each-breakpoint-text();
+});
 
 // Transformation
 
@@ -55,15 +53,12 @@
 //@each $color, $value in $theme-colors {
 //  @include text-emphasis-variant('.text-#{$color}', $value);
 //}
-#each-theme-color-text(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
+each(@theme-colors, .(@item) {
 	@color: extract(@item, 1);
 	@value: extract(@item, 2);
 
 	#text-emphasis-variant(~".text-@{color}", @value);
-
-	#each-theme-color-text((@i + 1));
-} #each-theme-color-text();
+});
 
 .text-body { color: @body-color !important; }
 .text-muted { color: @text-muted !important; }

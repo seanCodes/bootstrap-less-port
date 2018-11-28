@@ -409,13 +409,13 @@
 @input-height-border:                   (@input-border-width * 2);
 
 @input-height-inner:                    (@font-size-base * @input-btn-line-height + @input-btn-padding-y * 2);
-@input-height:                          ~"calc(@{input-height-inner} + @{input-height-border})";
+@input-height:                          calc(@input-height-inner + @input-height-border);
 
 @input-height-inner-sm:                 (@font-size-sm * @input-btn-line-height-sm + @input-btn-padding-y-sm * 2);
-@input-height-sm:                       ~"calc(@{input-height-inner-sm} + @{input-height-border})";
+@input-height-sm:                       calc(@input-height-inner-sm + @input-height-border);
 
 @input-height-inner-lg:                 (@font-size-lg * @input-btn-line-height-lg + @input-btn-padding-y-lg * 2);
-@input-height-lg:                       ~"calc(@{input-height-inner-lg} + @{input-height-border})";
+@input-height-lg:                       calc(@input-height-inner-lg + @input-height-border);
 
 @input-transition:                      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
@@ -674,7 +674,7 @@
 @card-border-width:                 @border-width;
 @card-border-radius:                @border-radius;
 @card-border-color:                 fade(@black, 12.5%);
-@card-inner-border-radius:          ~"calc(@{card-border-radius} - @{card-border-width})";
+@card-inner-border-radius:          calc(@card-border-radius - @card-border-width);
 @card-cap-bg:                       fade(@black, 3%);
 @card-bg:                           @white;
 

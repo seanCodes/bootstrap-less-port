@@ -20,17 +20,14 @@
 //  }
 //}
 #make-container-max-widths(@max-widths: @container-max-widths, @breakpoints: @grid-breakpoints) {
-	#each-max-width(@i: 1) when (@i <= length(@max-widths)) {
-		@item: extract(@max-widths, @i);
+  each(@max-widths, .(@item) {
 		@breakpoint: extract(@item, 1);
 		@container-max-width: extract(@item, 2);
 
 		#media-breakpoint-up(@breakpoint, {
 			max-width: @container-max-width;
 		}, @breakpoints);
-
-		#each-max-width((@i + 1));
-	} #each-max-width();
+	});
 }
 
 #make-row() {

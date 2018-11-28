@@ -15,10 +15,8 @@
 		box-shadow: @shadow;
 	}
 	& when (length(@shadow) > 0) and (length(extract(@shadow, 1)) > 1) {
-		#each-shadow(@i: 1) when (@i =< length(@shadow)) {
-			box-shadow+: extract(@shadow, @i);
-
-			#each-shadow((@i + 1));
-		} #each-shadow();
+		each(@shadow, .(@value) {
+			box-shadow+: @value;
+		});
 	}
 }

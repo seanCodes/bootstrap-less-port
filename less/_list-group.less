@@ -113,10 +113,7 @@
 //@each @color, @value in @theme-colors {
 //  #list-group-item-variant(@color, theme-color-level(@color, -9), theme-color-level(@color, 6));
 //}
-#each-theme-color-list-group(@i: 1) when (@i =< length(@theme-colors)) {
-	@color: extract(extract(@theme-colors, @i), 1);
-
+each(@theme-colors, .(@item) {
+	@color: extract(@item, 1);
 	#list-group-item-variant(@color, theme-color-level(@color, -9), theme-color-level(@color, 6));
-
-	#each-theme-color-list-group((@i + 1));
-} #each-theme-color-list-group();
+});

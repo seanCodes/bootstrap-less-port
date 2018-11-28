@@ -47,19 +47,12 @@
 //    }
 //  }
 //}
-#each-breakpoint-spacing(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
+each(@grid-breakpoints, .(@b) {
+	@breakpoint: extract(@b, 1);
+	@infix: breakpoint-infix(@breakpoint, @grid-breakpoints, @b);
 
 	#media-breakpoint-up(@breakpoint, {
-		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
-
-		@spacing-properties: margin m, padding p;
-
-		#each-spacing-property(@ii: 1) when (@ii =< length(@spacing-properties)) {
-			@spacing-property: extract(@spacing-properties, @ii);
-			@prop: extract(@spacing-property, 1);
-			@abbrev: extract(@spacing-property, 2);
-
+    each({margin: m; padding: p}, .(@abbrev, @prop) {
 			#each-spacer(@iii: 1) when (@iii =< length(@spacers)) {
 				@item: extract(@spacers, @iii);
 				@size: extract(@item, 1);
@@ -85,9 +78,7 @@
 
 				#each-spacer((@iii + 1));
 			} #each-spacer();
-
-			#each-spacing-property((@ii + 1));
-		} #each-spacing-property();
+		});
 
 		// Some special margin utils
 		.m@{infix}-auto { margin: auto !important; }
@@ -109,5 +100,4 @@
 		}
 	});
 
-	#each-breakpoint-spacing((@i + 1));
-} #each-breakpoint-spacing();
+});
