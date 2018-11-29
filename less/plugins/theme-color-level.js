@@ -26,8 +26,8 @@ function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	rules.forEach(({ name: key, value: { value:item } }) => {
 		const [value] = item || [{}]
 
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // logic borrowed from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
-			key = key[0].value // this may be a touch brittle
+		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // Logic borrowed from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
+			key = key[0].value // This may be a touch brittle
 
 		map[`${key}`] = value
 	})
