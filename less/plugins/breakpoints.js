@@ -24,7 +24,7 @@ function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // 
 	const map = {}
 
 	rules.forEach(({ name: key, value: { value } }) => {
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // logic adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
+		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // Logic adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
 			key = key[0].value
 
 		map[`${key}`] = value
@@ -34,7 +34,7 @@ function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // 
 }
 
 function parseUnit(str) {
-	strValue = parseFloat(str)
+	const strValue = parseFloat(str)
 
 	return str.replace(`${strValue}`, '')
 }
@@ -46,6 +46,7 @@ function getBreakpoints(context, breakpoints) {
 
 		breakpoints = gridBreakpoints
 	}
+
 	return rulesetToMap(breakpoints)
 }
 
@@ -89,8 +90,6 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
 
 	let nextBreakpoint
-	let nextBreakpointValue
-	let nextBreakpointUnit
 
 	if (breakpointIndex === -1)
 		return new tree.Quoted('"')
