@@ -39,7 +39,7 @@
 		"clean-css-cli": "^4.1.11",
 		"eslint": "^4.19.1",
 		"less": "^3.0.4",
-		"postcss-cli": "^5.0.0"
+		"postcss-cli": "^5.0.1"
 	},
 	"files": [
 		"dist",
