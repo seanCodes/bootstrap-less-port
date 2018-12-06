@@ -178,12 +178,18 @@
 	& when not (@enable-rounded) {
 		border-radius: 0;
 	}
+	#box-shadow(@custom-select-box-shadow);
 	appearance: none;
 
 	&:focus {
 		border-color: @custom-select-focus-border-color;
 		outline: 0;
-		box-shadow: @custom-select-focus-box-shadow;
+		& when (@enable-shadows) {
+			box-shadow: @custom-select-box-shadow, @custom-select-focus-box-shadow;
+		}
+		& when not (@enable-shadows) {
+			box-shadow: @custom-select-focus-box-shadow;
+		}
 
 		&::-ms-value {
 			// For visual consistency with other platforms/browsers,
@@ -256,6 +262,10 @@
 		&::after {
 			border-color: @custom-file-focus-border-color;
 		}
+	}
+
+	&:disabled ~ .custom-file-label {
+		background-color: @custom-file-disabled-bg;
 	}
 
 	//@each $lang, $value in $custom-file-text {
@@ -351,6 +361,7 @@
 		border: @custom-range-thumb-border;
 		#border-radius(@custom-range-thumb-border-radius);
 		#box-shadow(@custom-range-thumb-box-shadow);
+		#transition(@custom-forms-transition);
 		appearance: none;
 
 		&:focus {
@@ -381,6 +392,7 @@
 		border: @custom-range-thumb-border;
 		#border-radius(@custom-range-thumb-border-radius);
 		#box-shadow(@custom-range-thumb-box-shadow);
+		#transition(@custom-forms-transition);
 		appearance: none;
 
 		&:focus {
@@ -411,6 +423,7 @@
 		border: @custom-range-thumb-border;
 		#border-radius(@custom-range-thumb-border-radius);
 		#box-shadow(@custom-range-thumb-box-shadow);
+		#transition(@custom-forms-transition);
 		appearance: none;
 
 		&:focus {
@@ -446,3 +459,8 @@
 	}
 }
 
+.custom-control-label::before,
+.custom-file-label,
+.custom-select {
+	#transition(@custom-forms-transition);
+}
