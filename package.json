@@ -35,7 +35,7 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
-		"autoprefixer": "^8.4.1",
+		"autoprefixer": "^8.6.5",
 		"clean-css-cli": "^4.1.11",
 		"eslint": "^4.19.1",
 		"less": "^3.0.4",
