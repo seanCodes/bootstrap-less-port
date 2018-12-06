@@ -1,5 +1,5 @@
 /*!
- * Bootstrap Reboot v4.1.1 (https://getbootstrap.com/)
+ * Bootstrap Reboot v4.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -36,7 +36,7 @@ code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation M
 pre{margin-top:0;margin-bottom:1rem;overflow:auto;-ms-overflow-style:scrollbar}
 figure{margin:0 0 1rem}
 img{vertical-align:middle;border-style:none}
-svg:not(:root){overflow:hidden}
+svg:not(:root){overflow:hidden;vertical-align:middle}
 table{border-collapse:collapse}
 caption{padding-top:.75rem;padding-bottom:.75rem;color:#6c757d;text-align:left;caption-side:bottom}
 th{text-align:inherit}
