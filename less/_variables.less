@@ -214,7 +214,7 @@
 //
 // Font, line-height, and color for body text, headings, and more.
 
-@font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+@font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 @font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 @font-family-base:            @font-family-sans-serif;
 
@@ -503,14 +503,15 @@
 @custom-range-track-border-radius:  1rem;
 @custom-range-track-box-shadow:     inset 0 0.25rem 0.25rem fade(@black, 10%);
 
-@custom-range-thumb-width:            1rem;
-@custom-range-thumb-height:           @custom-range-thumb-width;
-@custom-range-thumb-bg:               @component-active-bg;
-@custom-range-thumb-border:           0;
-@custom-range-thumb-border-radius:    1rem;
-@custom-range-thumb-box-shadow:       0 0.1rem 0.25rem fade(@black, 10%);
-@custom-range-thumb-focus-box-shadow: 0 0 0 1px @body-bg, @input-btn-focus-box-shadow;
-@custom-range-thumb-active-bg:        lighten(@component-active-bg, 35%);
+@custom-range-thumb-width:                   1rem;
+@custom-range-thumb-height:                  @custom-range-thumb-width;
+@custom-range-thumb-bg:                      @component-active-bg;
+@custom-range-thumb-border:                  0;
+@custom-range-thumb-border-radius:           1rem;
+@custom-range-thumb-box-shadow:              0 0.1rem 0.25rem fade(@black, 10%);
+@custom-range-thumb-focus-box-shadow:        0 0 0 1px @body-bg, @input-btn-focus-box-shadow;
+@custom-range-thumb-focus-box-shadow-width:  @input-btn-focus-width; // For focus box shadow issue in IE/Edge
+@custom-range-thumb-active-bg:               lighten(@component-active-bg, 35%);
 
 @custom-file-height:                @input-height;
 @custom-file-height-inner:          @input-height-inner;

@@ -33,6 +33,11 @@
 		z-index: 3;
 	}
 
+	// Bring the custom file input above the label
+	> .custom-file .custom-file-input:focus {
+		z-index: 4;
+	}
+
 	> .form-control,
 	> .custom-select {
 		&:not(:last-child) { #border-right-radius(0); }
@@ -122,48 +127,23 @@
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
-	&:extend(.form-control-sm);
+	height: @input-height-sm;
+	padding: @input-padding-y-sm @input-padding-x-sm;
+	font-size: @font-size-sm;
+	line-height: @input-line-height-sm;
+	#border-radius(@input-border-radius-sm);
 }
-// LESS PORT: Extra additions needed here since Less handles extends differently than Sass!
-.input-group-sm {
-	> .form-control-plaintext.form-control,
-	> .input-group-prepend > .form-control-plaintext.input-group-text,
-	> .input-group-append > .form-control-plaintext.input-group-text,
-	> .input-group-prepend > .form-control-plaintext.btn,
-	> .input-group-append > .form-control-plaintext.btn {
-		&:extend(.form-control-plaintext.form-control-sm);
-	}
-	> select.form-control:not([size]):not([multiple]),
-	> .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
-	> .input-group-append > select.input-group-text:not([size]):not([multiple]),
-	> .input-group-prepend > select.btn:not([size]):not([multiple]),
-	> .input-group-append > select.btn:not([size]):not([multiple]) {
-		&:extend(select.form-control-sm:not([size]):not([multiple]));
-	}
-}
+
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
-	&:extend(.form-control-lg);
-}
-// LESS PORT: Extra additions needed here since Less handles extends differently than Sass!
-.input-group-lg {
-	> .form-control-plaintext.form-control,
-	> .input-group-prepend > .form-control-plaintext.input-group-text,
-	> .input-group-append > .form-control-plaintext.input-group-text,
-	> .input-group-prepend > .form-control-plaintext.btn,
-	> .input-group-append > .form-control-plaintext.btn {
-		&:extend(.form-control-plaintext.form-control-lg);
-	}
-	> select.form-control:not([size]):not([multiple]),
-	> .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
-	> .input-group-append > select.input-group-text:not([size]):not([multiple]),
-	> .input-group-prepend > select.btn:not([size]):not([multiple]),
-	> .input-group-append > select.btn:not([size]):not([multiple]) {
-		&:extend(select.form-control-lg:not([size]):not([multiple]));
-	}
+	height: @input-height-lg;
+	padding: @input-padding-y-lg @input-padding-x-lg;
+	font-size: @font-size-lg;
+	line-height: @input-line-height-lg;
+	#border-radius(@input-border-radius-lg);
 }
 
 

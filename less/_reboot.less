@@ -28,7 +28,7 @@ html {
 	-webkit-text-size-adjust: 100%; // 4
 	-ms-text-size-adjust: 100%; // 4
 	-ms-overflow-style: scrollbar; // 5
-	// LESS PORT: Sass version uses `rgba($black, 0)` here but it ends up compiling to `transparent`.
+	// LESS PORT: Sass version uses `fade(@black, 0%)` here but it ends up compiling to `transparent`.
 	-webkit-tap-highlight-color: transparent; // 6
 }
 
@@ -264,8 +264,10 @@ img {
 	border-style: none; // Remove the border on images inside links in IE 10-.
 }
 
-svg:not(:root) {
-	overflow: hidden; // Hide the overflow in IE
+svg {
+	// Workaround for the SVG overflow bug in IE10/11 is still required.
+	// See https://github.com/twbs/bootstrap/issues/26878
+	overflow: hidden;
 	vertical-align: middle;
 }
 
