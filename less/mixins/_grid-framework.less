@@ -81,6 +81,7 @@
 	each(keys(@breakpoints), #(@breakpoint) {
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
+		// Allow columns to stretch full width below their breakpoints
 		#for-1-to-columns(@i: 1) when (@i <= @columns) {
 			.col@{infix}-@{i} {
 				&:extend(.grid-column);
