@@ -110,7 +110,7 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
    Note: The plugins are included using the [`@plugin`](http://lesscss.org/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
 
-0. **Loops** Where possible, Sass `@each` loops have been replaced by the Less `each()` function. Sass `@for` directives are trickier and have no direct Less analog (yet), so they are replaced with a method of looping which requires unique, named mixins for every loop. This is a bit clunky, and means that in some places, loops are verbose and difficult to read, but it’s the best we’ve got until I can figure out how to overcome this with a plugin or Less has a native equivalent.
+0. **Loops** Where possible, Sass `@each` loops have been replaced with the Less `each()` function. Sass `@for` directives are trickier and have no direct Less analog (yet), so they are replaced with the old Less method of looping, which requires a unique, named mixin for every loop. This is a bit clunky, and means that in some places, loops are verbose and difficult to read, but it’s the best we’ve got until we figure out how to do this with a plugin (or Less adds a native equivalent).
 
    In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
 
