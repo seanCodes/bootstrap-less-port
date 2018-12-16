@@ -127,8 +127,6 @@ For bugs, feature-requests, or issues with the compiled CSS, please create an is
 
 For errors or bugs related to the ported code, please submit a pull request or create an issue.
 
-Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
-
 
 
 ## Credits and License
