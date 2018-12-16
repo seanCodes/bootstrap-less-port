@@ -57,7 +57,7 @@ In this case, you could then import what you need into `custom.less` using modul
 
 This approach is recommended since it will result in a smaller CSS file by omitting the styles you don’t need. (Just be aware that some files are dependent on others.)
 
-Alternatively, you can get the entire framework by importing the default `bootstrap.less` file:
+Alternatively, you can get the entire framework by simply importing the package as a whole. (Or, if not using a package manager, importing `bootstrap-less-port/less/bootstrap` instead.)
 
 ```less
 // custom.less
