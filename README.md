@@ -11,7 +11,7 @@ The code is currently aligned with [Bootstrap v4.1.3](https://github.com/twbs/bo
 
 ## Getting Started
 
-Options for installing Bootstrap Less in your project (Less v3.7+ required):
+Options for installing Bootstrap Less in your project (note that Less v3.8.1 or above is required):
 
 - Install with [npm](https://www.npmjs.com/): `npm install less bootstrap-less-port`
 - Install with [yarn](https://yarnpkg.com/): `yarn add less bootstrap-less-port`
