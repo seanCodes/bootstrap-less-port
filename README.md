@@ -13,8 +13,10 @@ The code is currently aligned with [Bootstrap v4.1.3](https://github.com/twbs/bo
 
 Options for installing Bootstrap Less in your project (note that Less v3.8.1 or above is required):
 
-- Install with [npm](https://www.npmjs.com/): `npm install less bootstrap-less-port`
-- Install with [yarn](https://yarnpkg.com/): `yarn add less bootstrap-less-port`
+- Install with [npm](https://www.npmjs.com/): `npm install bootstrap-less-port`
+- Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap-less-port`
+- Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
+- [Download the latest release](https://github.com/seanCodes/bootstrap-less-port/archive/master.zip)
 
 Note that this code is only necessary if you want to use Less in your project and want to import and/or customize Bootstrap’s variables, mixins or styles. If you plan to use the CSS framework wholesale, you can get the compiled CSS files from the main Bootstrap repo, so there’s no need for this code.
 
@@ -121,12 +123,11 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
 ## Contributing
 
-- Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
-- [Download the latest release](https://github.com/seanCodes/bootstrap-less-port/archive/master.zip)
-
 For bugs, feature-requests, or issues with the compiled CSS, please create an issue in the main Bootstrap repo.
 
 For errors or bugs related to the ported code, please submit a pull request or create an issue.
+
+Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
 
 
 
