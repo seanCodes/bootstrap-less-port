@@ -33,12 +33,6 @@ function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // 
 	return map
 }
 
-function parseUnit(str) {
-	const strValue = parseFloat(str)
-
-	return str.replace(`${strValue}`, '')
-}
-
 function getBreakpoints(context, breakpoints) {
 	if (! breakpoints) {
 		if (Object.keys(gridBreakpoints).length === 0)
@@ -89,8 +83,6 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	const breakpointNames = Object.keys(breakpointsMap)
 	const breakpointIndex = breakpointNames.indexOf(breakpointName)
 
-	let nextBreakpoint
-
 	if (breakpointIndex === -1)
 		return new tree.Quoted('"')
 
@@ -98,9 +90,9 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	if ((breakpointIndex + 1) === breakpointNames.length)
 		return new tree.Quoted('"')
 
-	nextBreakpoint = breakpointsMap[breakpointNames[breakpointIndex + 1]]
+	const nextBreakpoint = breakpointsMap[breakpointNames[breakpointIndex + 1]]
 
-	return new tree.Dimension((parseFloat(nextBreakpoint) - 0.02), parseUnit(nextBreakpoint))
+	return new tree.Dimension((parseFloat(nextBreakpoint) - 0.02), nextBreakpoint.replace(/[0-9.+-]+/g, ''))
 })
 
 functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {
