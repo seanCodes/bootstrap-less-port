@@ -50,7 +50,11 @@ functions.add('theme-color-level', function ({ value: colorName }, { value: leve
 	if (Object.keys(themeColors).length === 0)
 		themeColors = rulesetToMap(lookupVariable(context, '@theme-colors'))
 
-	const color      = themeColors[colorName].type === 'Expression' ? themeColors[colorName].eval(context) : themeColors[colorName] // .eval() gets the Color node that the Expression node refers to
+	let color = themeColors[colorName]
+	
+	if (color.type === 'Expression')
+		color =  color.eval(context) // .eval() gets the Color node that the Expression node refers to
+	
 	const colorBase  = new tree.Color(level > 0 ? black : white)
 	const mixPercent = new tree.Dimension(Math.abs(level * themeColorInterval) + '%')
 
