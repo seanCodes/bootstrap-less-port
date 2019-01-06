@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- __Dev__: Updated ESLint config to allow syntax up to ES8
+
 
 ## [0.5.0] – 2018-12-06
 

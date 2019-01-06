@@ -1,8 +1,11 @@
 /* eslint-env node */
 
 module.exports = {
-	parserOptions: { ecmaFeatures: { impliedStrict: true } },
-	env: { es6: true }, // automatically sets `ecmaVersion` in `parserOptions` to 6
+	parserOptions: {
+		ecmaVersion: 8,
+		ecmaFeatures: { impliedStrict: true }
+	},
+	env: { es6: true }, // enable all ES6 globals
 	globals: {
 		tree      : false,
 		functions : false,
@@ -187,7 +190,7 @@ module.exports = {
 		'space-unary-ops'                  : ['error', { words: true, nonwords: false, overrides: { '!' :true, '!!': true } }],
 		'spaced-comment'                   : ['error', 'always', {
 			line  : { markers: ['/', '!'] },
-			block : { exceptions: ['*'], balanced: true },
+			block : { exceptions: ['*', '!'], balanced: true },
 		}],
 		'switch-colon-spacing'             :  'error',
 		'template-tag-spacing'             :  'error',
