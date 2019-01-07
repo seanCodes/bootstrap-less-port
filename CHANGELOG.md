@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased]
+## [1.0.0] – 2018-01-06
+
+First major release (since everything seems stable at this point).
 
 ### Added
 - __Dev__: Added a changelog
@@ -133,7 +135,7 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 ---
 
-[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.5.0...HEAD
+[1.0.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.2.0...v0.3.0
