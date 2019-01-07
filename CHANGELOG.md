@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- __Dev__: Added a changelog
+- __Dev__: Added Less as a peer dependency in `package.json` (currently `>=2.6.0`)
+
 ### Changed
 - __Dev__: Updated ESLint config to allow syntax up to ES8
 
