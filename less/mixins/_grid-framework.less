@@ -78,7 +78,7 @@
 		padding-left: (@gutter / 2);
 	};
 
-	each(keys(@breakpoints), #(@breakpoint) {
+	each(map-keys(@breakpoints), #(@breakpoint) {
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
 		// Allow columns to stretch full width below their breakpoints

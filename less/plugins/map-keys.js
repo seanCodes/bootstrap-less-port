@@ -1,4 +1,4 @@
-functions.add('keys', function ({ ruleset: { rules } }) {
+functions.add('map-keys', function ({ ruleset: { rules } }) {
 	const keys = []
 
 	rules.forEach(({ name: key }) => {

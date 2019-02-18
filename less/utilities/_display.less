@@ -16,7 +16,7 @@
 //    .d#{$infix}-inline-flex  { display: inline-flex !important; }
 //  }
 //}
-each(keys(@grid-breakpoints), #(@breakpoint) {
+each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
