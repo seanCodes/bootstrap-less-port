@@ -20,11 +20,16 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) { // @TODO: unify this function between files, maybe even canonize it as a Ruleset/DetachedRuleset method at some point.
+// @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
+// `Ruleset`/`DetachedRuleset` method at some point.
+function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
 	rules.forEach(({ name: key, value: { value } }) => {
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // Logic adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
+		// If the key is actually an array, then extract the keyname from the first item the array.
+		//
+		// This logic is adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49.
+		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword))
 			key = key[0].value
 
 		map[`${key}`] = value
