@@ -82,14 +82,13 @@
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
 		// Allow columns to stretch full width below their breakpoints
-		#for-1-to-columns(@i: 1) when (@i <= @columns) {
+		#each-column(@i: 1) when (@i <= @columns) {
 			.col@{infix}-@{i} {
 				&:extend(.grid-column);
 			}
 
-			#for-1-to-columns((@i + 1));
-		} #for-1-to-columns();
-
+			#each-column((@i + 1));
+		} #each-column();
 		.col@{infix},
 		.col@{infix}-auto {
 			&:extend(.grid-column);
@@ -108,26 +107,26 @@
 				max-width: none; // Reset earlier grid tiers
 			}
 
-			#for-1-to-columns-col(@ii: 1) when (@ii <= @columns) {
+			#each-column-col(@ii: 1) when (@ii <= @columns) {
 				.col@{infix}-@{ii} {
 					#make-col(@ii, @columns);
 				}
 
-				#for-1-to-columns-col((@ii + 1));
-			} #for-1-to-columns-col();
+				#each-column-col((@ii + 1));
+			} #each-column-col();
 
 			.order@{infix}-first { order: -1; }
 
 			.order@{infix}-last { order: (@columns + 1); }
 
-			#for-1-to-columns-order(@ii: 0) when (@ii <= @columns) {
+			#each-column-order(@ii: 0) when (@ii <= @columns) {
 				.order@{infix}-@{ii} { order: @ii; }
 
-				#for-1-to-columns-order((@ii + 1));
-			} #for-1-to-columns-order();
+				#each-column-order((@ii + 1));
+			} #each-column-order();
 
 			// `@ii < @columns` because offsetting by the width of an entire row isn't possible
-			#for-1-to-columns-offset(@ii: 0) when (@ii < @columns) {
+			#each-column-offset(@ii: 0) when (@ii < @columns) {
 				& when not (@ii = 0),
 				(@ii = 0) and not (@infix = ~"") {
 					.offset@{infix}-@{ii} {
@@ -135,8 +134,8 @@
 					}
 				}
 
-				#for-1-to-columns-offset((@ii + 1));
-			} #for-1-to-columns-offset();
+				#each-column-offset((@ii + 1));
+			} #each-column-offset();
 		});
 	});
 }
