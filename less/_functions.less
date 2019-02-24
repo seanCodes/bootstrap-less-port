@@ -75,6 +75,17 @@
 //@function color($key: "blue") {
 //  @return map-get($colors, $key);
 //}
+@plugin "plugins/color";
+
+//@function theme-color($key: "primary") {
+//  @return map-get($theme-colors, $key);
+//}
+@plugin "plugins/theme-color";
+
+//@function gray($key: "100") {
+//  @return map-get($grays, $key);
+//}
+@plugin "plugins/gray";
 
 // Request a theme color level
 //@function theme-color-level($color-name: "primary", $level: 0) {
