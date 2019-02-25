@@ -22,17 +22,17 @@ function lookupVariable(context, variableName) {
 
 // @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
 // `Ruleset`/`DetachedRuleset` method at some point.
-function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	rules.forEach(({ name: key, value: { value } }) => {
-		// If the key is actually an array, then extract the keyname from the first item the array.
-		//
-		// This logic is adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49.
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword))
-			key = key[0].value
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
 
-		map[`${key}`] = value
+		const { name: key, value } = rule.eval(context)
+
+		map[key] = value
 	})
 
 	return map
@@ -45,7 +45,7 @@ function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
 functions.add('color', function ({ value: colorName } = { value: 'blue' }) {
 	// If `colors` hasn’t been defined yet, set it to the value of `@colors`.
 	if (Object.keys(colors).length === 0)
-		colors = rulesetToMap(lookupVariable(this.context, '@colors'))
+		colors = rulesetToMap(this.context, lookupVariable(this.context, '@colors'))
 
 	return colors[colorName]
 })

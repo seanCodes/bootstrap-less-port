@@ -20,16 +20,19 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
+// @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
+// `Ruleset`/`DetachedRuleset` method at some point.
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	rules.forEach(({ name: key, value: { value:item } }) => {
-		const [value] = item || [{}]
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
 
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // Logic borrowed from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
-			key = key[0].value // This may be a touch brittle
+		const { name: key, value } = rule.eval(context)
 
-		map[`${key}`] = value
+		map[key] = value
 	})
 
 	return map
@@ -48,13 +51,13 @@ functions.add('theme-color-level', function ({ value: colorName }, { value: leve
 
 	// If `themeColors` hasn’t been defined yet, set it to the value of `@theme-colors`.
 	if (Object.keys(themeColors).length === 0)
-		themeColors = rulesetToMap(lookupVariable(context, '@theme-colors'))
+		themeColors = rulesetToMap(context, lookupVariable(context, '@theme-colors'))
 
 	let color = themeColors[colorName]
-	
+
 	if (color.type === 'Expression')
 		color =  color.eval(context) // .eval() gets the Color node that the Expression node refers to
-	
+
 	const colorBase  = new tree.Color(level > 0 ? black : white)
 	const mixPercent = new tree.Dimension(Math.abs(level * themeColorInterval) + '%')
 

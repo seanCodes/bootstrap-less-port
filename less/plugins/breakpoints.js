@@ -22,17 +22,17 @@ function lookupVariable(context, variableName) {
 
 // @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
 // `Ruleset`/`DetachedRuleset` method at some point.
-function rulesetToMap({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	rules.forEach(({ name: key, value: { value } }) => {
-		// If the key is actually an array, then extract the keyname from the first item the array.
-		//
-		// This logic is adapted from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49.
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword))
-			key = key[0].value
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
 
-		map[`${key}`] = value
+		const { name: key, value } = rule.eval(context)
+
+		map[key] = value
 	})
 
 	return map
@@ -46,7 +46,18 @@ function getBreakpoints(context, breakpoints) {
 		breakpoints = gridBreakpoints
 	}
 
-	return rulesetToMap(breakpoints)
+	const rulesetMap = rulesetToMap(context, breakpoints)
+
+	// Since values in the map will be instances of `Anonymous`, convert them to `Dimension`s.
+	for (const key in rulesetMap) {
+		const value = rulesetMap[key].value
+		const number = parseFloat(value, 10)
+		const unit = value.toString().replace(number, '')
+
+		rulesetMap[key] = new tree.Dimension(number, unit)
+	}
+
+	return rulesetMap
 }
 
 //
@@ -97,7 +108,7 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 
 	const nextBreakpoint = breakpointsMap[breakpointNames[breakpointIndex + 1]]
 
-	return new tree.Dimension((parseFloat(nextBreakpoint) - 0.02), nextBreakpoint.replace(/[0-9.+-]+/g, ''))
+	return new tree.Dimension(nextBreakpoint.value - 0.02, nextBreakpoint.unit)
 })
 
 functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {

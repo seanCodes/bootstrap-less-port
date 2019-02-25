@@ -1,9 +1,12 @@
-functions.add('map-keys', function ({ ruleset: { rules } }) {
+functions.add('map-keys', function ({ ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const keys = []
 
-	rules.forEach(({ name: key }) => {
-		if (typeof key !== 'string' && key.length === 1 && (key[0] instanceof tree.Keyword)) // Logic borrowed from https://github.com/less/less.js/blob/master/lib/less/tree/declaration.js#L46-L49
-			key = key[0].value // This may be a touch brittle
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
+
+		const { name: key } = rule.eval(this.context)
 
 		keys.push(new tree.Anonymous(key))
 	})
