@@ -11,7 +11,7 @@ The code is currently aligned with [Bootstrap v4.1.3](https://github.com/twbs/bo
 
 ## Getting Started
 
-Options for installing Bootstrap Less in your project:
+Options for installing Bootstrap Less in your project (note that Less v3.8.1 or above is required):
 
 - Install with [npm](https://www.npmjs.com/): `npm install bootstrap-less-port`
 - Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap-less-port`
@@ -36,48 +36,34 @@ your-project/
              └─ ...
 ```
 
-In this case, you could then import what you need into `custom.less` using relative paths to the files in the `node_modules` folder:
+In this case, you could then import what you need into `custom.less` using module-relative paths:
 
 ```less
 // custom.less
 
 
 // Required Files
-@import "../../node_modules/bootstrap-less-port/less/_functions";
-@import "../../node_modules/bootstrap-less-port/less/_variables";
-@import "../../node_modules/bootstrap-less-port/less/_mixins";
+@import "bootstrap-less-port/less/_functions";
+@import "bootstrap-less-port/less/_variables";
+@import "bootstrap-less-port/less/_mixins";
 
 // Optional Files
-@import "../../node_modules/bootstrap-less-port/less/_reboot";
-@import "../../node_modules/bootstrap-less-port/less/_utilities";
-@import "../../node_modules/bootstrap-less-port/less/_type";
-@import "../../node_modules/bootstrap-less-port/less/_grid";
+@import "bootstrap-less-port/less/_reboot";
+@import "bootstrap-less-port/less/_utilities";
+@import "bootstrap-less-port/less/_type";
+@import "bootstrap-less-port/less/_grid";
 ...
 ```
 
 This approach is recommended since it will result in a smaller CSS file by omitting the styles you don’t need. (Just be aware that some files are dependent on others.)
 
-Alternatively, you can get the entire framework by importing the main `bootstrap.less` file:
+Alternatively, you can get the entire framework by simply importing the package as a whole. (Or, if not using a package manager, importing `bootstrap-less-port/less/bootstrap` instead.)
 
 ```less
 // custom.less
 
 
-@import "../../node_modules/bootstrap-less-port/less/bootstrap";
-```
-
-#### Usage with `less-plugin-npm-import`
-
-If you’re using `lessc` on the command line, you can use [`less-plugin-npm-import`](https://github.com/less/less-plugin-npm-import) to import the files in a much cooler and more maintainable way. Just install the plugin via npm and then reference the Bootstrap Less files using the plugin’s default `npm://` prefix:
-
-```less
-@import "npm://bootstrap-less-port/less/bootstrap";
-```
-
-Then simply include the `--npm-import` flag when compiling:
-
-```bash
-$ lessc --npm-import file.less file.css
+@import "bootstrap-less-port";
 ```
 
 
@@ -89,7 +75,7 @@ The recommended way of customizing Bootstrap is to modify the provided variables
 // custom.less
 
 
-@import "../../node_modules/bootstrap-less-port/less/bootstrap";
+@import "bootstrap-less-port";
 
 // Variable Overrides
 @body-bg: @black;
@@ -124,9 +110,7 @@ This port attempts to mirror the source Sass files as closely as possible in ord
 
    Note: The plugins are included using the [`@plugin`](http://lesscss.org/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
 
-0. **Maps** Less has no _native_ concept of maps, which are used extensively in the Bootstrap Sass files. They can be emulated, however, by using a comma-separated list of space-separated lists, which is what is done in this port.
-
-0. **Loops** Sass `@for` and `@each` loops have been replaced with Less’s method of looping which requires unique, named mixins for every loop. This is a bit clunky and means that the loops used in this port are verbose and difficult to read, but it’s the best we’ve got until I can figure out how to overcome this with a plugin.
+0. **Loops** Where possible, Sass `@each` loops have been replaced with the Less `each()` function. Sass `@for` directives are trickier and have no direct Less analog (yet), so they are replaced with the old Less method of looping, which requires a unique, named mixin for every loop. This is a bit clunky, and means that in some places, loops are verbose and difficult to read, but it’s the best we’ve got until we figure out how to do this with a plugin (or Less adds a native equivalent).
 
    In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
 

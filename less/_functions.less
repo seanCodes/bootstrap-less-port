@@ -3,7 +3,11 @@
 // Utility mixins and functions for evaluating source code across our variables, maps, and mixins.
 
 @plugin "plugins/index";
-@plugin "plugins/map-get";
+
+// LESS PORT: This plugin implements a function for returning a list of keys in a map, like Sass’
+// [`map-keys()`](http://sass-lang.com/documentation/Sass/Script/Functions.html#map_keys-instance_method)
+// function.
+@plugin "plugins/map-keys";
 
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.

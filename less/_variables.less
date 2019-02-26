@@ -20,16 +20,17 @@
 @gray-900: #212529;
 @black:    #000;
 
-@grays:
-	100   @gray-100,
-	200   @gray-200,
-	300   @gray-300,
-	400   @gray-400,
-	500   @gray-500,
-	600   @gray-600,
-	700   @gray-700,
-	800   @gray-800,
-	900   @gray-900;
+@grays: {
+	100: @gray-100;
+	200: @gray-200;
+	300: @gray-300;
+	400: @gray-400;
+	500: @gray-500;
+	600: @gray-600;
+	700: @gray-700;
+	800: @gray-800;
+	900: @gray-900;
+};
 
 @blue:    #007bff;
 @indigo:  #6610f2;
@@ -42,20 +43,21 @@
 @teal:    #20c997;
 @cyan:    #17a2b8;
 
-@colors:
-	blue         @blue,
-	indigo       @indigo,
-	purple       @purple,
-	pink         @pink,
-	red          @red,
-	orange       @orange,
-	yellow       @yellow,
-	green        @green,
-	teal         @teal,
-	cyan         @cyan,
-	white        @white,
-	gray         @gray-600,
-	gray-dark    @gray-800;
+@colors: {
+	blue:       @blue;
+	indigo:     @indigo;
+	purple:     @purple;
+	pink:       @pink;
+	red:        @red;
+	orange:     @orange;
+	yellow:     @yellow;
+	green:      @green;
+	teal:       @teal;
+	cyan:       @cyan;
+	white:      @white;
+	gray:       @gray-600;
+	gray-dark:  @gray-800;
+};
 
 @primary:       @blue;
 @secondary:     @gray-600;
@@ -66,15 +68,16 @@
 @light:         @gray-100;
 @dark:          @gray-800;
 
-@theme-colors:
-	primary      @primary,
-	secondary    @secondary,
-	success      @success,
-	info         @info,
-	warning      @warning,
-	danger       @danger,
-	light        @light,
-	dark         @dark;
+@theme-colors: {
+	primary:     @primary;
+	secondary:   @secondary;
+	success:     @success;
+	info:        @info;
+	warning:     @warning;
+	danger:      @danger;
+	light:       @light;
+	dark:        @dark;
+};
 
 // Set a specific jump point for requesting color jumps
 @theme-color-interval:      8%;
@@ -107,21 +110,23 @@
 // You can add more entries to the @spacers map, should you need more variation.
 
 @spacer: 1rem;
-@spacers:
-	0 0,
-	1 (@spacer * 0.25),
-	2 (@spacer * 0.5),
-	3 @spacer,
-	4 (@spacer * 1.5),
-	5 (@spacer * 3);
+@spacers: {
+	0: 0;
+	1: (@spacer * 0.25);
+	2: (@spacer * 0.5);
+	3: @spacer;
+	4: (@spacer * 1.5);
+	5: (@spacer * 3);
+};
 
 // This variable affects the `.h-*` and `.w-*` classes.
-@sizes:
-	25 25%,
-	50 50%,
-	75 75%,
-	100 100%,
-	auto auto;
+@sizes: {
+	25:   25%;
+	50:   50%;
+	75:   75%;
+	100:  100%;
+	auto: auto;
+};
 
 // Body
 //
@@ -151,12 +156,13 @@
 // Define the minimum dimensions at which your layout will change,
 // adapting to different screen sizes, for use in media queries.
 
-@grid-breakpoints:
-	xs 0,
-	sm 576px,
-	md 768px,
-	lg 992px,
-	xl 1200px;
+@grid-breakpoints: {
+	xs: 0;
+	sm: 576px;
+	md: 768px;
+	lg: 992px;
+	xl: 1200px;
+};
 
 //@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
 //@include _assert-starts-at-zero($grid-breakpoints);
@@ -166,11 +172,12 @@
 //
 // Define the maximum width of `.container` for different screen sizes.
 
-@container-max-widths:
-	sm 540px,
-	md 720px,
-	lg 960px,
-	xl 1140px;
+@container-max-widths: {
+	sm: 540px;
+	md: 720px;
+	lg: 960px;
+	xl: 1140px;
+};
 
 //@include _assert-ascending($container-max-widths, "$container-max-widths");
 
@@ -409,13 +416,13 @@
 @input-height-border:                   (@input-border-width * 2);
 
 @input-height-inner:                    (@font-size-base * @input-btn-line-height + @input-btn-padding-y * 2);
-@input-height:                          ~"calc(@{input-height-inner} + @{input-height-border})";
+@input-height:                          calc(@input-height-inner + @input-height-border);
 
 @input-height-inner-sm:                 (@font-size-sm * @input-btn-line-height-sm + @input-btn-padding-y-sm * 2);
-@input-height-sm:                       ~"calc(@{input-height-inner-sm} + @{input-height-border})";
+@input-height-sm:                       calc(@input-height-inner-sm + @input-height-border);
 
 @input-height-inner-lg:                 (@font-size-lg * @input-btn-line-height-lg + @input-btn-padding-y-lg * 2);
-@input-height-lg:                       ~"calc(@{input-height-inner-lg} + @{input-height-border})";
+@input-height-lg:                       calc(@input-height-inner-lg + @input-height-border);
 
 @input-transition:                      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
@@ -530,8 +537,9 @@
 @custom-file-box-shadow:            @input-box-shadow;
 @custom-file-button-color:          @custom-file-color;
 @custom-file-button-bg:             @input-group-addon-bg;
-@custom-file-text:
-	en "Browse";
+@custom-file-text: {
+	en: "Browse";
+};
 
 
 // Form validation
@@ -680,7 +688,7 @@
 @card-border-width:                 @border-width;
 @card-border-radius:                @border-radius;
 @card-border-color:                 fade(@black, 12.5%);
-@card-inner-border-radius:          ~"calc(@{card-border-radius} - @{card-border-width})";
+@card-inner-border-radius:          calc(@card-border-radius - @card-border-width);
 @card-cap-bg:                       fade(@black, 3%);
 @card-bg:                           @white;
 
@@ -914,4 +922,4 @@
 
 // Printing
 @print-page-size:                   a3;
-@print-body-min-width:              map-get(@grid-breakpoints, lg);
+@print-body-min-width:              @grid-breakpoints[lg];

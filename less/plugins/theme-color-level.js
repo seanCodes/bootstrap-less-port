@@ -20,23 +20,20 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function listToMap({ value: list } = { value: [] }) {
+// @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
+// `Ruleset`/`DetachedRuleset` method at some point.
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	// Handle maps that only have one key/value pair (since they will look like a plain list of
-	// length 2).
-	if (list.length === 2 && ! Array.isArray(list[0].value)) {
-		const [{ value: key }, value] = list || [{}]
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
+
+		const { name: key, value } = rule.eval(context)
 
 		map[key] = value
-	} else
-		list.forEach(({ value: item } = {}) => {
-			if (Array.isArray(item)) {
-				const [{ value: key }, value] = item || [{}]
-
-				map[`${key}`] = value
-			}
-		})
+	})
 
 	return map
 }
@@ -54,9 +51,13 @@ functions.add('theme-color-level', function ({ value: colorName }, { value: leve
 
 	// If `themeColors` hasn’t been defined yet, set it to the value of `@theme-colors`.
 	if (Object.keys(themeColors).length === 0)
-		themeColors = listToMap(lookupVariable(context, '@theme-colors'))
+		themeColors = rulesetToMap(context, lookupVariable(context, '@theme-colors'))
 
-	const color      = themeColors[colorName]
+	let color = themeColors[colorName]
+
+	if (color.type === 'Expression')
+		color =  color.eval(context) // .eval() gets the Color node that the Expression node refers to
+
 	const colorBase  = new tree.Color(level > 0 ? black : white)
 	const mixPercent = new tree.Dimension(Math.abs(level * themeColorInterval) + '%')
 

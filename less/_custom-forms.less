@@ -270,34 +270,14 @@
 
 	//@each $lang, $value in $custom-file-text {
 	//  &:lang(#{$lang}) ~ .custom-file-label::after {
-	//    content: @value;
+	//    content: $value;
 	//  }
 	//}
-	#each-language-file-input-label(@i: 1) when (@i =< length(@custom-file-text)) {
-		// LESS PORT: This gets really funky because a single key/value pair has to be handled
-		// differently than a list of key/values. This is because Less will see a single key/value as
-		// a space-separated list of two items instead of a comma-separated list of just a single
-		// item, so logic is added to handle both cases.
-		& when (length(extract(@custom-file-text, @i)) = 1) {
-			@lang: extract(@custom-file-text, 1);
-			@text: extract(@custom-file-text, 2);
-
-			&:lang(@{lang}) ~ .custom-file-label::after {
-				content: @text;
-			}
+	each(@custom-file-text, #(@value, @lang) {
+		&:lang(@{lang}) ~ .custom-file-label::after {
+			content: @value;
 		}
-		& when (length(extract(@custom-file-text, @i)) = 2) {
-			@item: extract(@custom-file-text, @i);
-			@lang: extract(@item, 1);
-			@text: extract(@item, 2);
-
-			&:lang(@{lang}) ~ .custom-file-label::after {
-				content: @text;
-			}
-
-			#each-language-file-input-label((@i + 1));
-		}
-	} #each-language-file-input-label();
+	});
 }
 
 .custom-file-label {

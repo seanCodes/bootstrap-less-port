@@ -20,23 +20,20 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function listToMap({ value: list } = { value: [] }) {
+// @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
+// `Ruleset`/`DetachedRuleset` method at some point.
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	// Handle maps that only have one key/value pair (since they will look like a plain list of
-	// length 2).
-	if (list.length === 2 && ! Array.isArray(list[0].value)) {
-		const [{ value: key }, value] = list || [{}]
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
+
+		const { name: key, value } = rule.eval(context)
 
 		map[key] = value
-	} else
-		list.forEach(({ value: item } = {}) => {
-			if (Array.isArray(item)) {
-				const [{ value: key }, value] = item || [{}]
-
-				map[`${key}`] = value
-			}
-		})
+	})
 
 	return map
 }
@@ -48,7 +45,7 @@ function listToMap({ value: list } = { value: [] }) {
 functions.add('color', function ({ value: colorName } = { value: 'blue' }) {
 	// If `colors` hasn’t been defined yet, set it to the value of `@colors`.
 	if (Object.keys(colors).length === 0)
-		colors = listToMap(lookupVariable(this.context, '@colors'))
+		colors = rulesetToMap(this.context, lookupVariable(this.context, '@colors'))
 
 	return colors[colorName]
 })

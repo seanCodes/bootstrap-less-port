@@ -103,15 +103,9 @@
 //@each $color, $value in $theme-colors {
 //  @include table-row-variant($color, theme-color-level($color, -9));
 //}
-#each-theme-color-table-row(@i: 1) when (@i =< length(@theme-colors)) {
-	@item: extract(@theme-colors, @i);
-	@color: extract(@item, 1);
-	@colorValue: extract(@item, 2);
-
+each(@theme-colors, #(@value, @color) {
 	#table-row-variant(@color, theme-color-level(@color, -9));
-
-	#each-theme-color-table-row((@i + 1));
-} #each-theme-color-table-row();
+});
 
 #table-row-variant(active, @table-active-bg);
 
@@ -173,46 +167,43 @@
 // Generate series of `.table-responsive-*` classes for configuring the screen
 // size of where your table will overflow.
 
-.table-responsive {
-	//@each $breakpoint in map-keys($grid-breakpoints) {
-	//  $next: breakpoint-next($breakpoint, $grid-breakpoints);
-	//  $infix: breakpoint-infix($next, $grid-breakpoints);
-	//
-	//  &#{$infix} {
-	//    @include media-breakpoint-down($breakpoint) {
-	//      display: block;
-	//      width: 100%;
-	//      overflow-x: auto;
-	//      -webkit-overflow-scrolling: touch;
-	//      -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
-	//
-	//      // Prevent double border on horizontal scroll due to use of `display: block;`
-	//      &.table-bordered {
-	//        border: 0;
-	//      }
-	//    }
-	//  }
-	//}
-	#each-breakpoint-responsive-table(@i: 1) when (@i =< length(@grid-breakpoints)) {
-		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
-		@infix: breakpoint-infix(@next, @grid-breakpoints);
+//.table-responsive {
+//  @each $breakpoint in map-keys($grid-breakpoints) {
+//    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+//    $infix: breakpoint-infix($next, $grid-breakpoints);
+//
+//    &#{$infix} {
+//      @include media-breakpoint-down($breakpoint) {
+//        display: block;
+//        width: 100%;
+//        overflow-x: auto;
+//        -webkit-overflow-scrolling: touch;
+//        -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
+//
+//        // Prevent double border on horizontal scroll due to use of `display: block;`
+//        &.table-bordered {
+//          border: 0;
+//        }
+//      }
+//    }
+//  }
+//}
+each(map-keys(@grid-breakpoints), #(@breakpoint) {
+	@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+	@infix: breakpoint-infix(@next, @grid-breakpoints);
 
-		&@{infix} {
-			#media-breakpoint-down(@breakpoint, {
-				display: block;
-				width: 100%;
-				overflow-x: auto;
-				-webkit-overflow-scrolling: touch;
-				-ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
+	.table-responsive@{infix} {
+		#media-breakpoint-down(@breakpoint, {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			-ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
 
-				// Prevent double border on horizontal scroll due to use of `display: block;`
-				> .table-bordered {
-					border: 0;
-				}
-			});
-		}
-
-		#each-breakpoint-responsive-table((@i + 1));
-	} #each-breakpoint-responsive-table();
-}
+			// Prevent double border on horizontal scroll due to use of `display: block;`
+			> .table-bordered {
+				border: 0;
+			}
+		});
+	}
+})

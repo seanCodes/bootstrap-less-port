@@ -22,20 +22,20 @@
 	"engines": {
 		"node": ">=6"
 	},
-	"main": "index.js",
+	"main": "less/bootstrap.less",
 	"style": "dist/css/bootstrap.css",
 	"less": "less/bootstrap.less",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "npm run lint && npm run css",
 		"css": "npm run css-compile && npm run css-prefix && npm run css-minify",
-		"css-compile": "lessc --strict-math=on --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --strict-math=on --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --strict-math=on --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
+		"css-compile": "lessc --math=parens --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --math=parens --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --math=parens --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
 		"css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\"",
 		"css-minify": "cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css",
 		"lint": "eslint ."
 	},
 	"peerDependencies": {
-		"less": "^2.6.0"
+		"less": "^3.8.1"
 	},
 	"devDependencies": {
 		"autoprefixer": "^8.6.5",

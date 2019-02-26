@@ -137,109 +137,106 @@
 
 // Generate series of `.navbar-expand-*` responsive classes for configuring
 // where your navbar collapses.
-.navbar-expand {
-	//@each @breakpoint in map-keys(@grid-breakpoints) {
-	//  @next: breakpoint-next(@breakpoint, @grid-breakpoints);
-	//  @infix: breakpoint-infix(@next, @grid-breakpoints);
-	//
-	//  &@{infix} {
-	//    @include media-breakpoint-down(@breakpoint) {
-	//      > .container,
-	//      > .container-fluid {
-	//        padding-right: 0;
-	//        padding-left: 0;
-	//      }
-	//    }
-	//
-	//    @include media-breakpoint-up(@next) {
-	//      flex-flow: row nowrap;
-	//      justify-content: flex-start;
-	//
-	//      .navbar-nav {
-	//        flex-direction: row;
-	//
-	//        .dropdown-menu {
-	//          position: absolute;
-	//        }
-	//
-	//        .nav-link {
-	//          padding-right: $navbar-nav-link-padding-x;
-	//          padding-left: $navbar-nav-link-padding-x;
-	//        }
-	//      }
-	//
-	//      // For nesting containers, have to redeclare for alignment purposes
-	//      > .container,
-	//      > .container-fluid {
-	//        flex-wrap: nowrap;
-	//      }
-	//
-	//      .navbar-collapse {
-	//        display: flex !important;  // stylelint-disable-line declaration-no-important
-	//
-	//        // Changes flex-bases to auto because of an IE10 bug
-	//        flex-basis: auto;
-	//      }
-	//
-	//      .navbar-toggler {
-	//        display: none;
-	//      }
-	//    }
-	//  }
-	//}
-	#each-breakpoint-navbar(@i: 1) when (@i =< length(@grid-breakpoints)) {
-		@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
-		@infix: breakpoint-infix(@next, @grid-breakpoints);
+//.navbar-expand {
+//  @each @breakpoint in map-keys(@grid-breakpoints) {
+//    @next: breakpoint-next(@breakpoint, @grid-breakpoints);
+//    @infix: breakpoint-infix(@next, @grid-breakpoints);
+//
+//    &@{infix} {
+//      @include media-breakpoint-down(@breakpoint) {
+//        > .container,
+//        > .container-fluid {
+//          padding-right: 0;
+//          padding-left: 0;
+//        }
+//      }
+//
+//      @include media-breakpoint-up(@next) {
+//        flex-flow: row nowrap;
+//        justify-content: flex-start;
+//
+//        .navbar-nav {
+//          flex-direction: row;
+//
+//          .dropdown-menu {
+//            position: absolute;
+//          }
+//
+//          .nav-link {
+//            padding-right: $navbar-nav-link-padding-x;
+//            padding-left: $navbar-nav-link-padding-x;
+//          }
+//        }
+//
+//        // For nesting containers, have to redeclare for alignment purposes
+//        > .container,
+//        > .container-fluid {
+//          flex-wrap: nowrap;
+//        }
+//
+//        .navbar-collapse {
+//          display: flex !important;  // stylelint-disable-line declaration-no-important
+//
+//          // Changes flex-bases to auto because of an IE10 bug
+//          flex-basis: auto;
+//        }
+//
+//        .navbar-toggler {
+//          display: none;
+//        }
+//      }
+//    }
+//  }
+//}
+each(map-keys(@grid-breakpoints), #(@breakpoint) {
+	@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+	@infix: breakpoint-infix(@next, @grid-breakpoints);
 
-		&@{infix} {
-			#media-breakpoint-down(@breakpoint, {
-				> .container,
-				> .container-fluid {
-					padding-right: 0;
-					padding-left: 0;
-				}
-			});
+	.navbar-expand@{infix} {
+		#media-breakpoint-down(@breakpoint, {
+			> .container,
+			> .container-fluid {
+				padding-right: 0;
+				padding-left: 0;
+			}
+		});
 
-			#media-breakpoint-up(@next, {
-				flex-flow: row nowrap;
-				justify-content: flex-start;
+		#media-breakpoint-up(@next, {
+			flex-flow: row nowrap;
+			justify-content: flex-start;
 
-				.navbar-nav {
-					flex-direction: row;
+			.navbar-nav {
+				flex-direction: row;
 
-					.dropdown-menu {
-						position: absolute;
-					}
-
-					.nav-link {
-						padding-right: @navbar-nav-link-padding-x;
-						padding-left: @navbar-nav-link-padding-x;
-					}
+				.dropdown-menu {
+					position: absolute;
 				}
 
-				// For nesting containers, have to redeclare for alignment purposes
-				> .container,
-				> .container-fluid {
-					flex-wrap: nowrap;
+				.nav-link {
+					padding-right: @navbar-nav-link-padding-x;
+					padding-left: @navbar-nav-link-padding-x;
 				}
+			}
 
-				.navbar-collapse {
-					display: flex !important;
+			// For nesting containers, have to redeclare for alignment purposes
+			> .container,
+			> .container-fluid {
+				flex-wrap: nowrap;
+			}
 
-					// Changes flex-bases to auto because of an IE10 bug
-					flex-basis: auto;
-				}
+			.navbar-collapse {
+				display: flex !important;
 
-				.navbar-toggler {
-					display: none;
-				}
-			});
-		}
+				// Changes flex-bases to auto because of an IE10 bug
+				flex-basis: auto;
+			}
 
-		#each-breakpoint-navbar((@i + 1));
-	} #each-breakpoint-navbar();
-}
+			.navbar-toggler {
+				display: none;
+			}
+		});
+	}
+});
 
 
 // Navbar themes

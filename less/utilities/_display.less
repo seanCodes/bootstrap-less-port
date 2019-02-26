@@ -16,9 +16,7 @@
 //    .d#{$infix}-inline-flex  { display: inline-flex !important; }
 //  }
 //}
-#each-breakpoint-display(@i: 1) when (@i =< length(@grid-breakpoints)) {
-	@breakpoint: extract(extract(@grid-breakpoints, @i), 1);
-
+each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
@@ -32,9 +30,7 @@
 		.d@{infix}-flex         { display: flex !important; }
 		.d@{infix}-inline-flex  { display: inline-flex !important; }
 	});
-
-	#each-breakpoint-display((@i + 1));
-} #each-breakpoint-display();
+})
 
 
 //

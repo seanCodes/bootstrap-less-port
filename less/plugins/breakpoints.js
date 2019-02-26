@@ -20,23 +20,20 @@ function lookupVariable(context, variableName) {
 	})
 }
 
-function listToMap({ value: list } = { value: [] }) {
+// @TODO: [@calvinjuarez] unify this function between files, maybe even canonize it as a
+// `Ruleset`/`DetachedRuleset` method at some point.
+function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] } }) {
 	const map = {}
 
-	// Handle maps that only have one key/value pair (since they will look like a plain list of
-	// length 2).
-	if (list.length === 2 && ! Array.isArray(list[0].value)) {
-		const [{ value: key }, value] = list || [{}]
+	rules.forEach(rule => {
+		// Not exactly sure how to handle other types (or if they should be handled at all).
+		if (! (rule instanceof tree.Declaration))
+			return
+
+		const { name: key, value } = rule.eval(context)
 
 		map[key] = value
-	} else
-		list.forEach(({ value: item } = {}) => {
-			if (Array.isArray(item)) {
-				const [{ value: key }, value] = item || [{}]
-
-				map[`${key}`] = value
-			}
-		})
+	})
 
 	return map
 }
@@ -49,7 +46,18 @@ function getBreakpoints(context, breakpoints) {
 		breakpoints = gridBreakpoints
 	}
 
-	return listToMap(breakpoints)
+	const rulesetMap = rulesetToMap(context, breakpoints)
+
+	// Since values in the map will be instances of `Anonymous`, convert them to `Dimension`s.
+	for (const key in rulesetMap) {
+		const value = rulesetMap[key].value
+		const number = parseFloat(value, 10)
+		const unit = value.toString().replace(number, '')
+
+		rulesetMap[key] = new tree.Dimension(number, unit)
+	}
+
+	return rulesetMap
 }
 
 //
@@ -98,7 +106,9 @@ functions.add('breakpoint-max', function ({ value: breakpointName }, breakpoints
 	if ((breakpointIndex + 1) === breakpointNames.length)
 		return new tree.Quoted('"')
 
-	return new tree.Dimension((breakpointsMap[breakpointNames[breakpointIndex + 1]].value - 0.02), 'px')
+	const nextBreakpoint = breakpointsMap[breakpointNames[breakpointIndex + 1]]
+
+	return new tree.Dimension(nextBreakpoint.value - 0.02, nextBreakpoint.unit)
 })
 
 functions.add('breakpoint-infix', function ({ value: breakpointName }, breakpoints) {
