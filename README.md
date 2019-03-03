@@ -5,7 +5,7 @@
 
 This is a Less port of [Bootstrap v4](http://getbootstrap.com/), since Bootstrap now uses Sass for CSS preprocessing. This is purely a Sass→Less port: it doesn’t modify or build on the default Bootstrap styles in any way.
 
-The code is currently aligned with [Bootstrap v4.1.3](https://github.com/twbs/bootstrap/tree/v4.1.3). It requires Less v2.6.0 or above to compile.
+The code is currently aligned with [Bootstrap v4.1.3](https://github.com/twbs/bootstrap/tree/v4.1.3). It requires Less v3.8.1 or above to compile.
 
 
 
