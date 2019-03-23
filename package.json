@@ -35,7 +35,7 @@
 		"lint": "eslint ."
 	},
 	"peerDependencies": {
-		"less": "^3.8.1"
+		"less": "^3.9.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "^8.6.5",

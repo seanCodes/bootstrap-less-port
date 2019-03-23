@@ -82,13 +82,12 @@
 		@infix: breakpoint-infix(@breakpoint, @breakpoints);
 
 		// Allow columns to stretch full width below their breakpoints
-		#each-column(@i: 1) when (@i <= @columns) {
+		each(range(@columns), #(@i) {
 			.col@{infix}-@{i} {
 				&:extend(.grid-column);
 			}
+		});
 
-			#each-column((@i + 1));
-		} #each-column();
 		.col@{infix},
 		.col@{infix}-auto {
 			&:extend(.grid-column);
@@ -107,35 +106,29 @@
 				max-width: none; // Reset earlier grid tiers
 			}
 
-			#each-column-col(@ii: 1) when (@ii <= @columns) {
-				.col@{infix}-@{ii} {
-					#make-col(@ii, @columns);
+			each(range(@columns), #(@i) {
+				.col@{infix}-@{i} {
+					#make-col(@i, @columns);
 				}
-
-				#each-column-col((@ii + 1));
-			} #each-column-col();
+			});
 
 			.order@{infix}-first { order: -1; }
 
 			.order@{infix}-last { order: (@columns + 1); }
 
-			#each-column-order(@ii: 0) when (@ii <= @columns) {
-				.order@{infix}-@{ii} { order: @ii; }
+			each(range(0, @columns), #(@i) {
+				.order@{infix}-@{i} { order: @i; }
+			});
 
-				#each-column-order((@ii + 1));
-			} #each-column-order();
-
-			// `@ii < @columns` because offsetting by the width of an entire row isn't possible
-			#each-column-offset(@ii: 0) when (@ii < @columns) {
-				& when not (@ii = 0),
-				(@ii = 0) and not (@infix = ~"") {
-					.offset@{infix}-@{ii} {
-						#make-col-offset(@ii, @columns);
+			// `@columns - 1` because offsetting by the width of an entire row isn't possible
+			each(range(0, (@columns - 1)), #(@i) {
+				& when not (@i = 0),
+				(@i = 0) and not (@infix = ~"") {
+					.offset@{infix}-@{i} {
+						#make-col-offset(@i, @columns);
 					}
 				}
-
-				#each-column-offset((@ii + 1));
-			} #each-column-offset();
+			});
 		});
 	});
 }
