@@ -39,7 +39,7 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "^9.6.1",
-		"clean-css-cli": "^4.1.11",
+		"clean-css-cli": "^4.3.0",
 		"eslint": "^6.0.1",
 		"less": "^3.9.0",
 		"postcss-cli": "^6.1.2"
