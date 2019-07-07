@@ -100,21 +100,21 @@ See the [Bootstrap v4 docs](http://getbootstrap.com/docs/4.0/getting-started/int
 
 This port attempts to mirror the source Sass files as closely as possible in order to make updating it straight-forward. This means that variable/mixin naming, custom functions and most code style match the original project with a few notable exceptions:
 
-0. **Mixins** Mixins work the same as they did in previous Bootstrap versions with the exception that they now use ID selectors instead of class selectors (e.g. `.border-radius()` is now `#border-radius()`). This was done to avoid potential collisions with the user’s class names.
+1. **Mixins** Mixins work the same as they did in previous Bootstrap versions with the exception that they now use ID selectors instead of class selectors (e.g. `.border-radius()` is now `#border-radius()`). This was done to avoid potential collisions with the user’s class names.
 
    Variables within mixins are named the same as their Sass counterparts whenever possible, in order to make comparison with the Sass version easier.
 
-0. **Custom functions** Sass allows for custom functions to be written in the sass files themselves, which isn’t possible in Less. All custom functions have been replaced with Less plugins that add equivalent functions to the language. These plugins are located in `less/plugins/` as JavaScript files.
+1. **Custom functions** Sass allows for custom functions to be written in the sass files themselves, which isn’t possible in Less. All custom functions have been replaced with Less plugins that add equivalent functions to the language. These plugins are located in `less/plugins/` as JavaScript files.
 
    Plugins have also been added to duplicate some native Sass functions for simplicity.
 
    Note: The plugins are included using the [`@plugin`](http://lesscss.org/features/#plugin-atrules-feature) at-rule instead of as arguments to the `lessc` CLI. This was intentionally done since most Less GUI compilers don’t allow you to customize the command-line arguments.
 
-0. **Loops** Where possible, Sass `@each` loops have been replaced with the Less [`each()`](http://lesscss.org/functions/#list-functions-each) function. Sass `@for` directives have been replaced by `each()` together with the [`range()`](http://lesscss.org/functions/#list-functions-range) function.
+1. **Loops** Where possible, Sass `@each` loops have been replaced with the Less [`each()`](http://lesscss.org/functions/#list-functions-each) function. Sass `@for` directives have been replaced by `each()` together with the [`range()`](http://lesscss.org/functions/#list-functions-range) function.
 
    In order to make catching bugs easier, the Sass versions of most for/each loops have been kept in the code, commented, above the Less versions.
 
-0. **Code style** While the code style is mostly identical to that used by Bootstrap, a few changes have been made:
+1. **Code style** While the code style is mostly identical to that used by Bootstrap, a few changes have been made:
    - Tabs are used instead of spaces
    - Leading zeros have been added to decimal numbers for readability
    - Spaces have been added between the values of comma-separated lists, also for readability
