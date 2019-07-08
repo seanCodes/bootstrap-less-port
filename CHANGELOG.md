@@ -30,6 +30,11 @@ Thanks to the above, some clunky workarounds used previously have now been remov
    * Switched to `each()` for looping instead of mixins, where possible
    * The map variables used previously (which were actually not maps at all, but nested lists) have been changed to use Less rulesets so that they’re much more map-like. 
    * `each()` is now used for looping instead of mixins, where possible
+- __Dev__: Updated dependencies and fixed npm audit security issues
+  * `eslint` 4.19.1 → 6.0.1
+  * `autoprefixer` 8.6.5 → 9.6.1
+  * `postcss-cli` 5.0.1 → 6.1.2
+  * `clean-css-cli` 4.1.11 → 4.3.0
 
 ### Removed
 - Removed the custom `map-get()` plugin function
