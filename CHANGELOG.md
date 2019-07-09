@@ -8,14 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-**BREAKING CHANGE**: Bootstrap Less Port now uses Less v3.8.1 and its syntax has been updated accordingly. This means that you will no longer be able to compile the Less source files with a lower version of Less!
+> **Note**: This is possibly a **BREAKING CHANGE**. With this version, _you will only be able to compile the Less source files with Less v3.9.0 or greater_. For most users no code changes will actually be needed, but if you’re using a GUI to compile your Less then you’ll need to make sure your GUI supports Less v3.9.0.
 
 With the switch to Less 3, improvements have been made in two key areas:
 
 1. __Maps__ – The map variables used previously (which were actually not maps at all, but nested lists) have been converted to rulesets (which are much more map-like). This means that their properites can now be accessed directly using Less [property accessors](http://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors) instead of the custom `map-get()` function, e.g. `@breakpoints[xs]`.
 
    For colors, property accessors can now be used to get color values from the color maps, although the Bootstrap [color functions](https://getbootstrap.com/docs/4.3/getting-started/theming/#functions) are still supported as well.
-2. __Loops__ – Previously, recursive mixin loops were used to mimic Sass’ `for` loops. Wherever possible, recursive mixin loops used for iterating have been replaced with Less’ new [`each()` function](http://lesscss.org/functions/#list-functions-each).
+2. __Loops__ – Previously, recursive mixin loops were used to mimic Sass’ `each` and `for` loops. While this worked, it was not ideal and resulted in some verbose code. Now, instead of mixins, Less’ new [`each()` function](http://lesscss.org/functions/#list-functions-each) is used for iteration (in combination with the [`range()` function](http://lesscss.org/functions/#list-functions-range) for lists), whenever possible.
 
 Thanks to the above, some clunky workarounds used previously have now been removed, resulting in code that is much easier to both read and reason about. Special thanks to @calvinjuarez and @matthew-dean for implementing and driving the transition to Less 3!
 
@@ -23,13 +23,14 @@ Thanks to the above, some clunky workarounds used previously have now been remov
 - Added a new `map-keys()` function for getting the properties from a ruleset as a list, which can be very helpful when iterating using `each()` (thanks @calvinjuarez!)
 
 ### Changed
-- Updated Less peer-dependency version from `^2.6.0` to `^3.8.1.`
+- Updated Less peer-dependency version from `^2.6.0` to `^3.9.0.`
 - Updated Less syntax to leverage the latest Less features
    * Converted “map” variables (nested lists) to rulesets
    * Switched to using property accessors instead of the custom `map-get()` function for getting values from map-like variables
-   * Switched to `each()` for looping instead of mixins, where possible
+   * Switched to `each()` for iterating instead of mixins (in combination with `range()` when iterating over lists), where possible
    * The map variables used previously (which were actually not maps at all, but nested lists) have been changed to use Less rulesets so that they’re much more map-like. 
    * `each()` is now used for looping instead of mixins, where possible
+- __Dev__: Updated the command used in the `css-compile` npm script to use the `--math` flag instead of the deprecated `--strict-math`
 - __Dev__: Updated dependencies and fixed npm audit security issues
   * `eslint` 4.19.1 → 6.0.1
   * `autoprefixer` 8.6.5 → 9.6.1
