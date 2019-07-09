@@ -90,6 +90,7 @@ For a more in-depth guide to theming, see the [Bootstrap docs](http://getbootstr
 This repo does _not_ include the JavaScript component files from Bootstrap v4. If you’d like to use them the easiest way to do so is via [Bootstrap CDN](https://www.bootstrapcdn.com/#quickstartjsbundle4_0_0_form). Otherwise, you can get the files from the main Bootstrap repo by downloading it or installing it using a package manager.
 
 
+
 ## Documentation
 
 See the [Bootstrap v4 docs](http://getbootstrap.com/docs/4.0/getting-started/introduction/) for documentation.
@@ -133,6 +134,6 @@ For errors or bugs related to the ported code, please submit a pull request or c
 
 Bootstrap was created by [Mark Otto](https://github.com/mdo) and [Jacob Thornton](https://github.com/fat).
 
-The original code copyright 2011-2017 the [Bootstrap Authors](https://github.com/twbs/bootstrap/graphs/contributors) and [Twitter, Inc](https://twitter.com).
+The original code copyright 2011-2019 the [Bootstrap Authors](https://github.com/twbs/bootstrap/graphs/contributors) and [Twitter, Inc](https://twitter.com).
 
 This port and the original code are released under the [MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE).
