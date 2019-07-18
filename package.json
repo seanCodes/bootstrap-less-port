@@ -26,7 +26,7 @@
 	"style": "dist/css/bootstrap.css",
 	"less": "less/bootstrap.less",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "node --experimental-modules --no-warnings test/test.js",
 		"build": "npm run lint && npm run css",
 		"css": "npm run css-compile && npm run css-prefix && npm run css-minify",
 		"css-compile": "lessc --math=parens --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --math=parens --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --math=parens --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
@@ -38,10 +38,12 @@
 		"less": "^3.9.0"
 	},
 	"devDependencies": {
+		"ansi-colors": "^4.1.1",
 		"autoprefixer": "^9.6.1",
 		"clean-css-cli": "^4.3.0",
 		"eslint": "^6.0.1",
 		"less": "^3.9.0",
+		"node-stream-zip": "^1.8.2",
 		"postcss-cli": "^6.1.2"
 	},
 	"files": [

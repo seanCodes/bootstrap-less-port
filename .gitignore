@@ -5,3 +5,11 @@
 
 # Ignore node modules
 node_modules/*
+
+# Ignore directories containing files generated for testing.
+test/bootstrap-source/*
+test/less-compiled-css-reference/*
+test/sass-compiled-css-reference/*
+
+# Ignore the testing output file.
+test/scripts/result.diff

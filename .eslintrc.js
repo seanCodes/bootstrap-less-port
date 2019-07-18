@@ -106,7 +106,7 @@ module.exports = {
 		'camelcase'                        : ['error', { properties: 'always' }],
 		'capitalized-comments'             : ['warn',  'always', {
 			line  : { ignoreInlineComments: true, ignoreConsecutiveComments: true },
-			block : { ignoreInlineComments: true },
+			block : { ignoreInlineComments: true, ignorePattern: '^\n' },
 		}],
 		'comma-dangle'                     : ['error',  {
 			arrays    : 'always-multiline',
@@ -139,9 +139,10 @@ module.exports = {
 			ignoreUrls             : true,
 			ignoreTemplateLiterals : true,
 			ignoreRegExpLiterals   : true,
-			// Ignore lines that have a charater other than a space immediately after the slashes
-			// (since those are likely to be cases of commented code).
-			ignorePattern          : '\/\/\\S.*'
+			// Ignore lines that have no space between the slashes and the comment OR lines that have
+			// a tab character immediately after the slashes, since both cases are likely to be lines
+			// of commented code.
+			"ignorePattern": "\/\/(\\S|\t).*",
 		}],
 		'max-params'                       : ['warn',  { max: 6 }],
 		'max-statements-per-line'          : ['error', { max: 2 }],
@@ -182,13 +183,13 @@ module.exports = {
 		'quote-props'                      : ['error', 'as-needed'],
 		'quotes'                           : ['error', 'single', { avoidEscape: false, allowTemplateLiterals: true }],
 		'semi'                             : ['error', 'never'],
-		'sort-imports'                     : ['warn',  { ignoreCase: false, ignoreMemberSort: false, memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'] }],
+		'sort-imports'                     : ['warn',  { ignoreCase: false, ignoreMemberSort: false, memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'] }],
 		'space-before-blocks'              : ['error', 'always'],
 		'space-before-function-paren'      : ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
 		'space-in-parens'                  : ['error', 'never'],
 		'space-infix-ops'                  :  'error',
 		'space-unary-ops'                  : ['error', { words: true, nonwords: false, overrides: { '!' :true, '!!': true } }],
-		'spaced-comment'                   : ['error', 'always', {
+		'spaced-comment'                   : ['warn', 'always', {
 			line  : { markers: ['/', '!'] },
 			block : { exceptions: ['*', '!'], balanced: true },
 		}],
