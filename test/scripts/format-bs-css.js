@@ -56,6 +56,16 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 			/\/\*#.*\n?/g,
 			''
 		)
+		// Fix slightly-different color (#19692c).
+		.replace(
+			/#19692c/g,
+			'#19692b'
+		)
+		// Fix slightly-different color (#ba8b00).
+		.replace(
+			/#ba8b00/g,
+			'#b98b00'
+		)
 		// Fix slightly-different color (#ececf6).
 		.replace(
 			/#ececf6/g,
