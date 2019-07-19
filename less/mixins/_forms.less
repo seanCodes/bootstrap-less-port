@@ -42,20 +42,33 @@
 		z-index: 5;
 		display: none;
 		max-width: 100%; // Contain to parent when possible
-		padding: @tooltip-padding-y @tooltip-padding-x;
+		padding: @form-feedback-tooltip-padding-y @form-feedback-tooltip-padding-x;
 		margin-top: 0.1rem;
-		font-size: @tooltip-font-size;
-		line-height: @line-height-base;
+		font-size: @form-feedback-tooltip-font-size;
+		line-height: @form-feedback-tooltip-line-height;
 		color: color-yiq(@color);
-		background-color: rgba(red(@color), green(@color), blue(@color), @tooltip-opacity);
-		#border-radius(@tooltip-border-radius);
+		background-color: fade(@color, (@form-feedback-tooltip-opacity * 100));
+		#border-radius(@form-feedback-tooltip-border-radius);
 	}
 
-	.form-control,
-	.custom-select {
+	.form-control {
 		.was-validated &:@{state},
 		&.is-@{state} {
 			border-color: @color;
+
+			& when (@enable-validation-icons) {
+				padding-right: @input-height-inner;
+				background-repeat: no-repeat;
+				background-position: center right calc(@input-height-inner / 4);
+				background-size: calc(@input-height-inner / 2) calc(@input-height-inner / 2);
+
+				& when (@state = valid) {
+					background-image: @form-feedback-icon-valid;
+				}
+				& when not (@state = valid) {
+					background-image: @form-feedback-icon-invalid;
+				}
+			}
 
 			&:focus {
 				border-color: @color;
@@ -68,6 +81,44 @@
 			}
 		}
 	}
+
+	textarea.form-control {
+		.was-validated &:@{state},
+		&.is-@{state} {
+			& when (@enable-validation-icons) {
+				padding-right: @input-height-inner;
+				background-position: top calc(@input-height-inner / 4) right calc(@input-height-inner / 4);
+			}
+		}
+	}
+
+	.custom-select {
+		.was-validated &:@{state},
+		&.is-@{state} {
+			border-color: @color;
+
+			& when (@enable-validation-icons) {
+				padding-right: @custom-select-feedback-icon-padding-right;
+				& when (@state = valid) {
+					background: ~"@{custom-select-background}, @{form-feedback-icon-valid} no-repeat @{custom-select-feedback-icon-position}/@{custom-select-feedback-icon-size}";
+				}
+				& when not (@state = valid) {
+					background: ~"@{custom-select-background}, @{form-feedback-icon-invalid} no-repeat @{custom-select-feedback-icon-position}/@{custom-select-feedback-icon-size}";
+				}
+			}
+
+			&:focus {
+				border-color: @color;
+				box-shadow: 0 0 0 @input-focus-width fade(@color, 25%);
+			}
+
+			~ .@{state}-feedback,
+			~ .@{state}-tooltip {
+				display: block;
+			}
+		}
+	}
+
 
 	.form-control-file {
 		.was-validated &:@{state},
@@ -100,7 +151,7 @@
 				color: @color;
 
 				&::before {
-					background-color: lighten(@color, 25%);
+					border-color: @color;
 				}
 			}
 
@@ -111,13 +162,18 @@
 
 			&:checked {
 				~ .custom-control-label::before {
+					border-color: lighten(@color, 10%);
 					#gradient-bg(lighten(@color, 10%));
 				}
 			}
 
 			&:focus {
 				~ .custom-control-label::before {
-					box-shadow: 0 0 0 1px @body-bg, 0 0 0 @input-focus-width fade(@color, 25%);
+					box-shadow: 0 0 0 @input-focus-width fade(@color, 25%);
+				}
+
+				&:not(:checked) ~ .custom-control-label::before {
+					border-color: @color;
 				}
 			}
 		}
@@ -129,8 +185,6 @@
 		&.is-@{state} {
 			~ .custom-file-label {
 				border-color: @color;
-
-				&::after { border-color: inherit; }
 			}
 
 			~ .@{state}-feedback,
@@ -140,6 +194,7 @@
 
 			&:focus {
 				~ .custom-file-label {
+					border-color: @color;
 					box-shadow: 0 0 0 @input-focus-width fade(@color, 25%);
 				}
 			}

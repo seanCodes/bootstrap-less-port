@@ -14,6 +14,13 @@
 	vertical-align: baseline;
 	#border-radius(@badge-border-radius);
 
+	// LESS PORT: Less has no `@at-root` equivalent, so omitting that here.
+	a& {
+		#hover-focus({
+			text-decoration: none;
+		});
+	}
+
 	// Empty badges collapse automatically
 	&:empty {
 		display: none;

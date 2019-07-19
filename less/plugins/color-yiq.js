@@ -26,7 +26,7 @@ function lookupVariable(context, variableName) {
 // Less Functions
 //
 
-functions.add('color-yiq', function ({ rgb: [r, g, b] }) {
+functions.add('color-yiq', function ({ rgb: [r, g, b] }, dark, light) {
 	const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
 
 	if (yiqThreshold === 0)
@@ -36,5 +36,10 @@ functions.add('color-yiq', function ({ rgb: [r, g, b] }) {
 	if (yiqTextLight === '')
 		yiqTextLight = lookupVariable(this.context, '@yiq-text-light')
 
-	return (yiq >= yiqThreshold) ? yiqTextDark : yiqTextLight
+	if (! dark)
+		dark = yiqTextDark
+	if (! light)
+		light = yiqTextLight
+
+	return (yiq >= yiqThreshold) ? dark : light
 })

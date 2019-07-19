@@ -246,10 +246,10 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 // Dark links against a light background
 .navbar-light {
 	.navbar-brand {
-		color: @navbar-light-active-color;
+		color: @navbar-light-brand-color;
 
 		#hover-focus({
-			color: @navbar-light-active-color;
+			color: @navbar-light-brand-hover-color;
 		});
 	}
 
@@ -298,10 +298,10 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 // White links against a dark background
 .navbar-dark {
 	.navbar-brand {
-		color: @navbar-dark-active-color;
+		color: @navbar-dark-brand-color;
 
 		#hover-focus({
-			color: @navbar-dark-active-color;
+			color: @navbar-dark-brand-hover-color;
 		});
 	}
 

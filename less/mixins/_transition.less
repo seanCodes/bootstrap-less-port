@@ -27,7 +27,9 @@
 		});
 	}
 
-	@media screen and (prefers-reduced-motion: reduce) {
-		transition: none;
+	& when (@enable-prefers-reduced-motion-media-query) {
+		@media screen and (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
 	}
 }

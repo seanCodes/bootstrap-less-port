@@ -11,7 +11,7 @@
 	position: relative;
 	display: block;
 	min-height: (@font-size-base * @line-height-base);
-	padding-left: @custom-control-gutter;
+	padding-left: (@custom-control-gutter + @custom-control-indicator-size);
 }
 
 .custom-control-inline {
@@ -26,18 +26,29 @@
 
 	&:checked ~ .custom-control-label::before {
 		color: @custom-control-indicator-checked-color;
+		border-color: @custom-control-indicator-checked-border-color;
 		#gradient-bg(@custom-control-indicator-checked-bg);
 		#box-shadow(@custom-control-indicator-checked-box-shadow);
 	}
 
 	&:focus ~ .custom-control-label::before {
 		// the mixin is not used here to make sure there is feedback
-		box-shadow: @custom-control-indicator-focus-box-shadow;
+		& when (@enable-shadows) {
+			box-shadow: @input-box-shadow, @input-focus-box-shadow;
+		}
+		& when not (@enable-shadows) {
+			box-shadow: @custom-control-indicator-focus-box-shadow;
+		}
 	}
 
-	&:active ~ .custom-control-label::before {
+	&:focus:not(:checked) ~ .custom-control-label::before {
+		border-color: @custom-control-indicator-focus-border-color;
+	}
+
+	&:not(:disabled):active ~ .custom-control-label::before {
 		color: @custom-control-indicator-active-color;
 		background-color: @custom-control-indicator-active-bg;
+		border-color: @custom-control-indicator-active-border-color;
 		#box-shadow(@custom-control-indicator-active-box-shadow);
 	}
 
@@ -59,19 +70,20 @@
 .custom-control-label {
 	position: relative;
 	margin-bottom: 0;
+	vertical-align: top;
 
 	// Background-color and (when enabled) gradient
 	&::before {
 		position: absolute;
 		top: ((@font-size-base * @line-height-base - @custom-control-indicator-size) / 2);
-		left: -@custom-control-gutter;
+		left: -(@custom-control-gutter + @custom-control-indicator-size);
 		display: block;
 		width: @custom-control-indicator-size;
 		height: @custom-control-indicator-size;
 		pointer-events: none;
 		content: "";
-		user-select: none;
 		background-color: @custom-control-indicator-bg;
+		border: @custom-control-indicator-border-color solid @custom-control-indicator-border-width;
 		#box-shadow(@custom-control-indicator-box-shadow);
 	}
 
@@ -79,7 +91,7 @@
 	&::after {
 		position: absolute;
 		top: ((@font-size-base * @line-height-base - @custom-control-indicator-size) / 2);
-		left: -@custom-control-gutter;
+		left: -(@custom-control-gutter + @custom-control-indicator-size);
 		display: block;
 		width: @custom-control-indicator-size;
 		height: @custom-control-indicator-size;
@@ -101,9 +113,6 @@
 	}
 
 	.custom-control-input:checked ~ .custom-control-label {
-		&::before {
-			#gradient-bg(@custom-control-indicator-checked-bg);
-		}
 		&::after {
 			background-image: @custom-checkbox-indicator-icon-checked;
 		}
@@ -111,6 +120,7 @@
 
 	.custom-control-input:indeterminate ~ .custom-control-label {
 		&::before {
+			border-color: @custom-checkbox-indicator-indeterminate-border-color;
 			#gradient-bg(@custom-checkbox-indicator-indeterminate-bg);
 			#box-shadow(@custom-checkbox-indicator-indeterminate-box-shadow);
 		}
@@ -139,11 +149,55 @@
 	}
 
 	.custom-control-input:checked ~ .custom-control-label {
-		&::before {
-			#gradient-bg(@custom-control-indicator-checked-bg);
-		}
 		&::after {
 			background-image: @custom-radio-indicator-icon-checked;
+		}
+	}
+
+	.custom-control-input:disabled {
+		&:checked ~ .custom-control-label::before {
+			background-color: @custom-control-indicator-checked-disabled-bg;
+		}
+	}
+}
+
+
+// switches
+//
+// Tweak a few things for switches
+
+.custom-switch {
+	padding-left: (@custom-switch-width + @custom-control-gutter);
+
+	.custom-control-label {
+		&::before {
+			left: -(@custom-switch-width + @custom-control-gutter);
+			width: @custom-switch-width;
+			pointer-events: all;
+			border-radius: @custom-switch-indicator-border-radius;
+		}
+
+		&::after {
+			// LESS PORT: Math in `calc()`s needs to be done in separate vars.
+			@-temp-top-1: ((@font-size-base * @line-height-base - @custom-control-indicator-size) / 2);
+			@-temp-top-2: (@custom-control-indicator-border-width * 2);
+			@-temp-left-1: -(@custom-switch-width + @custom-control-gutter);
+			@-temp-left-2: (@custom-control-indicator-border-width * 2);
+
+			top: calc(@-temp-top-1 + @-temp-top-2);
+			left: calc(@-temp-left-1 + @-temp-left-2);
+			width: @custom-switch-indicator-size;
+			height: @custom-switch-indicator-size;
+			background-color: @custom-control-indicator-border-color;
+			border-radius: @custom-switch-indicator-border-radius;
+			#transition(transform 0.15s ease-in-out, @custom-forms-transition);
+		}
+	}
+
+	.custom-control-input:checked ~ .custom-control-label {
+		&::after {
+			background-color: @custom-control-indicator-bg;
+			transform: translateX((@custom-switch-width - @custom-control-indicator-size));
 		}
 	}
 
@@ -166,11 +220,12 @@
 	width: 100%;
 	height: @custom-select-height;
 	padding: @custom-select-padding-y (@custom-select-padding-x + @custom-select-indicator-padding) @custom-select-padding-y @custom-select-padding-x;
+	font-weight: @custom-select-font-weight;
 	line-height: @custom-select-line-height;
 	color: @custom-select-color;
 	vertical-align: middle;
-	background: @custom-select-bg @custom-select-indicator no-repeat right @custom-select-padding-x center;
-	background-size: @custom-select-bg-size;
+	background: @custom-select-background;
+	background-color: @custom-select-bg;
 	border: @custom-select-border-width solid @custom-select-border-color;
 	& when (@enable-rounded) {
 		border-radius: @custom-select-border-radius;
@@ -222,15 +277,17 @@
 
 .custom-select-sm {
 	height: @custom-select-height-sm;
-	padding-top: @custom-select-padding-y;
-	padding-bottom: @custom-select-padding-y;
+	padding-top: @custom-select-padding-y-sm;
+	padding-bottom: @custom-select-padding-y-sm;
+	padding-left: @custom-select-padding-x-sm;
 	font-size: @custom-select-font-size-sm;
 }
 
 .custom-select-lg {
 	height: @custom-select-height-lg;
-	padding-top: @custom-select-padding-y;
-	padding-bottom: @custom-select-padding-y;
+	padding-top: @custom-select-padding-y-lg;
+	padding-bottom: @custom-select-padding-y-lg;
+	padding-left: @custom-select-padding-x-lg;
 	font-size: @custom-select-font-size-lg;
 }
 
@@ -258,10 +315,6 @@
 	&:focus ~ .custom-file-label {
 		border-color: @custom-file-focus-border-color;
 		box-shadow: @custom-file-focus-box-shadow;
-
-		&::after {
-			border-color: @custom-file-focus-border-color;
-		}
 	}
 
 	&:disabled ~ .custom-file-label {
@@ -278,6 +331,10 @@
 			content: @value;
 		}
 	});
+
+	~ .custom-file-label[data-browse]::after {
+		content: attr(data-browse);
+	}
 }
 
 .custom-file-label {
@@ -288,6 +345,7 @@
 	z-index: 1;
 	height: @custom-file-height;
 	padding: @custom-file-padding-y @custom-file-padding-x;
+	font-weight: @custom-file-font-weight;
 	line-height: @custom-file-line-height;
 	color: @custom-file-color;
 	background-color: @custom-file-bg;
@@ -308,7 +366,7 @@
 		color: @custom-file-button-color;
 		content: "Browse";
 		#gradient-bg(@custom-file-button-bg);
-		border-left: @custom-file-border-width solid @custom-file-border-color;
+		border-left: inherit;
 		#border-radius(0 @custom-file-border-radius @custom-file-border-radius 0);
 	}
 }
@@ -320,15 +378,19 @@
 // active states on prefixed selectors.
 
 .custom-range {
+	// LESS PORT: Math in `calc()`s needs to be done in separate vars.
+	@-temp-height-1: (@custom-range-thumb-focus-box-shadow-width * 2);
+
 	width: 100%;
-	padding-left: 0; // Firefox specific
+	height: calc(@custom-range-thumb-height + @-temp-height-1);
+	padding: 0; // Need to reset padding
 	background-color: transparent;
 	appearance: none;
 
 	&:focus {
 		outline: none;
 
-		// Pseudo-elements must be split across multiple rulesets to have an affect.
+		// Pseudo-elements must be split across multiple rulesets to have an effect.
 		// No box-shadow() mixin for focus accessibility.
 		&::-webkit-slider-thumb { box-shadow: @custom-range-thumb-focus-box-shadow; }
 		&::-moz-range-thumb     { box-shadow: @custom-range-thumb-focus-box-shadow; }
@@ -417,7 +479,7 @@
 		cursor: @custom-range-track-cursor;
 		background-color: transparent;
 		border-color: transparent;
-		border-width: (@custom-range-thumb-height * 0.5);
+		border-width: (@custom-range-thumb-height / 2);
 		#box-shadow(@custom-range-track-box-shadow);
 	}
 
@@ -430,6 +492,28 @@
 		margin-right: 15px; // arbitrary?
 		background-color: @custom-range-track-bg;
 		#border-radius(@custom-range-track-border-radius);
+	}
+
+	&:disabled {
+		&::-webkit-slider-thumb {
+			background-color: @custom-range-thumb-disabled-bg;
+		}
+
+		&::-webkit-slider-runnable-track {
+			cursor: default;
+		}
+
+		&::-moz-range-thumb {
+			background-color: @custom-range-thumb-disabled-bg;
+		}
+
+		&::-moz-range-track {
+			cursor: default;
+		}
+
+		&::-ms-thumb {
+			background-color: @custom-range-thumb-disabled-bg;
+		}
 	}
 }
 

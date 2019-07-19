@@ -104,7 +104,7 @@
 //  @include table-row-variant($color, theme-color-level($color, -9));
 //}
 each(@theme-colors, #(@value, @color) {
-	#table-row-variant(@color, theme-color-level(@color, -9));
+	#table-row-variant(@color, theme-color-level(@color, @table-bg-level), theme-color-level(@color, @table-border-level));
 });
 
 #table-row-variant(active, @table-active-bg);

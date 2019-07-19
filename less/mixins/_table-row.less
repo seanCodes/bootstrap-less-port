@@ -1,6 +1,6 @@
 // Tables
 
-#table-row-variant(@state, @background) {
+#table-row-variant(@state, @background, @border: null) {
 	// Exact selectors below required to override `.table-striped` and prevent
 	// inheritance to nested tables.
 	.table-@{state} {
@@ -8,6 +8,15 @@
 		> th,
 		> td {
 			background-color: @background;
+		}
+
+		& when not (@border = null) {
+			th,
+			td,
+			thead th,
+			tbody + tbody {
+				border-color: @border;
+			}
 		}
 	}
 

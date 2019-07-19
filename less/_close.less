@@ -7,15 +7,18 @@
 	text-shadow: @close-text-shadow;
 	opacity: 0.5;
 
-	// Opinionated: add "hand" cursor to non-disabled .close elements
-	&:not(:disabled):not(.disabled) {
+	// Override <a>'s hover style
+	#hover({
+		color: @close-color;
+		text-decoration: none;
+	});
 
+	&:not(:disabled):not(.disabled) {
 		#hover-focus({
-			color: @close-color;
-			text-decoration: none;
 			opacity: 0.75;
 		});
 
+		// Opinionated: add "hand" cursor to non-disabled .close elements
 		cursor: pointer;
 	}
 }
@@ -29,5 +32,11 @@ button.close {
 	padding: 0;
 	background-color: transparent;
 	border: 0;
-	-webkit-appearance: none;
+	appearance: none;
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+
+a.close.disabled {
+	pointer-events: none;
 }
