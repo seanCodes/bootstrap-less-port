@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.1.0] – 2019-07-20
+
+Aligned code with Bootstrap v4.2.0. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.2.0) for details.
+
+### Added
+- __Dev__: Added testing scripts for comparing the compiled Less CSS to the Sass CSS to ensure they match. Can be used by running `npm test <bootstrap_version>` on the command line.
+
+### Changed
+- Updated styles/plugins to match Bootstrap v4.2.0 (see the [release notes](https://github.com/twbs/bootstrap/releases/tag/v4.2.0) for details)
+
+
 ## [2.0.0] – 2019-07-08
 
 **Less 3!** Bootstrap Less Port now uses Less v3.9.0 and its syntax has been updated to leverage v3 features. _Be aware that this should **not** have a major impact on compiled CSS---only the Less syntax used has been updated._
@@ -170,7 +181,8 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 ---
 
-[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v0.4.0...v0.5.0
