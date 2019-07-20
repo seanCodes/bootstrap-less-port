@@ -69,7 +69,7 @@ Alternatively, you can get the entire framework by simply importing the package 
 
 ### Theming
 
-The recommended way of customizing Bootstrap is to modify the provided variables. To customize a default variables, copy and paste it from `_variables.less` into your custom Less file and change its value. Overrides can be included anywhere _after_ the defaults have been included; Less will respect the last value assigned.
+The recommended way of customizing Bootstrap is to override the default variables. To override a variable, copy and paste it from [`_variables.less`](https://github.com/seanCodes/bootstrap-less-port/blob/master/less/_variables.less) into your custom Less file and change its value.
 
 ```less
 // custom.less
@@ -81,6 +81,8 @@ The recommended way of customizing Bootstrap is to modify the provided variables
 @body-bg: @black;
 @body-color: @white;
 ```
+
+Variable overrides can be included in any file as long as they are imported _after_ the Bootstrap Less files; Less will use the last value assigned to a variable.
 
 For a more in-depth guide to theming, see the [Bootstrap docs](http://getbootstrap.com/docs/4.0/getting-started/theming/).
 
