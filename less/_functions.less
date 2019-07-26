@@ -2,16 +2,16 @@
 //
 // Utility mixins and functions for evaluating source code across our variables, maps, and mixins.
 
-@plugin "plugins/index";
+@plugin "plugins/index.js";
 
 // LESS PORT: This plugin implements a function for returning a list of keys in a map, like Sass’
 // [`map-keys()`](http://sass-lang.com/documentation/Sass/Script/Functions.html#map_keys-instance_method)
 // function.
-@plugin "plugins/map-keys";
+@plugin "plugins/map-keys.js";
 
 // LESS PORT: This plugin implements `warn()` and `error()` functions like Sass’ `@warn` and
 // `@error`.
-@plugin "plugins/logger";
+@plugin "plugins/logger.js";
 
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.
@@ -73,23 +73,23 @@
 //    @return #fff;
 //  }
 //}
-@plugin "plugins/color-yiq";
+@plugin "plugins/color-yiq.js";
 
 // Retreive color Sass maps
 //@function color($key: "blue") {
 //  @return map-get($colors, $key);
 //}
-@plugin "plugins/color";
+@plugin "plugins/color.js";
 
 //@function theme-color($key: "primary") {
 //  @return map-get($theme-colors, $key);
 //}
-@plugin "plugins/theme-color";
+@plugin "plugins/theme-color.js";
 
 //@function gray($key: "100") {
 //  @return map-get($grays, $key);
 //}
-@plugin "plugins/gray";
+@plugin "plugins/gray.js";
 
 // Request a theme color level
 //@function theme-color-level($color-name: "primary", $level: 0) {
@@ -99,4 +99,4 @@
 //
 //  @return mix($color-base, $color, $level * $theme-color-interval);
 //}
-@plugin "plugins/theme-color-level";
+@plugin "plugins/theme-color-level.js";

@@ -16,6 +16,9 @@ Aligned code with Bootstrap v4.3.0. See the [Bootstrap release notes](https://gi
 ### Changed
 - Updated styles/plugins to match Bootstrap v4.3.0 (see the [release notes](https://github.com/twbs/bootstrap/releases/tag/v4.3.0) for details)
 
+### Fixed
+- [#16](https://github.com/seanCodes/bootstrap-less-port/issues/16) – Omitting file extensions for `@plugin` at-rules causes errors when bundling with Parcel
+
 
 ## [2.1.1] – 2019-07-20
 
