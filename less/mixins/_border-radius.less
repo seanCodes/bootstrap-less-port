@@ -9,24 +9,32 @@
 	}
 }
 
-#border-top-radius(@radius) when (@enable-rounded) {
-	border-top-left-radius: @radius;
-	border-top-right-radius: @radius;
+#border-top-radius(@radius) {
+	& when (@enable-rounded) {
+		border-top-left-radius: @radius;
+		border-top-right-radius: @radius;
+	}
 }
 
-#border-right-radius(@radius) when (@enable-rounded) {
-	border-top-right-radius: @radius;
-	border-bottom-right-radius: @radius;
+#border-right-radius(@radius) {
+	& when (@enable-rounded) {
+		border-top-right-radius: @radius;
+		border-bottom-right-radius: @radius;
+	}
 }
 
-#border-bottom-radius(@radius) when (@enable-rounded) {
-	border-bottom-right-radius: @radius;
-	border-bottom-left-radius: @radius;
+#border-bottom-radius(@radius) {
+	& when (@enable-rounded) {
+		border-bottom-right-radius: @radius;
+		border-bottom-left-radius: @radius;
+	}
 }
 
-#border-left-radius(@radius) when (@enable-rounded) {
-	border-top-left-radius: @radius;
-	border-bottom-left-radius: @radius;
+#border-left-radius(@radius) {
+	& when (@enable-rounded) {
+		border-top-left-radius: @radius;
+		border-bottom-left-radius: @radius;
+	}
 }
 
 #border-top-left-radius(@radius) {
