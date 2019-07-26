@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.2.0] – 2019-07-25
+
+Aligned code with Bootstrap v4.3.0. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.3.0) for details.
+
+### Added
+- Added new `warn()` and `error()` functions to emulate Sass’ `@warn` and `@error` at-rules. These functions are primarily meant to be used by Bootstrap but can be used freely in your code if you find them useful.
+
+### Changed
+- Updated styles/plugins to match Bootstrap v4.3.0 (see the [release notes](https://github.com/twbs/bootstrap/releases/tag/v4.3.0) for details)
+
+
 ## [2.1.1] – 2019-07-20
 
 Aligned code with Bootstrap v4.2.1. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.2.1) for details.
@@ -188,7 +199,8 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 ---
 
-[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v1.0.0...v2.0.0
