@@ -15,6 +15,7 @@ Options for installing Bootstrap Less in your project (note that Less v3.9.0 or 
 
 - Install with [npm](https://www.npmjs.com/): `npm install bootstrap-less-port`
 - Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap-less-port`
+- Install with [bower](https://yarnpkg.com/) ([not recommended](https://github.com/seanCodes/bootstrap-less-port/issues/10#issuecomment-444886935)): `bower install bootstrap-less-port`
 - Clone the repo: `git clone https://github.com/seanCodes/bootstrap-less-port.git`
 - [Download the latest release](https://github.com/seanCodes/bootstrap-less-port/archive/master.zip)
 

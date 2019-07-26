@@ -1,0 +1,26 @@
+{
+  "name": "bootstrap-less-port",
+  "description": "A Less port of Bootstrap v4",
+  "main": "less/bootstrap.less",
+  "authors": [
+    "Sean Juárez <seanjcodes+bs-less-port@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bootstrap",
+    "less",
+    "css",
+    "framework",
+    "port"
+  ],
+  "homepage": "https://github.com/seanCodes/bootstrap-less-port",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist",
+    "build",
+    "test",
+    "tests"
+  ]
+}
