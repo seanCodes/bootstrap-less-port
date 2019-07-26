@@ -2,17 +2,17 @@
 //  @include media-breakpoint-up($breakpoint) {
 //    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 //
-//    .float#{$infix}-left  { @include float-left; }
-//    .float#{$infix}-right { @include float-right; }
-//    .float#{$infix}-none  { @include float-none; }
+//    .float#{$infix}-left  { float: left !important; }
+//    .float#{$infix}-right { float: right !important; }
+//    .float#{$infix}-none  { float: none !important; }
 //  }
 //}
 each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	#media-breakpoint-up(@breakpoint, {
 		@infix: breakpoint-infix(@breakpoint, @grid-breakpoints);
 
-		.float@{infix}-left  { #float-left(); }
-		.float@{infix}-right { #float-right(); }
-		.float@{infix}-none  { #float-none(); }
+		.float@{infix}-left  { float: left !important; }
+		.float@{infix}-right { float: right !important; }
+		.float@{infix}-none  { float: none !important; }
 	});
-})
+});

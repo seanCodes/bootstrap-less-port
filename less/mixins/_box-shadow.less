@@ -1,22 +1,44 @@
 //@mixin box-shadow($shadow...) {
 //  @if $enable-shadows {
-//    box-shadow: $shadow;
+//    $result: ();
+//
+//    @if (length($shadow) == 1) {
+//      // We can pass `@include box-shadow(none);`
+//      $result: $shadow;
+//    } @else {
+//      // Filter to avoid invalid properties for example `box-shadow: none, 1px 1px black;`
+//      @for $i from 1 through length($shadow) {
+//        @if nth($shadow, $i) != "none" {
+//          $result: append($result, nth($shadow, $i), "comma");
+//        }
+//      }
+//    }
+//    @if (length($result) > 0) {
+//      box-shadow: $result;
+//    }
 //  }
 //}
-#box-shadow(@shadows...) when (@enable-shadows) {
-	// LESS PORT: In order to output the shadows correctly we have to iterate over the list and use
-	// Less’s merge feature. Without this, shadows will be output space-separated instead of comma-
-	// separated. Also, since a single shadow can be misinterpreted as multiple shadows (since it
-	// will have a length > 1) we have to include a check for the length of the first item in the
-	// list. If the length is greater than 1, then we have a list of separate shadows. If the the
-	// length is 1, then we’re looking at the first value of a single shadow, so we output `@shadow`
-	// as-is.
-	& when (length(@shadows) > 0) and (length(extract(@shadows, 1)) = 1) {
-		box-shadow: @shadows;
-	}
-	& when (length(@shadows) > 0) and (length(extract(@shadows, 1)) > 1) {
-		each(@shadows, #(@shadow) {
-			box-shadow+: @shadow;
-		});
+#box-shadow(@shadows...) {
+	& when (@enable-shadows) {
+		// LESS PORT: Handle cases of single values like `none`.
+		& when (length(@shadows) = 1) {
+			box-shadow: @shadows;
+		}
+		// LESS PORT: In order to output the shadows correctly we have to iterate over the list and
+		// use Less’s merge feature. Without this, shadows will be output space-separated instead of
+		// comma-separated. Also, since a single shadow can be misinterpreted as multiple shadows
+		// (since it will have a length > 1) we have to include a check for the length of the first
+		// item in the list. If the length is greater than 1, then we have a list of separate shadows.
+		// If the the length is 1, then we’re looking at the first value of a single shadow, so we
+		// output `@shadows` as-is.
+		& when (length(@shadows) > 1) and (length(extract(@shadows, 1)) = 1) {
+			// We can pass `@include box-shadow(none);`
+			box-shadow: @shadows;
+		}
+		& when (length(@shadows) > 1) and (length(extract(@shadows, 1)) > 1) {
+			each(@shadows, #(@shadow) {
+				box-shadow+: @shadow;
+			});
+		}
 	}
 }

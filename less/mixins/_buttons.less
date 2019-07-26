@@ -50,10 +50,10 @@
 
 		&:focus {
 			// Avoid using mixin so we can pass custom focus shadow properly
-			& when (@enable-shadows) {
+			& when (@enable-shadows) and not (@btn-active-box-shadow = none) {
 				box-shadow: @btn-active-box-shadow, 0 0 0 @btn-focus-width fade(mix(color-yiq(@background), @border, 15%), 50%);
 			}
-			& when not (@enable-shadows) {
+			& when not (@enable-shadows) or (@btn-active-box-shadow = none) {
 				box-shadow: 0 0 0 @btn-focus-width fade(mix(color-yiq(@background), @border, 15%), 50%);
 			}
 		}
@@ -90,10 +90,10 @@
 
 		&:focus {
 			// Avoid using mixin so we can pass custom focus shadow properly
-			& when (@enable-shadows) and not (@btn-active-box-shadow = ~"") {
+			& when (@enable-shadows) and not (@btn-active-box-shadow = none) {
 				box-shadow: @btn-active-box-shadow, 0 0 0 @btn-focus-width fade(@color, 50%);
 			}
-			& when not (@enable-shadows) or (@btn-active-box-shadow = ~"") {
+			& when not (@enable-shadows) or (@btn-active-box-shadow = none) {
 				box-shadow: 0 0 0 @btn-focus-width fade(@color, 50%);
 			}
 		}
@@ -103,13 +103,8 @@
 // Button sizes
 #button-size(@padding-y, @padding-x, @font-size, @line-height, @border-radius) {
 	padding: @padding-y @padding-x;
-	font-size: @font-size;
+	#font-size(@font-size);
 	line-height: @line-height;
 	// Manually declare to provide an override to the browser default
-	& when (@enable-rounded) {
-		border-radius: @border-radius;
-	}
-	& when not (@enable-rounded) {
-		border-radius: 0;
-	}
+	#border-radius(@border-radius, 0);
 }

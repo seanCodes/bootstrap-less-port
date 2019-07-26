@@ -1,6 +1,8 @@
 .jumbotron {
 	padding: @jumbotron-padding (@jumbotron-padding / 2);
 	margin-bottom: @jumbotron-padding;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@jumbotron-color = ~"") { color: @jumbotron-color; }
 	background-color: @jumbotron-bg;
 	#border-radius(@border-radius-lg);
 

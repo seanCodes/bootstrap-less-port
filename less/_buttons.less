@@ -4,6 +4,8 @@
 
 .btn {
 	display: inline-block;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@btn-font-family = ~"") { font-family: @btn-font-family; }
 	font-weight: @btn-font-weight;
 	color: @body-color;
 	text-align: center;
@@ -30,11 +32,6 @@
 	&:disabled {
 		opacity: @btn-disabled-opacity;
 		#box-shadow(none);
-	}
-
-	// Opinionated: add "hand" cursor to non-disabled .btn elements
-	&:not(:disabled):not(.disabled) {
-		cursor: pointer;
 	}
 
 	&:not(:disabled):not(.disabled):active,
@@ -93,6 +90,7 @@ each(@theme-colors, #(@value, @color) {
 .btn-link {
 	font-weight: @font-weight-normal;
 	color: @link-color;
+	text-decoration: @link-decoration;
 
 	#hover({
 		color: @link-hover-color;

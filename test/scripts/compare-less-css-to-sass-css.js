@@ -39,6 +39,13 @@ async function main([targetVersion]) {
 		return oops(`Error reading file "${LESS_ENTRY_POINT}":`, err)
 	}
 
+	less.logger.addListener({
+		debug(message) { console.log(`${color.cyan('[DEBUG]') } ${message}`)   },
+		info(message)  { console.log(`${color.blue('[INFO]')   } ${message}`)  },
+		warn(message)  { console.log(`${color.yellow('[WARN]') } ${message}`)  },
+		error(message) { console.error(`${color.red('[ERROR]')  } ${message}`) },
+	})
+
 	let lessCompiledOutput = {}
 
 	try {
@@ -99,7 +106,6 @@ async function main([targetVersion]) {
 	} catch (err) {
 		return oops('Error writing file less-compiled CSS file:', err)
 	}
-
 	if (diff) {
 		console.error(diff)
 

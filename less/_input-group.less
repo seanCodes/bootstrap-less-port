@@ -1,3 +1,4 @@
+
 //
 // Base styles
 //
@@ -102,7 +103,7 @@
 	align-items: center;
 	padding: @input-padding-y @input-padding-x;
 	margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
-	font-size: @font-size-base; // Match inputs
+	#font-size(@input-font-size); // Match inputs
 	font-weight: @font-weight-normal;
 	line-height: @input-line-height;
 	color: @input-group-addon-color;
@@ -137,7 +138,7 @@
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
 	padding: @input-padding-y-lg @input-padding-x-lg;
-	font-size: @input-font-size-lg;
+	#font-size(@input-font-size-lg);
 	line-height: @input-line-height-lg;
 	#border-radius(@input-border-radius-lg);
 }
@@ -154,7 +155,7 @@
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
 	padding: @input-padding-y-sm @input-padding-x-sm;
-	font-size: @input-font-size-sm;
+	#font-size(@input-font-size-sm);
 	line-height: @input-line-height-sm;
 	#border-radius(@input-border-radius-sm);
 }
@@ -170,6 +171,7 @@
 // These rulesets must come after the sizing ones to properly override sm and lg
 // border-radius values when extending. They're more specific than we'd like
 // with the `.input-group >` part, but without it, we cannot override the sizing.
+
 
 .input-group > .input-group-prepend > .btn,
 .input-group > .input-group-prepend > .input-group-text,

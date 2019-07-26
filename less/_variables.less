@@ -91,6 +91,8 @@
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
+// LESS PORT: Note that `false` has no actual meaning in Less, but in this case it has the desired
+// effect (of disabling a feature) only because it’s not `true`, which is what Less cares about.
 @enable-caret:                                true;
 @enable-rounded:                              true;
 @enable-shadows:                              false;
@@ -99,8 +101,11 @@
 @enable-prefers-reduced-motion-media-query:   true;
 @enable-hover-media-query:                    false; // Deprecated, no longer affects any compiled CSS
 @enable-grid-classes:                         true;
+@enable-pointer-cursor-for-buttons:           true;
 @enable-print-styles:                         true;
+@enable-responsive-font-sizes:                false;
 @enable-validation-icons:                     true;
+@enable-deprecation-messages:                 true;
 
 
 // Spacing
@@ -160,8 +165,6 @@
 // Define the minimum dimensions at which your layout will change,
 // adapting to different screen sizes, for use in media queries.
 
-// LESS PORT: No `map-merge()` to extend the ruleset here. The variable can just be overridden if
-// different/additional values are desired.
 @grid-breakpoints: {
 	xs: 0;
 	sm: 576px;
@@ -178,8 +181,6 @@
 //
 // Define the maximum width of `.container` for different screen sizes.
 
-// LESS PORT: No `map-merge()` to extend the ruleset here. The variable can just be overridden if
-// different/additional values are desired.
 @container-max-widths: {
 	sm: 540px;
 	md: 720px;
@@ -222,6 +223,8 @@
 @component-active-bg:         theme-color(primary);
 
 @caret-width:                 0.3em;
+@caret-vertical-align:        (@caret-width * 0.85);
+@caret-spacing:               (@caret-width * 0.85);
 
 @transition-base:             all 0.2s ease-in-out;
 @transition-fade:             opacity 0.15s linear;
@@ -232,10 +235,10 @@
 @embed-responsive-aspect-ratios:
 	21 9,
 	16 9,
-	3 4,
+	4 3,
 	1 1;
 
-// Fonts
+// Typography
 //
 // Font, line-height, and color for body text, headings, and more.
 
@@ -264,10 +267,10 @@
 @h6-font-size:                @font-size-base;
 
 @headings-margin-bottom:      (@spacer / 2);
-@headings-font-family:        inherit;
+@headings-font-family:        ~""; // LESS PORT: Sass version uses `null`
 @headings-font-weight:        500;
 @headings-line-height:        1.2;
-@headings-color:              inherit;
+@headings-color:              ~""; // LESS PORT: Sass version uses `null`
 
 @display1-size:               6rem;
 @display2-size:               5.5rem;
@@ -315,21 +318,25 @@
 @table-cell-padding:          0.75rem;
 @table-cell-padding-sm:       0.3rem;
 
-@table-bg:                    transparent;
+@table-color:                 @body-color;
+@table-bg:                    ~""; // LESS PORT: Sass version uses `null`
 @table-accent-bg:             fade(@black, 5%);
+@table-hover-color:           @table-color;
 @table-hover-bg:              fade(@black, 7.5%);
 @table-active-bg:             @table-hover-bg;
 
 @table-border-width:          @border-width;
-@table-border-color:          @gray-300;
+@table-border-color:          @border-color;
 
 @table-head-bg:               @gray-200;
 @table-head-color:            @gray-700;
 
-@table-dark-bg:               @gray-900;
+@table-dark-color:            @white;
+@table-dark-bg:               @gray-800;
 @table-dark-accent-bg:        fade(@white, 5%);
+@table-dark-hover-color:      @table-dark-color;
 @table-dark-hover-bg:         fade(@white, 7.5%);
-@table-dark-border-color:     lighten(@gray-900, 7.5%);
+@table-dark-border-color:     lighten(@table-dark-bg, 7.5%);
 @table-dark-color:            @white;
 
 @table-striped-order:         odd;
@@ -346,6 +353,7 @@
 
 @input-btn-padding-y:         0.375rem;
 @input-btn-padding-x:         0.75rem;
+@input-btn-font-family:       ~""; // LESS PORT: Sass version uses `null`
 @input-btn-font-size:         @font-size-base;
 @input-btn-line-height:       @line-height-base;
 
@@ -372,6 +380,7 @@
 
 @btn-padding-y:               @input-btn-padding-y;
 @btn-padding-x:               @input-btn-padding-x;
+@btn-font-family:             @input-btn-font-family;
 @btn-font-size:               @input-btn-font-size;
 @btn-line-height:             @input-btn-line-height;
 
@@ -412,6 +421,7 @@
 
 @input-padding-y:                       @input-btn-padding-y;
 @input-padding-x:                       @input-btn-padding-x;
+@input-font-family:                     @input-btn-font-family;
 @input-font-size:                       @input-btn-font-size;
 @input-font-weight:                     @font-weight-base;
 @input-line-height:                     @input-btn-line-height;
@@ -449,14 +459,15 @@
 
 @input-height-border:                   (@input-border-width * 2);
 
-@input-height-inner:                    ((@input-btn-font-size * @input-btn-line-height) + (@input-btn-padding-y * 2));
-@input-height:                          calc(@input-height-inner + @input-height-border);
+// LESS PORT: Using format strings here so we can put computed values in the `calc()`.
+@input-height-inner:                    %(~"calc(%s + %s)",      (@input-line-height *    1em), (@input-padding-y * 2));
+@input-height-inner-half:               %(~"calc(%s + %s)",      (@input-line-height *  0.5em), (@input-padding-y    ));
+@input-height-inner-quarter:            %(~"calc(%s + %s)",      (@input-line-height * 0.25em), (@input-padding-y / 2));
 
-@input-height-inner-sm:                 ((@input-btn-font-size-sm * @input-btn-line-height-sm) + (@input-btn-padding-y-sm * 2));
-@input-height-sm:                       calc(@input-height-inner-sm + @input-height-border);
-
-@input-height-inner-lg:                 ((@input-btn-font-size-lg * @input-btn-line-height-lg) + (@input-btn-padding-y-lg * 2));
-@input-height-lg:                       calc(@input-height-inner-lg + @input-height-border);
+// LESS PORT: Using format strings here so we can put computed values in the `calc()`.
+@input-height:                          %(~"calc(%s + %s + %s)", (@input-line-height    * 1em), (@input-padding-y        * 2), @input-height-border);
+@input-height-sm:                       %(~"calc(%s + %s + %s)", (@input-line-height-sm * 1em), (@input-btn-padding-y-sm * 2), @input-height-border);
+@input-height-lg:                       %(~"calc(%s + %s + %s)", (@input-line-height-lg * 1em), (@input-btn-padding-y-lg * 2), @input-height-border);
 
 @input-transition:                      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
@@ -498,7 +509,7 @@
 @custom-control-indicator-checked-box-shadow:   none;
 @custom-control-indicator-checked-border-color: @custom-control-indicator-checked-bg;
 
-@custom-control-indicator-focus-box-shadow:     @input-btn-focus-box-shadow;
+@custom-control-indicator-focus-box-shadow:     @input-focus-box-shadow;
 @custom-control-indicator-focus-border-color:   @input-focus-border-color;
 
 @custom-control-indicator-active-color:         @component-active-color;
@@ -522,8 +533,10 @@
 @custom-switch-indicator-border-radius:         (@custom-control-indicator-size / 2);
 @custom-switch-indicator-size:                  %(~"calc(@{custom-control-indicator-size} - %s)", (@custom-control-indicator-border-width * 4));
 
-@custom-select-padding-y:           @input-btn-padding-y;
-@custom-select-padding-x:           @input-btn-padding-x;
+@custom-select-padding-y:           @input-padding-y;
+@custom-select-padding-x:           @input-padding-x;
+@custom-select-font-family:         @input-font-family;
+@custom-select-font-size:           @input-font-size;
 @custom-select-height:              @input-height;
 @custom-select-indicator-padding:   1rem; // Extra padding to account for the presence of the background-image based indicator
 @custom-select-font-weight:         @input-font-weight;
@@ -537,9 +550,10 @@
 @custom-select-indicator:           %(~'url("data:image/svg+xml,%s%s%s")', "%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='", replace("@{custom-select-indicator-color}", "#", "%23"), "' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
 @custom-select-background:          ~"@{custom-select-indicator} no-repeat right @{custom-select-padding-x} center/@{custom-select-bg-size}"; // Used so we can have multiple background elements (e.g., arrow and feedback icon)
 
-@custom-select-feedback-icon-padding-right: (@input-height-inner * 3 / 4 + @custom-select-padding-x + @custom-select-indicator-padding);
+// LESS PORT: Using format strings here so we can put computed values in the `calc()`.
+@custom-select-feedback-icon-padding-right: %(~"calc((1em + %s) * 3 / 4 + %s)", (2 * @custom-select-padding-y), (@custom-select-padding-x + @custom-select-indicator-padding));
 @custom-select-feedback-icon-position:      center right (@custom-select-padding-x + @custom-select-indicator-padding);
-@custom-select-feedback-icon-size:          (@input-height-inner / 2) (@input-height-inner / 2);
+@custom-select-feedback-icon-size:          @input-height-inner-half @input-height-inner-half;
 
 @custom-select-border-width:        @input-border-width;
 @custom-select-border-color:        @input-border-color;
@@ -548,16 +562,16 @@
 
 @custom-select-focus-border-color:  @input-focus-border-color;
 @custom-select-focus-width:         @input-focus-width;
-@custom-select-focus-box-shadow:    0 0 0 @custom-select-focus-width fade(@custom-select-focus-border-color, 50%);
+@custom-select-focus-box-shadow:    0 0 0 @custom-select-focus-width @input-btn-focus-color;
 
 @custom-select-padding-y-sm:        @input-padding-y-sm;
 @custom-select-padding-x-sm:        @input-padding-x-sm;
-@custom-select-font-size-sm:        @input-btn-font-size-sm;
+@custom-select-font-size-sm:        @input-font-size-sm;
 @custom-select-height-sm:           @input-height-sm;
 
 @custom-select-padding-y-lg:        @input-padding-y-lg;
 @custom-select-padding-x-lg:        @input-padding-x-lg;
-@custom-select-font-size-lg:        @input-btn-font-size-lg;
+@custom-select-font-size-lg:        @input-font-size-lg;
 @custom-select-height-lg:           @input-height-lg;
 
 @custom-range-track-width:          100%;
@@ -587,6 +601,7 @@
 @custom-file-padding-y:             @input-padding-y;
 @custom-file-padding-x:             @input-padding-x;
 @custom-file-line-height:           @input-line-height;
+@custom-file-font-family:           @input-font-family;
 @custom-file-font-weight:           @input-font-weight;
 @custom-file-color:                 @input-color;
 @custom-file-bg:                    @input-bg;
@@ -611,38 +626,20 @@
 @form-feedback-icon-valid-color:    @form-feedback-valid-color;
 @form-feedback-icon-valid:          %(~'url("data:image/svg+xml,%s%s%s")', "%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='", replace("@{form-feedback-icon-valid-color}", "#", "%23"), "' d='M2.3 6.73L.6 4.53c-0.4-1.04.46-1.4 1.1-0.8l1.1 1.4 3.4-3.8c.6-0.63 1.6-0.27 1.2.7l-4 4.6c-0.43.5-0.8.4-1.1.1z'/%3e%3c/svg%3e");
 @form-feedback-icon-invalid-color:  @form-feedback-invalid-color;
-@form-feedback-icon-invalid:        %(~'url("data:image/svg+xml,%s%s%s")', "%3csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{form-feedback-icon-invalid-color}", "#", "%23"), "' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='0.5'/%3e%3ccircle cx='3' r='0.5'/%3e%3ccircle cy='3' r='0.5'/%3e%3ccircle cx='3' cy='3' r='0.5'/%3e%3c/svg%3E");
+@form-feedback-icon-invalid:        %(~'url("data:image/svg+xml,%s%s%s%s%s")', "%3csvg xmlns='http://www.w3.org/2000/svg' fill='", replace("@{form-feedback-icon-invalid-color}", "#", "%23"), "' viewBox='-2 -2 7 7'%3e%3cpath stroke='", replace("@{form-feedback-icon-invalid-color}", "#", "%23"), "' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='0.5'/%3e%3ccircle cx='3' r='0.5'/%3e%3ccircle cy='3' r='0.5'/%3e%3ccircle cx='3' cy='3' r='0.5'/%3e%3c/svg%3E");
 
-
-// Dropdowns
-//
-// Dropdown menu container and contents.
-
-@dropdown-min-width:                10rem;
-@dropdown-padding-y:                0.5rem;
-@dropdown-spacer:                   0.125rem;
-@dropdown-bg:                       @white;
-@dropdown-border-color:             fade(@black, 15%);
-@dropdown-border-radius:            @border-radius;
-@dropdown-border-width:             @border-width;
-@dropdown-inner-border-radius:      calc(@dropdown-border-radius - @dropdown-border-width);
-@dropdown-divider-bg:               @gray-200;
-@dropdown-box-shadow:               0 0.5rem 1rem fade(@black, 17.5%);
-
-@dropdown-link-color:               @gray-900;
-@dropdown-link-hover-color:         darken(@gray-900, 5%);
-@dropdown-link-hover-bg:            @gray-100;
-
-@dropdown-link-active-color:        @component-active-color;
-@dropdown-link-active-bg:           @component-active-bg;
-
-@dropdown-link-disabled-color:      @gray-600;
-
-@dropdown-item-padding-y:           0.25rem;
-@dropdown-item-padding-x:           1.5rem;
-
-@dropdown-header-color:             @gray-600;
-
+// LESS PORT: No `map-merge()` to extend the ruleset here. The variable can just be overridden if
+// different/additional values are desired.
+@form-validation-states: {
+	@valid: {
+		color: @form-feedback-valid-color;
+		icon: @form-feedback-icon-valid;
+	};
+	@invalid: {
+		color: @form-feedback-invalid-color;
+		icon: @form-feedback-icon-invalid;
+	};
+};
 
 // Z-index master list
 //
@@ -718,6 +715,39 @@
 @navbar-dark-brand-hover-color:           @navbar-dark-active-color;
 
 
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+@dropdown-min-width:                10rem;
+@dropdown-padding-y:                0.5rem;
+@dropdown-spacer:                   0.125rem;
+@dropdown-font-size:                @font-size-base;
+@dropdown-color:                    @body-color;
+@dropdown-bg:                       @white;
+@dropdown-border-color:             fade(@black, 15%);
+@dropdown-border-radius:            @border-radius;
+@dropdown-border-width:             @border-width;
+@dropdown-inner-border-radius:      calc(@dropdown-border-radius - @dropdown-border-width);
+@dropdown-divider-bg:               @gray-200;
+@dropdown-divider-margin-y:         @nav-divider-margin-y;
+@dropdown-box-shadow:               0 0.5rem 1rem fade(@black, 17.5%);
+
+@dropdown-link-color:               @gray-900;
+@dropdown-link-hover-color:         darken(@gray-900, 5%);
+@dropdown-link-hover-bg:            @gray-100;
+
+@dropdown-link-active-color:        @component-active-color;
+@dropdown-link-active-bg:           @component-active-bg;
+
+@dropdown-link-disabled-color:      @gray-600;
+
+@dropdown-item-padding-y:           0.25rem;
+@dropdown-item-padding-x:           1.5rem;
+
+@dropdown-header-color:             @gray-600;
+
+
 // Pagination
 
 @pagination-padding-y:              0.5rem;
@@ -752,6 +782,7 @@
 // Jumbotron
 
 @jumbotron-padding:                 2rem;
+@jumbotron-color:                   ~""; // LESS PORT: Sass version uses `null`
 @jumbotron-bg:                      @gray-200;
 
 
@@ -764,7 +795,8 @@
 @card-border-color:                 fade(@black, 12.5%);
 @card-inner-border-radius:          calc(@card-border-radius - @card-border-width);
 @card-cap-bg:                       fade(@black, 3%);
-@card-cap-color:                    inherit;
+@card-cap-color:                    ~""; // LESS PORT: Sass version uses `null`
+@card-color:                        ~""; // LESS PORT: Sass version uses `null`
 @card-bg:                           @white;
 
 @card-img-overlay-padding:          1.25rem;
@@ -829,19 +861,21 @@
 
 
 // Toasts
-@toast-max-width: 350px;
-@toast-padding-x: 0.75rem;
-@toast-padding-y: 0.25rem;
-@toast-font-size: 0.875rem;
-@toast-background-color: fade(@white, 85%);
-@toast-border-width: 1px;
-@toast-border-color: rgba(0, 0, 0, 0.1);
-@toast-border-radius: 0.25rem;
-@toast-box-shadow: 0 0.25rem 0.75rem fade(@black, 10%);
 
-@toast-header-color: @gray-600;
-@toast-header-background-color: fade(@white, 85%);
-@toast-header-border-color: rgba(0, 0, 0, 0.05);
+@toast-max-width:                   350px;
+@toast-padding-x:                   0.75rem;
+@toast-padding-y:                   0.25rem;
+@toast-font-size:                   0.875rem;
+@toast-color:                       ~""; // LESS PORT: Sass version uses `null`
+@toast-background-color:            fade(@white, 85%);
+@toast-border-width:                1px;
+@toast-border-color:                rgba(0, 0, 0, 0.1);
+@toast-border-radius:               0.25rem;
+@toast-box-shadow:                  0 0.25rem 0.75rem fade(@black, 10%);
+
+@toast-header-color:                @gray-600;
+@toast-header-background-color:     fade(@white, 85%);
+@toast-header-border-color:         rgba(0, 0, 0, 0.05);
 
 
 // Badges
@@ -851,6 +885,9 @@
 @badge-padding-y:                   0.25em;
 @badge-padding-x:                   0.4em;
 @badge-border-radius:               @border-radius;
+
+@badge-transition:                  @btn-transition;
+@badge-focus-width:                 @input-btn-focus-width;
 
 @badge-pill-padding-x:              0.6em;
 // Use a higher than normal value to ensure completely rounded edges when
@@ -868,6 +905,7 @@
 
 @modal-title-line-height:           @line-height-base;
 
+@modal-content-color:               ~""; // LESS PORT: Sass version uses `null`
 @modal-content-bg:                  @white;
 @modal-content-border-color:        fade(@black, 20%);
 @modal-content-border-width:        @border-width;
@@ -877,7 +915,7 @@
 
 @modal-backdrop-bg:                 @black;
 @modal-backdrop-opacity:            0.5;
-@modal-header-border-color:         @gray-200;
+@modal-header-border-color:         @border-color;
 @modal-footer-border-color:         @modal-header-border-color;
 @modal-header-border-width:         @modal-content-border-width;
 @modal-footer-border-width:         @modal-header-border-width;
@@ -926,6 +964,7 @@
 
 // List group
 
+@list-group-color:                  ~""; // LESS PORT: Sass version uses `null`
 @list-group-bg:                     @white;
 @list-group-border-color:           fade(@black, 12.5%);
 @list-group-border-width:           @border-width;
@@ -1044,6 +1083,7 @@
 
 // Utilities
 
+@displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex;
 @overflows: auto, hidden;
 @positions: static, relative, absolute, fixed, sticky;
 

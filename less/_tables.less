@@ -5,7 +5,9 @@
 .table {
 	width: 100%;
 	margin-bottom: @spacer;
-	background-color: @table-bg; // Reset for nesting within parents with `background-color`.
+	color: @table-color;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@table-bg = ~"") { background-color: @table-bg; } // Reset for nesting within parents with `background-color`.
 
 	th,
 	td {
@@ -21,10 +23,6 @@
 
 	tbody + tbody {
 		border-top: (2 * @table-border-width) solid @table-border-color;
-	}
-
-	.table {
-		background-color: @body-bg;
 	}
 }
 
@@ -70,7 +68,6 @@
 	}
 }
 
-
 // Zebra-striping
 //
 // Default zebra-stripe styles (alternating gray and transparent backgrounds)
@@ -89,6 +86,7 @@
 .table-hover {
 	tbody tr {
 		#hover({
+			color: @table-hover-color;
 			background-color: @table-hover-bg;
 		});
 	}
@@ -100,9 +98,6 @@
 // Exact selectors below required to override `.table-striped` and prevent
 // inheritance to nested tables.
 
-//@each $color, $value in $theme-colors {
-//  @include table-row-variant($color, theme-color-level($color, -9));
-//}
 each(@theme-colors, #(@value, @color) {
 	#table-row-variant(@color, theme-color-level(@color, @table-bg-level), theme-color-level(@color, @table-border-level));
 });
@@ -155,6 +150,7 @@ each(@theme-colors, #(@value, @color) {
 	&.table-hover {
 		tbody tr {
 			#hover({
+				color: @table-dark-hover-color;
 				background-color: @table-dark-hover-bg;
 			});
 		}
@@ -178,10 +174,9 @@ each(@theme-colors, #(@value, @color) {
 //        width: 100%;
 //        overflow-x: auto;
 //        -webkit-overflow-scrolling: touch;
-//        -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
 //
 //        // Prevent double border on horizontal scroll due to use of `display: block;`
-//        &.table-bordered {
+//        > .table-bordered {
 //          border: 0;
 //        }
 //      }
@@ -189,21 +184,22 @@ each(@theme-colors, #(@value, @color) {
 //  }
 //}
 each(map-keys(@grid-breakpoints), #(@breakpoint) {
-	@next: breakpoint-next(@breakpoint, @grid-breakpoints);
-	@infix: breakpoint-infix(@next, @grid-breakpoints);
+	.table-responsive {
+		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
-	.table-responsive@{infix} {
-		#media-breakpoint-down(@breakpoint, {
-			display: block;
-			width: 100%;
-			overflow-x: auto;
-			-webkit-overflow-scrolling: touch;
-			-ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
+		&@{infix} {
+			#media-breakpoint-down(@breakpoint, {
+				display: block;
+				width: 100%;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
 
-			// Prevent double border on horizontal scroll due to use of `display: block;`
-			> .table-bordered {
-				border: 0;
-			}
-		});
+				// Prevent double border on horizontal scroll due to use of `display: block;`
+				> .table-bordered {
+					border: 0;
+				}
+			});
+		}
 	}
-})
+});

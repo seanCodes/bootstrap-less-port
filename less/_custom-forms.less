@@ -96,9 +96,7 @@
 		width: @custom-control-indicator-size;
 		height: @custom-control-indicator-size;
 		content: "";
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: @custom-control-indicator-bg-size;
+		background: no-repeat 50% / @custom-control-indicator-bg-size;
 	}
 }
 
@@ -178,14 +176,9 @@
 		}
 
 		&::after {
-			// LESS PORT: Math in `calc()`s needs to be done in separate vars.
-			@-temp-top-1: ((@font-size-base * @line-height-base - @custom-control-indicator-size) / 2);
-			@-temp-top-2: (@custom-control-indicator-border-width * 2);
-			@-temp-left-1: -(@custom-switch-width + @custom-control-gutter);
-			@-temp-left-2: (@custom-control-indicator-border-width * 2);
-
-			top: calc(@-temp-top-1 + @-temp-top-2);
-			left: calc(@-temp-left-1 + @-temp-left-2);
+			// LESS PORT: Using format strings here so we can put computed values in the `calc()`.
+			top: %(~"calc(%s + %s)", ((@font-size-base * @line-height-base - @custom-control-indicator-size) / 2), (@custom-control-indicator-border-width * 2));
+			left: %(~"calc(%s + %s)", -(@custom-switch-width + @custom-control-gutter), (@custom-control-indicator-border-width * 2));
 			width: @custom-switch-indicator-size;
 			height: @custom-switch-indicator-size;
 			background-color: @custom-control-indicator-border-color;
@@ -220,6 +213,9 @@
 	width: 100%;
 	height: @custom-select-height;
 	padding: @custom-select-padding-y (@custom-select-padding-x + @custom-select-indicator-padding) @custom-select-padding-y @custom-select-padding-x;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@custom-select-font-family = ~"") { font-family: @custom-select-font-family; }
+	#font-size(@custom-select-font-size);
 	font-weight: @custom-select-font-weight;
 	line-height: @custom-select-line-height;
 	color: @custom-select-color;
@@ -227,12 +223,7 @@
 	background: @custom-select-background;
 	background-color: @custom-select-bg;
 	border: @custom-select-border-width solid @custom-select-border-color;
-	& when (@enable-rounded) {
-		border-radius: @custom-select-border-radius;
-	}
-	& when not (@enable-rounded) {
-		border-radius: 0;
-	}
+	#border-radius(@custom-select-border-radius, 0);
 	#box-shadow(@custom-select-box-shadow);
 	appearance: none;
 
@@ -271,7 +262,7 @@
 
 	// Hides the default caret in IE11
 	&::-ms-expand {
-		opacity: 0;
+		display: none;
 	}
 }
 
@@ -280,7 +271,7 @@
 	padding-top: @custom-select-padding-y-sm;
 	padding-bottom: @custom-select-padding-y-sm;
 	padding-left: @custom-select-padding-x-sm;
-	font-size: @custom-select-font-size-sm;
+	#font-size(@custom-select-font-size-sm);
 }
 
 .custom-select-lg {
@@ -288,7 +279,7 @@
 	padding-top: @custom-select-padding-y-lg;
 	padding-bottom: @custom-select-padding-y-lg;
 	padding-left: @custom-select-padding-x-lg;
-	font-size: @custom-select-font-size-lg;
+	#font-size(@custom-select-font-size-lg);
 }
 
 
@@ -345,6 +336,8 @@
 	z-index: 1;
 	height: @custom-file-height;
 	padding: @custom-file-padding-y @custom-file-padding-x;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@custom-file-font-family = ~"") { font-family: @custom-file-font-family; }
 	font-weight: @custom-file-font-weight;
 	line-height: @custom-file-line-height;
 	color: @custom-file-color;
@@ -373,16 +366,14 @@
 
 // Range
 //
-// Style range inputs the same across browsers. Vendor-specific rules for psuedo
+// Style range inputs the same across browsers. Vendor-specific rules for pseudo
 // elements cannot be mixed. As such, there are no shared styles for focus or
 // active states on prefixed selectors.
 
 .custom-range {
-	// LESS PORT: Math in `calc()`s needs to be done in separate vars.
-	@-temp-height-1: (@custom-range-thumb-focus-box-shadow-width * 2);
-
 	width: 100%;
-	height: calc(@custom-range-thumb-height + @-temp-height-1);
+	// LESS PORT: Using format string here so we can put computed values in the `calc()`.
+	height: %(~"calc(@{custom-range-thumb-height} + %s)", (@custom-range-thumb-focus-box-shadow-width * 2));
 	padding: 0; // Need to reset padding
 	background-color: transparent;
 	appearance: none;

@@ -44,7 +44,7 @@
 	padding-top: @navbar-brand-padding-y;
 	padding-bottom: @navbar-brand-padding-y;
 	margin-right: @navbar-padding-x;
-	font-size: @navbar-brand-font-size;
+	#font-size(@navbar-brand-font-size);
 	line-height: inherit;
 	white-space: nowrap;
 
@@ -107,7 +107,7 @@
 // Button for toggling the navbar when in its collapsed state
 .navbar-toggler {
 	padding: @navbar-toggler-padding-y @navbar-toggler-padding-x;
-	font-size: @navbar-toggler-font-size;
+	#font-size(@navbar-toggler-font-size);
 	line-height: 1;
 	background-color: transparent; // remove default button style
 	border: @border-width solid transparent; // remove default button style
@@ -116,11 +116,6 @@
 	#hover-focus({
 		text-decoration: none;
 	});
-
-	// Opinionated: add "hand" cursor to non-disabled .navbar-toggler elements
-	&:not(:disabled):not(.disabled) {
-		cursor: pointer;
-	}
 }
 
 // Keep as a separate element so folks can easily override it with another icon
@@ -138,12 +133,12 @@
 // Generate series of `.navbar-expand-*` responsive classes for configuring
 // where your navbar collapses.
 //.navbar-expand {
-//  @each @breakpoint in map-keys(@grid-breakpoints) {
-//    @next: breakpoint-next(@breakpoint, @grid-breakpoints);
-//    @infix: breakpoint-infix(@next, @grid-breakpoints);
+//  @each $breakpoint in map-keys($grid-breakpoints) {
+//    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+//    $infix: breakpoint-infix($next, $grid-breakpoints);
 //
-//    &@{infix} {
-//      @include media-breakpoint-down(@breakpoint) {
+//    &#{$infix} {
+//      @include media-breakpoint-down($breakpoint) {
 //        > .container,
 //        > .container-fluid {
 //          padding-right: 0;
@@ -151,7 +146,7 @@
 //        }
 //      }
 //
-//      @include media-breakpoint-up(@next) {
+//      @include media-breakpoint-up($next) {
 //        flex-flow: row nowrap;
 //        justify-content: flex-start;
 //
@@ -175,7 +170,7 @@
 //        }
 //
 //        .navbar-collapse {
-//          display: flex !important;  // stylelint-disable-line declaration-no-important
+//          display: flex !important; // stylelint-disable-line declaration-no-important
 //
 //          // Changes flex-bases to auto because of an IE10 bug
 //          flex-basis: auto;
@@ -189,52 +184,54 @@
 //  }
 //}
 each(map-keys(@grid-breakpoints), #(@breakpoint) {
-	@next: breakpoint-next(@breakpoint, @grid-breakpoints);
-	@infix: breakpoint-infix(@next, @grid-breakpoints);
+	.navbar-expand {
+		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
+		@infix: breakpoint-infix(@next, @grid-breakpoints);
 
-	.navbar-expand@{infix} {
-		#media-breakpoint-down(@breakpoint, {
-			> .container,
-			> .container-fluid {
-				padding-right: 0;
-				padding-left: 0;
-			}
-		});
+		&@{infix} {
+			#media-breakpoint-down(@breakpoint, {
+				> .container,
+				> .container-fluid {
+					padding-right: 0;
+					padding-left: 0;
+				}
+			});
 
-		#media-breakpoint-up(@next, {
-			flex-flow: row nowrap;
-			justify-content: flex-start;
+			#media-breakpoint-up(@next, {
+				flex-flow: row nowrap;
+				justify-content: flex-start;
 
-			.navbar-nav {
-				flex-direction: row;
+				.navbar-nav {
+					flex-direction: row;
 
-				.dropdown-menu {
-					position: absolute;
+					.dropdown-menu {
+						position: absolute;
+					}
+
+					.nav-link {
+						padding-right: @navbar-nav-link-padding-x;
+						padding-left: @navbar-nav-link-padding-x;
+					}
 				}
 
-				.nav-link {
-					padding-right: @navbar-nav-link-padding-x;
-					padding-left: @navbar-nav-link-padding-x;
+				// For nesting containers, have to redeclare for alignment purposes
+				> .container,
+				> .container-fluid {
+					flex-wrap: nowrap;
 				}
-			}
 
-			// For nesting containers, have to redeclare for alignment purposes
-			> .container,
-			> .container-fluid {
-				flex-wrap: nowrap;
-			}
+				.navbar-collapse {
+					display: flex !important;
 
-			.navbar-collapse {
-				display: flex !important;
+					// Changes flex-bases to auto because of an IE10 bug
+					flex-basis: auto;
+				}
 
-				// Changes flex-bases to auto because of an IE10 bug
-				flex-basis: auto;
-			}
-
-			.navbar-toggler {
-				display: none;
-			}
-		});
+				.navbar-toggler {
+					display: none;
+				}
+			});
+		}
 	}
 });
 
