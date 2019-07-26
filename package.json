@@ -41,7 +41,7 @@
 		"ansi-colors": "^4.1.1",
 		"autoprefixer": "^9.6.1",
 		"clean-css-cli": "^4.3.0",
-		"eslint": "^6.0.1",
+		"eslint": "^6.1.0",
 		"less": "^3.9.0",
 		"node-stream-zip": "^1.8.2",
 		"postcss-cli": "^6.1.2"
