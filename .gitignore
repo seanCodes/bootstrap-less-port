@@ -13,3 +13,4 @@ test/sass-compiled-css-reference/*
 
 # Ignore the testing output file.
 test/scripts/result.diff
+.idea
