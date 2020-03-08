@@ -97,7 +97,7 @@ kbd kbd{padding:0;font-size:100%;font-weight:700}
 pre{display:block;font-size:87.5%;color:#212529}
 pre code{font-size:inherit;color:inherit;word-break:normal}
 .pre-scrollable{max-height:340px;overflow-y:scroll}
-.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;container-max-width:540px;breakpoint:sm;container-max-width:720px;breakpoint:md;container-max-width:960px;breakpoint:lg;container-max-width:1140px;breakpoint:xl}
 @media (min-width:576px){
 .container{max-width:540px}
 }

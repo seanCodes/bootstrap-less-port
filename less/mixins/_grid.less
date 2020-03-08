@@ -21,6 +21,8 @@
 //}
 #make-container-max-widths(@max-widths: @container-max-widths, @breakpoints: @grid-breakpoints) {
 	each(@max-widths, #(@container-max-width, @breakpoint) {
+		container-max-width: @container-max-width;
+		breakpoint: @breakpoint;
 		#media-breakpoint-up(@breakpoint, {
 			max-width: @container-max-width;
 		}, @breakpoints);

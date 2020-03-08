@@ -3,6 +3,10 @@
 # Ignore system files
 .DS_Store
 
+# Ignore editor files
+.vscode
+.idea
+
 # Ignore node modules
 node_modules/*
 
@@ -13,4 +17,3 @@ test/sass-compiled-css-reference/*
 
 # Ignore the testing output file.
 test/scripts/result.diff
-.idea

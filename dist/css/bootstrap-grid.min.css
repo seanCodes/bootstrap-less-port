@@ -6,7 +6,7 @@
  */
 html{box-sizing:border-box;-ms-overflow-style:scrollbar}
 *,::after,::before{box-sizing:inherit}
-.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;container-max-width:540px;breakpoint:sm;container-max-width:720px;breakpoint:md;container-max-width:960px;breakpoint:lg;container-max-width:1140px;breakpoint:xl}
 @media (min-width:576px){
 .container{max-width:540px}
 }
