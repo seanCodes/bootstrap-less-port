@@ -93,7 +93,13 @@
 
 			& when (@enable-validation-icons) {
 				padding-right: @custom-select-feedback-icon-padding-right;
-				background: @custom-select-background, @icon @custom-select-bg no-repeat @custom-select-feedback-icon-position/@custom-select-feedback-icon-size;
+				background: @custom-select-background;
+				// Second background, no shorthand
+				background-image: @icon;
+				background-color: @custom-select-bg;
+				background-repeat: no-repeat;
+				background-position: @custom-select-feedback-icon-position;
+				background-size: @custom-select-feedback-icon-size;
 			}
 
 			&:focus {
