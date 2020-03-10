@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.2.2] – 2020-03-09
+
+This version fixes an issue that caused an error when compiling the project using the default Less options. Previously, Less had to be configured with the [`math` option](http://lesscss.org/usage/#less-options-math) set to `parens`, but this requirement wasn’t documented anywhere, which obviously lead to some confusion.
+
+Instead of adding the additional step, the code has been modified to be compatible with the default `math: 'always'` option. This should make for a smoother experience installing and using the project overall (especially when it’s being compiled using a wrapper around Less, such as `less-loader`, `angular-cli` or `ember-cli-less`).
+
+Note that this change is backwards compatible and everything will continue to work with the stricter `math: 'parens'` or `math: 'parens-division'` options.
+
+### Changed
+- __Dev__: Updated dependencies and fixed npm audit security issues
+  * `less` 3.9.0 → 3.11.1
+  * `autoprefixer` 9.6.1 → 9.7.4
+  * `postcss-cli` 6.1.3 → 7.1.0
+  * `eslint` 6.1.0 → 6.8.0
+  * `node-stream-zip` 1.8.2 → 1.9.1
+
+### Fixed
+- [#22](https://github.com/seanCodes/bootstrap-less-port/issues/22) – Build fails when using webpack with less-loader
+
+
 ## [2.2.1] – 2019-07-25
 
 Aligned code with Bootstrap v4.3.1. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.3.1) for details.
@@ -216,7 +236,8 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 ---
 
-[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...HEAD
+[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.0...v2.1.1
