@@ -4,7 +4,7 @@
  * Script formatting a Sass-compiled Bootstrap CSS file for comparison with a Less-compiled CSS
  * file.
  *
- * Copyright 2019 Sean Juarez
+ * Copyright 2019–2020 Sean Juarez
  *
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */

@@ -4,7 +4,7 @@
  * Script for downloading either the latest version or a specific version of the Boostrap source
  * code from Github, for use with testing.
  *
- * Copyright 2019 Sean Juarez
+ * Copyright 2019–2020 Sean Juarez
  *
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */

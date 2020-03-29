@@ -3,7 +3,7 @@
 /**!
  * Script for comparing a Sass-compiled Bootstrap CSS file to a Less-compiled CSS file.
  *
- * Copyright 2019 Sean Juarez
+ * Copyright 2019–2020 Sean Juarez
  *
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */

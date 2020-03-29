@@ -4,7 +4,7 @@
  * Compile the current Less files and compare the resulting CSS with the Sass-compiled CSS to see if
  * they match, then output the result.
  *
- * Copyright 2019 Sean Juarez
+ * Copyright 2019–2020 Sean Juarez
  *
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */

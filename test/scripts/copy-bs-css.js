@@ -4,7 +4,7 @@
  * Script for copying a CSS file from a downloaded Bootstrap source directory to the compiled-CSS-
  * reference directory.
  *
- * Copyright 2019 Sean Juarez
+ * Copyright 2019–2020 Sean Juarez
  *
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */
