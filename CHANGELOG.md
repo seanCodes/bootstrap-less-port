@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+### Changed
+- The `warn()` and `error()` functions now output relative paths (when possible) for the files they were called from instead of absolute paths. The paths will be relative to the entry-point file. When a file is not in the same path as the entry-point file, the absolute path will still be output.
+
+
 ## [2.2.2] – 2020-03-09
 
 This version fixes an issue that caused an error when compiling the project using the default Less options. Previously, Less had to be configured with the [`math` option](http://lesscss.org/usage/#less-options-math) set to `parens`, but this requirement wasn’t documented anywhere, which obviously lead to some confusion.

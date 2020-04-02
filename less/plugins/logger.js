@@ -6,7 +6,8 @@ functions.add('warn', function ({ value: message } = { value: '' }) {
 	let filename = this.currentFileInfo.filename
 
 	if (filename)
-		filename = `[${filename}] `
+		// Make filename relative and wrap in square brackets.
+		filename = `[${filename.replace(this.currentFileInfo.entryPath, '')}] `
 
 	message = `${filename}WARNING: ${message}`
 
@@ -19,7 +20,8 @@ functions.add('error', function ({ value: message } = { value: '' }) {
 	let filename = this.currentFileInfo.filename
 
 	if (filename)
-		filename = `[${filename}] `
+		// Make filename relative and wrap in square brackets.
+		filename = `[${filename.replace(this.currentFileInfo.entryPath, '')}] `
 
 	message = `${filename}ERROR: ${message}`
 
