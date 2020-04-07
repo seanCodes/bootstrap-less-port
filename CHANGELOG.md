@@ -6,10 +6,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased]
+## [2.3.0] – 2020-04-07
+
+Aligned code with Bootstrap v4.4.0. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.4.0) for details.
+
+### Added
+- As part of the updates for Bootstrap v4.4.0, three new functions have been added as Less plugins:
+  * `escape-svg()` for escaping the SVG data URIs of the icons used in form validation states, custom form inputs, carousel arrows, etc.
+  * `add()` and `subtract()` for outputting addition and subtraction as `calc()` statements (instead of actually doing the math). These functions only accept two parameters but they can be nested when more are needed (pass `false` as a third param to inner calls to output just the math and not the `calc()` wrapper). When the two values are static and use the same units, their computed value will be output instead.
 
 ### Changed
+- Updated styles/plugins to match Bootstrap v4.4.0. See the [blog post](https://blog.getbootstrap.com/2019/11/26/bootstrap-4-4-0/) for highlights.
 - The `warn()` and `error()` functions now output relative paths (when possible) for the files they were called from instead of absolute paths. The paths will be relative to the entry-point file. When a file is not in the same path as the entry-point file, the absolute path will still be output.
+- The `.grid-column` class that was previously used in place of the Sass version’s `%grid-column` placeholder-selector has been changed to `\%grid-column` instead. This avoids potential conflicts for users who might already be using/want to use the `.grid-column` class for something else. Using a `\%` prefix is valid and is much less likely to collide with user selectors. Since placeholder-selectors are much more common as of this version, the `\%` prefix pattern is now being used anywhere the Sass version uses a placeholder.
+- __Dev__: Updated testing scripts to account for the pseudo placeholder selectors that are now commonly used
 
 
 ## [2.2.2] – 2020-03-09
@@ -97,7 +107,7 @@ Thanks to these improvements some clunky workarounds used previously were remove
 - Added a new `map-keys()` function for getting the properties from a ruleset as a list, which can be very helpful when iterating using `each()` (thanks @calvinjuarez!)
 
 ### Changed
-- Updated Less peer-dependency version from `^2.6.0` to `^3.9.0.`
+- Updated Less peer-dependency version from `^2.6.0` to `^3.9.0`
 - Updated Less syntax to leverage the latest Less features
    * Converted “map” variables (nested lists) to rulesets
    * Switched to using property accessors instead of the custom `map-get()` function for getting values from map-like variables
@@ -243,6 +253,7 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 ---
 
 [Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.2...HEAD
+[2.3.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.3.0
 [2.2.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.1...v2.2.0
