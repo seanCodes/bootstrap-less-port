@@ -91,11 +91,6 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 			'-webkit-tap-highlight-color: rgba(0, 0, 0, 0);',
 			'-webkit-tap-highlight-color: transparent;'
 		)
-		// Add the special `.grid-column` class needed for the Less version.
-		.replace(
-			'}\n.col-1,',
-			'}\n.grid-column,\n.col-1,'
-		)
 		// Last, sort and multi-line selectors.
 		.replace(
 			/(^ *)(?:(?:[[.*:a-z-]|@-)[^\n;/]*)(?:\n\1(?:[[.*:a-z-]|@-)[^\n;/]*)*(?= {)/gm,

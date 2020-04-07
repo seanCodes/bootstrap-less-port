@@ -64,6 +64,10 @@ async function main([targetVersion]) {
 		/(^ *\S.*,\n)*^ *\S.*(?= {)/gm,
 		match => match.split(',\n').sort().join(',\n')
 	)
+	// Remove the credit to the Bootstrap Less port.
+	lessCompiledCSS = lessCompiledCSS.replace(/^ \*\n \* Compiled[\S\s]*\n(?= \*\/)/gm, '')
+	// Remove the special placeholder selectors.
+	lessCompiledCSS = lessCompiledCSS.replace(/,\n[^\n]*?\\%[^{]*{/gm, ' {')
 
 	if (! pathExists(LESS_COMPILED_CSS_REFERENCE_DIR))
 		mkdirSync(LESS_COMPILED_CSS_REFERENCE_DIR)
@@ -106,11 +110,16 @@ async function main([targetVersion]) {
 	} catch (err) {
 		return oops('Error writing file less-compiled CSS file:', err)
 	}
+
 	if (diff) {
 		console.error(diff)
 
-		return oops('Files differ.')
+		const differenceCount = color.unstyle(diff).match(/(^-(?!--).*\n)+(^\+.*\n)+|(^\+.*\n)+(^-(?!--).*\n)|(^\+(?!\+\+).*\n)+|(^-(?!--).*\n)+/gm).length
+
+		return oops(`${differenceCount} differences found.`)
 	}
+
+	console.log(color.green('\n\nNo differences.'))
 }
 
 main(process.argv.slice(2))
