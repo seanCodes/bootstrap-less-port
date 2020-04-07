@@ -1,15 +1,20 @@
 /*!
- * Bootstrap Reboot v4.3.1 (https://getbootstrap.com/)
+ * Bootstrap Reboot v4.4.0 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ *
+ * Compiled using Bootstrap Less Port v2.3.0 (https://github.com/seanCodes/bootstrap-less-port)
+ * A port of Bootstrap’s Sass source code to Less.
+ * Copyright 2017–2020 Sean Juarez
+ * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */
 *,::after,::before{box-sizing:border-box}
 html{font-family:sans-serif;line-height:1.15;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 article,aside,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;text-align:left;background-color:#fff}
-[tabindex="-1"]:focus{outline:0!important}
+[tabindex="-1"]:focus:not(:focus-visible){outline:0!important}
 hr{box-sizing:content-box;height:0;overflow:visible}
 h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem}
 p{margin-top:0;margin-bottom:1rem}
@@ -27,9 +32,8 @@ sub{bottom:-.25em}
 sup{top:-.5em}
 a{color:#007bff;text-decoration:none;background-color:transparent}
 a:hover{color:#0056b3;text-decoration:underline}
-a:not([href]):not([tabindex]){color:inherit;text-decoration:none}
-a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:inherit;text-decoration:none}
-a:not([href]):not([tabindex]):focus{outline:0}
+a:not([href]){color:inherit;text-decoration:none}
+a:not([href]):hover{color:inherit;text-decoration:none}
 code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em}
 pre{margin-top:0;margin-bottom:1rem;overflow:auto}
 figure{margin:0 0 1rem}
