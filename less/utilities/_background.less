@@ -3,7 +3,7 @@
 //}
 each(@theme-colors, #(@value, @color) {
 	#bg-variant(~".bg-@{color}", @value);
-})
+});
 
 //@if $enable-gradients {
 //  @each $color, $value in $theme-colors {
@@ -13,7 +13,7 @@ each(@theme-colors, #(@value, @color) {
 & when (@enable-gradients) {
 	each(@theme-colors, #(@value, @color) {
 		#bg-gradient-variant(~".bg-gradient-@{color}", @value);
-	})
+	});
 }
 
 
