@@ -56,7 +56,7 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 //  @include text-emphasis-variant(".text-#{$color}", $value);
 //}
 each(@theme-colors, #(@value, @color) {
-	#text-emphasis-variant(~".text-@{color}", @value);
+	#text-emphasis-variant(~".text-@{color}", @value, true);
 });
 
 .text-body { color: @body-color !important; }

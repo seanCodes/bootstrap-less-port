@@ -1,7 +1,7 @@
 
 // Typography
 
-#text-emphasis-variant(@parent, @color) {
+#text-emphasis-variant(@parent, @color, @ignore-warning: false) {
 	@{parent} {
 		color: @color !important;
 	}
@@ -12,4 +12,5 @@
 			});
 		}
 	}
+	#deprecate("`#text-emphasis-variant()`", "v4.4.0", "v5", @ignore-warning);
 }

@@ -9,7 +9,14 @@
 	font-weight: @btn-font-weight;
 	color: @body-color;
 	text-align: center;
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@btn-white-space = ~"") { white-space: @btn-white-space; }
 	vertical-align: middle;
+	// LESS PORT: Less doesn’t strip “empty” property values so we only output when the condition is
+	// `true`.
+	& when (@enable-pointer-cursor-for-buttons) {
+		cursor: pointer;
+	}
 	user-select: none;
 	background-color: transparent;
 	border: @btn-border-width solid transparent;

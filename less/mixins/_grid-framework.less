@@ -70,7 +70,7 @@
 	// LESS PORT: Unfortunately we have to use an actual selector here in order to be able to
 	// `:extend()` it later. This means that the selector is output in the compiled CSS, creating a
 	// small disparity between the Less and Sass versions.
-	.grid-column {
+	\%grid-column {
 		position: relative;
 		width: 100%;
 		padding-right: (@gutter / 2);
@@ -83,13 +83,13 @@
 		// Allow columns to stretch full width below their breakpoints
 		each(range(@columns), #(@i) {
 			.col@{infix}-@{i} {
-				&:extend(.grid-column);
+				&:extend(\%grid-column);
 			}
 		});
 
 		.col@{infix},
 		.col@{infix}-auto {
-			&:extend(.grid-column);
+			&:extend(\%grid-column);
 		}
 
 		#media-breakpoint-up(@breakpoint, {
@@ -99,10 +99,15 @@
 				flex-grow: 1;
 				max-width: 100%;
 			}
+
+			each(range(@grid-row-columns), #(@i) {
+				.row-cols@{infix}-@{i} {
+					#row-cols(@i);
+				}
+			});
+
 			.col@{infix}-auto {
-				flex: 0 0 auto;
-				width: auto;
-				max-width: 100%; // Reset earlier grid tiers
+				#make-col-auto();
 			}
 
 			each(range(@columns), #(@i) {

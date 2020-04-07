@@ -21,8 +21,6 @@
 //}
 #make-container-max-widths(@max-widths: @container-max-widths, @breakpoints: @grid-breakpoints) {
 	each(@max-widths, #(@container-max-width, @breakpoint) {
-		container-max-width: @container-max-width;
-		breakpoint: @breakpoint;
 		#media-breakpoint-up(@breakpoint, {
 			max-width: @container-max-width;
 		}, @breakpoints);
@@ -55,6 +53,12 @@
 	max-width: percentage((@size / @columns));
 }
 
+#make-col-auto() {
+	flex: 0 0 auto;
+	width: auto;
+	max-width: 100%; // Reset earlier grid tiers
+}
+
 #make-col-offset(@size, @columns: @grid-columns) {
 	@num: (@size / @columns);
 
@@ -63,5 +67,17 @@
 	}
 	& when not (@num = 0) {
 		margin-left: percentage(@num);
+	}
+}
+
+// Row columns
+//
+// Specify on a parent element(e.g., .row) to force immediate children into NN
+// numberof columns. Supports wrapping to new lines, but does not do a Masonry
+// style grid.
+#row-cols(@count) {
+	& > * {
+		flex: 0 0 (100% / @count);
+		max-width: (100% / @count);
 	}
 }

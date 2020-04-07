@@ -75,7 +75,7 @@
 	.active.carousel-item-right {
 		z-index: 0;
 		opacity: 0;
-		#transition(0s @carousel-transition-duration opacity);
+		#transition(opacity 0s @carousel-transition-duration);
 	}
 }
 
@@ -111,13 +111,13 @@
 .carousel-control-prev {
 	left: 0;
 	& when (@enable-gradients) {
-		background: linear-gradient(90deg, fade(@black, 25%), fade(@black, 0.1%));
+		background-image: linear-gradient(90deg, fade(@black, 25%), fade(@black, 0.1%));
 	}
 }
 .carousel-control-next {
 	right: 0;
 	& when (@enable-gradients) {
-		background: linear-gradient(270deg, fade(@black, 25%), fade(@black, 0.1%));
+		background-image: linear-gradient(270deg, fade(@black, 25%), fade(@black, 0.1%));
 	}
 }
 
@@ -130,10 +130,10 @@
 	background: no-repeat 50% ~"/" 100% 100%;
 }
 .carousel-control-prev-icon {
-	background-image: @carousel-control-prev-icon-bg;
+	background-image: escape-svg(@carousel-control-prev-icon-bg);
 }
 .carousel-control-next-icon {
-	background-image: @carousel-control-next-icon-bg;
+	background-image: escape-svg(@carousel-control-next-icon-bg);
 }
 
 

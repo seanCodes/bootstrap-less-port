@@ -14,7 +14,14 @@
 //
 // Provide a static navbar from which we expand to create full-width, fixed, and
 // other navbar variations.
-
+// LESS PORT: Because of the way `:extend()` works in Less (and the workaround we’re using to
+// emulate Sass’ placeholder selectors) we need to include the selectors that extend the
+// placeholders at the root. Then `&:extend(<placeholder> all)` will attach the selectors to every
+// instance of the placeholder.
+.container,
+.container-fluid {
+	&:extend(\%container-flex-properties all);
+}
 .navbar {
 	position: relative;
 	display: flex;
@@ -25,13 +32,39 @@
 
 	// Because flex properties aren't inherited, we need to redeclare these first
 	// few properties so that content nested within behave properly.
-	> .container,
-	> .container-fluid {
+	// LESS PORT: Unfortunately we have to use an actual selector here in order to be able to
+	// `:extend()` it later. This means that the selector is output in the compiled CSS, creating a
+	// small disparity between the Less and Sass versions.
+	// LESS PORT: The `-@{breakpoint}` suffix is omitted from the selector here since it’s not needed
+	// with the `:extend()` workaround we’re using.
+	\%container-flex-properties {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
 	}
+
+	// LESS PORT: Because of the way `:extend()` works in Less (and the workaround we’re using to
+	// emulate Sass’ placeholder selectors) we include this selector at the root, instead.  (We also
+	// omit the `-@{breakpoint}` suffix since it’s not needed.)
+	// .container,
+	// .container-fluid {
+	// 	&:extend(\%container-flex-properties);
+	// }
+
+	// LESS PORT: Since we `&:extend(.container-fluid all)` in `_grid.less` we don’t need to output
+	// the container-max-width selectors here. Using the `all` means the container-max-width
+	// selectors will already be attached to all instances of `.container-fluid`.
+	// each(@container-max-widths, #(@container-max-width, @breakpoint) {
+	// 	// LESS PORT: A variable is required here to do the selector interpolation, since an
+	// 	// expression cannot be interpolated like in the Sass version.
+	// 	@infix: breakpoint-infix(@breakpoint, @container-max-widths);
+	// 	// LESS PORT: The Sass version actually uses `> .container` here but that doesn’t seem to
+	// 	// match the output CSS, so we‘re omitting it.
+	// 	.container@{infix} {
+	// 		&:extend(.navbar \%container-flex-properties);
+	// 	}
+	// });
 }
 
 
@@ -139,10 +172,20 @@
 //
 //    &#{$infix} {
 //      @include media-breakpoint-down($breakpoint) {
-//        > .container,
-//        > .container-fluid {
+//        %container-navbar-expand-#{$breakpoint} {
 //          padding-right: 0;
 //          padding-left: 0;
+//        }
+//
+//        > .container,
+//        > .container-fluid {
+//          @extend %container-navbar-expand-#{$breakpoint};
+//        }
+//
+//        @each $size, $container-max-width in $container-max-widths {
+//          > .container#{breakpoint-infix($size, $container-max-widths)} {
+//            @extend %container-navbar-expand-#{$breakpoint};
+//          }
 //        }
 //      }
 //
@@ -164,9 +207,19 @@
 //        }
 //
 //        // For nesting containers, have to redeclare for alignment purposes
+//        %container-nesting-#{$breakpoint} {
+//          flex-wrap: nowrap;
+//        }
+//
 //        > .container,
 //        > .container-fluid {
-//          flex-wrap: nowrap;
+//          @extend %container-nesting-#{$breakpoint};
+//        }
+//
+//        @each $size, $container-max-width in $container-max-widths {
+//          > .container#{breakpoint-infix($size, $container-max-widths)} {
+//            @extend %container-nesting-#{$breakpoint};
+//          }
 //        }
 //
 //        .navbar-collapse {
@@ -183,6 +236,15 @@
 //    }
 //  }
 //}
+// LESS PORT: Because of the way `:extend()` works in Less (and the workaround we’re using to
+// emulate Sass’ placeholder selectors) we need to include the selectors that extend the
+// placeholders at the root. Then `&:extend(<placeholder> all)` will attach the selectors to every
+// instance of the placeholder.
+> .container,
+> .container-fluid {
+	&:extend(\%container-navbar-expand all);
+	&:extend(\%container-nesting all);
+}
 each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	.navbar-expand {
 		@next: breakpoint-next(@breakpoint, @grid-breakpoints);
@@ -190,11 +252,36 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 
 		&@{infix} {
 			#media-breakpoint-down(@breakpoint, {
-				> .container,
-				> .container-fluid {
+				// LESS PORT: Unfortunately we have to use an actual selector here in order to be able
+				// to `:extend()` it later. This means that the selector is output in the compiled CSS,
+				// creating a small disparity between the Less and Sass versions.
+				// LESS PORT: The `-@{breakpoint}` suffix is omitted from the selector here since it’s
+				// not needed with the `:extend()` workaround we’re using.
+				> \%container-navbar-expand {
 					padding-right: 0;
 					padding-left: 0;
 				}
+
+				// LESS PORT: Because of the way `:extend()` works in Less (and the workaround we’re
+				// using to emulate Sass’ placeholder selectors) we include this selector at the root,
+				// instead. (We also omit the `-@{breakpoint}` suffix since it’s not needed.)
+				// > .container,
+				// > .container-fluid {
+				// 	&:extend(\%container-navbar-expand-@{breakpoint});
+				// }
+
+				// LESS PORT: Since we `&:extend(.container-fluid all)` in `_grid.less` we don’t need to
+				// output the container-max-width selectors here. Using the `all` means the
+				// container-max-width selectors will already be attached to all instances of
+				// `.container-fluid`.
+				// each(@container-max-widths, #(@container-max-width, @size) {
+				// 	// LESS PORT: A variable is required here to do the selector interpolation, since an
+				// 	// expression cannot be interpolated like in the Sass version.
+				// 	@infix: breakpoint-infix(@size, @container-max-widths);
+				// 	> .container@{infix} {
+				// 		&:extend(\%container-navbar-expand-@{breakpoint});
+				// 	}
+				// });
 			});
 
 			#media-breakpoint-up(@next, {
@@ -215,10 +302,41 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 				}
 
 				// For nesting containers, have to redeclare for alignment purposes
-				> .container,
-				> .container-fluid {
+				// LESS PORT: Unfortunately we have to use an actual selector here in order to be able
+				// to `:extend()` it later. This means that the selector is output in the compiled CSS,
+				// creating a small disparity between the Less and Sass versions.
+				// LESS PORT: The `-@{breakpoint}` suffix is omitted from the selector here since it’s
+				// not needed with the `:extend()` workaround we’re using. We also have to prefix with
+				// a `>` so that the immediate decendant selector will be included when we `:extend()`.
+				> \%container-nesting {
 					flex-wrap: nowrap;
 				}
+
+				// LESS PORT: The `-@{breakpoint}` suffix is omitted from the  since the
+				// \%container-nesting-@{breakpoint} {
+				// 	flex-wrap: nowrap;
+				// }
+
+				// LESS PORT: Because of the way `:extend()` works in Less (and the workaround we’re
+				// using to emulate Sass’ placeholder selectors) we include this selector at the root,
+				// instead. (We also omit the `-@{breakpoint}` suffix since it’s not needed.)
+				// > .container,
+				// > .container-fluid {
+				// 	&:extend(\%container-nesting-@{breakpoint});
+				// }
+
+				// LESS PORT: Since we `&:extend(.container-fluid all)` in `_grid.less` we don’t need to
+				// output the container-max-width selectors here. Using the `all` means the
+				// container-max-width selectors will already be attached to all instances of
+				// `.container-fluid`.
+				// each(@container-max-widths, #(@container-max-width, @size) {
+				// 	// LESS PORT: A variable is required here to do the selector interpolation, since an
+				// 	// expression cannot be interpolated like in the Sass version.
+				// 	@infix: breakpoint-infix(@size, @container-max-widths);
+				// 	> .container@{infix} {
+				// 		&:extend(\%container-nesting-@{breakpoint});
+				// 	}
+				// });
 
 				.navbar-collapse {
 					display: flex !important;
@@ -277,7 +395,7 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	}
 
 	.navbar-toggler-icon {
-		background-image: @navbar-light-toggler-icon-bg;
+		background-image: escape-svg(@navbar-light-toggler-icon-bg);
 	}
 
 	.navbar-text {
@@ -329,7 +447,7 @@ each(map-keys(@grid-breakpoints), #(@breakpoint) {
 	}
 
 	.navbar-toggler-icon {
-		background-image: @navbar-dark-toggler-icon-bg;
+		background-image: escape-svg(@navbar-dark-toggler-icon-bg);
 	}
 
 	.navbar-text {

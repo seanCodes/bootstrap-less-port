@@ -189,7 +189,10 @@
 
 // The font-size & responsive-font-size mixin uses RFS to rescale font sizes
 #font-size(@fs, @important: false) {
-	#rfs(@fs, @important);
+	// LESS PORT: Less doesn’t strip “empty” property values so we have to check for a value first.
+	& when not (@fs = ~"") {
+		#rfs(@fs, @important);
+	}
 }
 
 #responsive-font-size(@fs, @important: false) {

@@ -3,26 +3,74 @@
 // Set the container width, and override it for fixed navbars in media queries.
 
 & when (@enable-grid-classes) {
+	// Single container class with breakpoint max-widths
 	.container {
 		#make-container();
 		#make-container-max-widths();
 	}
-}
 
-// Fluid container
-//
-// Utilizes the mixin meant for fixed width containers, but with 100% width for
-// fluid, full width layouts.
-
-& when (@enable-grid-classes) {
+	// 100% wide container at all breakpoints
 	.container-fluid {
 		#make-container();
 	}
+
+	// Responsive containers that are 100% wide until a breakpoint
+	//@each $breakpoint, $container-max-width in $container-max-widths {
+	//  .container-#{$breakpoint} {
+	//    @extend .container-fluid;
+	//  }
+	//
+	//  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+	//    %responsive-container-#{$breakpoint} {
+	//      max-width: $container-max-width;
+	//    }
+	//
+	//    @each $name, $width in $grid-breakpoints {
+	//      @if ($container-max-width > $width or $breakpoint == $name) {
+	//        .container#{breakpoint-infix($name, $grid-breakpoints)} {
+	//          @extend %responsive-container-#{$breakpoint};
+	//        }
+	//      }
+	//    }
+	//  }
+	//}
+	each(@container-max-widths, #(@container-max-width, @breakpoint) {
+		.container-@{breakpoint} {
+			&:extend(.container-fluid all);
+		}
+
+		#media-breakpoint-up(@breakpoint, {
+			// LESS PORT: Unfortunately we have to use an actual selector here in order to be able to
+			// `:extend()` it later. This means that the selector is output in the compiled CSS,
+			// creating a small disparity between the Less and Sass versions.
+			// LESS PORT: Less cannot currently extend interpolated selectors, however, when a plain
+			// selector is used this appears to compile correctly anyway. Because of this, the
+			// `-@{breakpoint}` suffix is omitted from this selector.
+			\%responsive-container {
+				max-width: @container-max-width;
+			}
+
+			each(@grid-breakpoints, #(@width, @name) {
+				& when ((@container-max-width > @width) or (@breakpoint = @name)) {
+					// LESS PORT: A variable is required here to do the selector interpolation, since an
+					// expression cannot be interpolated like in the Sass version.
+					@infix: breakpoint-infix(@name, @grid-breakpoints);
+					.container@{infix} {
+						// LESS PORT: Less cannot currently extend interpolated selectors, however, when a
+						// plain selector is used this appears to compile correctly anyway. Because of
+						// this, the `-@{breakpoint}` suffix is omitted from this selector.
+						&:extend(\%responsive-container);
+					}
+				}
+			});
+		}, @grid-breakpoints);
+	});
 }
+
 
 // Row
 //
-// Rows contain and clear the floats of your columns.
+// Rows contain your columns.
 
 .row when (@enable-grid-classes) {
 	#make-row();
