@@ -1,5 +1,5 @@
 /*!
- * Bootstrap v4.4.0 (https://getbootstrap.com/)
+ * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -474,7 +474,7 @@ textarea.form-control{height:auto}
 .form-row>.col,.form-row>[class*=col-]{padding-right:5px;padding-left:5px}
 .form-check{position:relative;display:block;padding-left:1.25rem}
 .form-check-input{position:absolute;margin-top:.3rem;margin-left:-1.25rem}
-.form-check-input[disabled]~.form-check-label{color:#6c757d}
+.form-check-input:disabled~.form-check-label,.form-check-input[disabled]~.form-check-label{color:#6c757d}
 .form-check-label{margin-bottom:0}
 .form-check-inline{display:-ms-inline-flexbox;display:inline-flex;-ms-flex-align:center;align-items:center;padding-left:0;margin-right:.75rem}
 .form-check-inline .form-check-input{position:static;margin-top:0;margin-right:.3125rem;margin-left:0}
@@ -746,8 +746,8 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 .custom-control-input:focus~.custom-control-label::before{box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}
 .custom-control-input:focus:not(:checked)~.custom-control-label::before{border-color:#80bdff}
 .custom-control-input:not(:disabled):active~.custom-control-label::before{color:#fff;background-color:#b3d7ff;border-color:#b3d7ff}
-.custom-control-input[disabled]~.custom-control-label{color:#6c757d}
-.custom-control-input[disabled]~.custom-control-label::before{background-color:#e9ecef}
+.custom-control-input:disabled~.custom-control-label,.custom-control-input[disabled]~.custom-control-label{color:#6c757d}
+.custom-control-input:disabled~.custom-control-label::before,.custom-control-input[disabled]~.custom-control-label::before{background-color:#e9ecef}
 .custom-control-label{position:relative;margin-bottom:0;vertical-align:top}
 .custom-control-label::before{position:absolute;top:.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;pointer-events:none;content:"";background-color:#fff;border:#adb5bd solid 1px}
 .custom-control-label::after{position:absolute;top:.25rem;left:-1.5rem;display:block;width:1rem;height:1rem;content:"";background:no-repeat 50%/50% 50%}
@@ -780,7 +780,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 .custom-file{position:relative;display:inline-block;width:100%;height:calc(1.5em + .75rem + 2px);margin-bottom:0}
 .custom-file-input{position:relative;z-index:2;width:100%;height:calc(1.5em + .75rem + 2px);margin:0;opacity:0}
 .custom-file-input:focus~.custom-file-label{border-color:#80bdff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}
-.custom-file-input[disabled]~.custom-file-label{background-color:#e9ecef}
+.custom-file-input:disabled~.custom-file-label,.custom-file-input[disabled]~.custom-file-label{background-color:#e9ecef}
 .custom-file-input:lang(en)~.custom-file-label::after{content:"Browse"}
 .custom-file-input~.custom-file-label[data-browse]::after{content:attr(data-browse)}
 .custom-file-label{position:absolute;top:0;right:0;left:0;z-index:1;height:calc(1.5em + .75rem + 2px);padding:.375rem .75rem;font-weight:400;line-height:1.5;color:#495057;background-color:#fff;border:1px solid #ced4da;border-radius:.25rem}
