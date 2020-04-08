@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.3.1] – 2019-04-07
+
+Aligned code with Bootstrap v4.4.1. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.4.1) for details.
+
+### Changed
+- Updated styles/plugins to match Bootstrap v4.4.1. See the [blog post](https://blog.getbootstrap.com/2019/11/28/bootstrap-4-4-1/) for highlights.
+- __Dev__: Updated dependencies and fixed npm audit security issues
+  * `eslint` 6.0.1 → 6.1.0
+  * `postcss-cli` 6.1.2 → 6.1.3
+
+
 ## [2.3.0] – 2020-04-07
 
 Aligned code with Bootstrap v4.4.0. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.4.0) for details.
@@ -252,8 +263,9 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 ---
 
-[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.2...HEAD
-[2.3.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.3.0
+[Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.1...HEAD
+[2.3.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.1.1...v2.2.0
