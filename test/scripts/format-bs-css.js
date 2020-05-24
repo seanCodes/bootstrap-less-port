@@ -9,6 +9,7 @@
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
  */
 
+import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
 import oops from './utils/oops.js'
 import { pathExists } from './utils/path-utils.js'
 import { readFileSync, writeFileSync } from 'fs'
@@ -104,13 +105,11 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 }
 
 async function main([targetVersion]) {
-	// Ensure a version was specified.
-	if (! targetVersion)
-		return oops('No target version specified.')
-
-	// Ensure version is prefixed with a “v”.
-	if (! targetVersion.startsWith('v'))
-		targetVersion = `v${targetVersion}`
+	try {
+		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
+	} catch (err) {
+		return oops(err)
+	}
 
 	const sassCompiledCSSFilepath = `${SASS_COMPILED_CSS_REFERENCE_DIR}bootstrap-${targetVersion}.css`
 
