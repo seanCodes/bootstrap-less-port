@@ -22,8 +22,9 @@ async function main([targetVersion]) {
 		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 	} catch (err) {
 		oops(err, { exit: false })
+		oops('✘ TESTS FAILED')
 
-		return oops('✘ TESTS FAILED')
+		return
 	}
 
 	console.log(`\nTesting current Less-compiled CSS against Sass-compiled CSS for version: ${color.bold(targetVersion)}`)
@@ -33,8 +34,9 @@ async function main([targetVersion]) {
 			execSync(`node test/scripts/download-bs-source-files.js ${targetVersion}`)
 		} catch (err) {
 			oops(err, { exit: false })
+			oops('✘ TESTS FAILED')
 
-			return oops('✘ TESTS FAILED')
+			return
 		}
 
 	let stdout = ''
@@ -43,8 +45,8 @@ async function main([targetVersion]) {
 	;({ stdout, stderr } = spawnSync('node', `test/scripts/copy-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
-		console.error(stderr)
-		console.error(color.red('\n✘ TESTS FAILED'))
+		oops(stderr, { exit: false })
+		oops('\n✘ TESTS FAILED')
 
 		return
 	}
@@ -54,8 +56,8 @@ async function main([targetVersion]) {
 	;({ stdout, stderr } = spawnSync('node', `test/scripts/format-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
-		console.error(stderr)
-		console.error(color.red('\n✘ TESTS FAILED'))
+		oops(stderr, { exit: false })
+		oops('\n✘ TESTS FAILED')
 
 		return
 	}
@@ -65,8 +67,8 @@ async function main([targetVersion]) {
 	;({ stdout, stderr } = spawnSync('node', `test/scripts/compare-less-css-to-sass-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
-		console.error(stderr)
-		console.error(color.red('\n✘ TESTS FAILED'))
+		oops(stderr, { exit: false })
+		oops('\n✘ TESTS FAILED')
 
 		return
 	}
