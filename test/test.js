@@ -30,7 +30,7 @@ async function main([targetVersion]) {
 
 	if (! pathExists(`${BOOTSTRAP_SOURCE_DIR}${targetVersion}`))
 		try {
-			execSync(`node --experimental-modules --no-warnings test/scripts/download-bs-source-files.js ${targetVersion}`)
+			execSync(`node test/scripts/download-bs-source-files.js ${targetVersion}`)
 		} catch (err) {
 			oops(err, { exit: false })
 
@@ -40,7 +40,7 @@ async function main([targetVersion]) {
 	let stdout = ''
 	let stderr = ''
 
-	;({ stdout, stderr } = spawnSync('node', `--experimental-modules --no-warnings test/scripts/copy-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
+	;({ stdout, stderr } = spawnSync('node', `test/scripts/copy-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
 		console.error(stderr)
@@ -51,7 +51,7 @@ async function main([targetVersion]) {
 
 	console.log(stdout)
 
-	;({ stdout, stderr } = spawnSync('node', `--experimental-modules --no-warnings test/scripts/format-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
+	;({ stdout, stderr } = spawnSync('node', `test/scripts/format-bs-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
 		console.error(stderr)
@@ -62,7 +62,7 @@ async function main([targetVersion]) {
 
 	console.log(stdout)
 
-	;({ stdout, stderr } = spawnSync('node', `--experimental-modules --no-warnings test/scripts/compare-less-css-to-sass-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
+	;({ stdout, stderr } = spawnSync('node', `test/scripts/compare-less-css-to-sass-css.js ${targetVersion}`.split(' '), { encoding: 'utf8' })) // , stdio: [process.stdin, process.stdout, process.stderr] })
 
 	if (stderr) {
 		console.error(stderr)

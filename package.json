@@ -20,13 +20,13 @@
 		"url": "https://github.com/seanCodes/bootstrap-less-port/issues"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">=15"
 	},
 	"main": "less/bootstrap.less",
 	"style": "dist/css/bootstrap.css",
 	"less": "less/bootstrap.less",
 	"scripts": {
-		"test": "node --experimental-modules --no-warnings test/test.js",
+		"test": "node test/test.js",
 		"build": "npm run lint && npm run css",
 		"css": "npm run css-compile && npm run css-prefix && npm run css-minify",
 		"css-compile": "lessc --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
