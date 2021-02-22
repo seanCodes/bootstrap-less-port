@@ -1,18 +1,23 @@
-/* eslint-env node */
-
 module.exports = {
 	parserOptions: {
-		ecmaVersion: 8,
-		ecmaFeatures: { impliedStrict: true }
+		ecmaVersion  : 8,
+		ecmaFeatures : { impliedStrict: true },
 	},
-	env: { es6: true }, // enable all ES6 globals
+
+	// Enable all ES6/ES2015 globals.
+	env: { es6: true },
+
 	globals: {
+		// Vars global to Less plugins.
 		tree      : false,
 		functions : false,
 	},
+
 	extends: 'eslint:recommended',
+
 	rules: {
-		// > Note: All rule names are quoted for consitency.
+		// > Note: All rule names are quoted for consistency.
+		/* eslint-disable array-element-newline, array-bracket-newline */
 
 		//
 		// Possible Errors
@@ -33,7 +38,8 @@ module.exports = {
 			// See: http://stackoverflow.com/questions/15499235/whats-the-correct-casing-to-use-for-jsdoc-comments
 			preferType: {
 				// > Note: Quoting props here since the syntax highlighting doesn’t like it when a
-				//   propety’s named “function”.
+				//   propety’s named `function`.
+				/* eslint-disable quote-props */
 				'function'  : 'Function',
 				'promise'   : 'Promise',
 				'object'    : 'Object',
@@ -42,20 +48,21 @@ module.exports = {
 				'Boolean'   : 'boolean',
 				'Number'    : 'number',
 				'Undefined' : 'undefined',
+				/* eslint-enable quote-props */
 			},
-			requireReturn: false,
+			requireReturn    : false,
 			// - Begin with a quote mark, a markdown special character, a JSDoc tag (@) or a captial
 			//   letter.
 			// - End with either a) a markdown list item ending in a lowercase letter or b) a quote
 			//   mark, markdown special char or sentence-end punctuation character.
-			matchDescription: '^["\'“‘\\[*>_`@A-Z0-9][\\s\\S]+([-*] [^\\n]+[a-z]|["\'”’)\\]*_`\\.?!)])$',
+			matchDescription : '^["\'“‘\\[*>_`@A-Z0-9][\\s\\S]+([-*] [^\\n]+[a-z]|["\'”’)\\]*_`\\.?!)])$',
 		}],
 
 		//
 		// Best Practices
 		//
 
-		'eqeqeq'                           : ['error', 'always', { null: 'ignore' }],
+		eqeqeq                             : ['error', 'always', { null: 'ignore' }],
 		'no-else-return'                   :  'warn',
 		'no-empty-function'                :  'warn',
 		'no-extend-native'                 :  'error',
@@ -78,9 +85,9 @@ module.exports = {
 		'no-useless-return'                :  'error',
 		'no-with'                          :  'error',
 		'prefer-promise-reject-errors'     : ['error', { allowEmptyReject: true }],
-		'radix'                            :  'error',
+		radix                              :  'error',
 		'wrap-iife'                        : ['error', 'inside'],
-		'yoda'                             : ['warn',  'never'],
+		yoda                               : ['warn',  'never'],
 
 		//
 		// Variables
@@ -103,12 +110,12 @@ module.exports = {
 		'array-element-newline'            : ['warn',  { multiline: true, minItems: 5 }],
 		'block-spacing'                    :  'warn',
 		'brace-style'                      : ['warn',  '1tbs', { allowSingleLine: true }],
-		'camelcase'                        : ['error', { properties: 'always' }],
+		camelcase                          : ['error', { properties: 'always' }],
 		'capitalized-comments'             : ['warn',  'always', {
 			line  : { ignoreInlineComments: true, ignoreConsecutiveComments: true },
 			block : { ignoreInlineComments: true, ignorePattern: '^\n' },
 		}],
-		'comma-dangle'                     : ['error',  {
+		'comma-dangle': ['error',  {
 			arrays    : 'always-multiline',
 			objects   : 'always-multiline',
 			imports   : 'always-multiline',
@@ -121,28 +128,28 @@ module.exports = {
 		'eol-last'                         :  'error',
 		'func-call-spacing'                :  'error',
 		'function-paren-newline'           : ['warn',  'multiline'],
-		'indent'                           : ['warn',  'tab', {
-			SwitchCase: 1,
-			ignoredNodes: ['SwitchCase > BreakStatement'],
+		indent                             : ['warn',  'tab', {
+			SwitchCase   : 1,
+			ignoredNodes : ['SwitchCase > BreakStatement'],
 		}],
-		'key-spacing'                      : ['warn',  {
-			singleLine: { beforeColon: false, 'afterColon': true, mode: 'minimum' },
-			multiLine:  { beforeColon: false, 'afterColon': true, mode: 'minimum' },
-			align:      { beforeColon: true,  'afterColon': true, mode: 'minimum', on: 'colon' },
+		'key-spacing': ['warn',  {
+			singleLine : { beforeColon: false, afterColon: true, mode: 'minimum' },
+			multiLine  : { beforeColon: false, afterColon: true, mode: 'minimum' },
+			align      : { beforeColon: true,  afterColon: true, mode: 'minimum', on: 'colon' },
 		}],
 		'keyword-spacing'                  : ['error', { before: true, after: true }],
 		'linebreak-style'                  : ['error', 'unix'],
 		'max-len'                          : ['warn',  {
-			code     : 200,
-			tabWidth : 3,
-			comments : 100,
+			code                   : 200,
+			tabWidth               : 3,
+			comments               : 100,
 			ignoreUrls             : true,
 			ignoreTemplateLiterals : true,
 			ignoreRegExpLiterals   : true,
 			// Ignore lines that have no space between the slashes and the comment OR lines that have
 			// a tab character immediately after the slashes, since both cases are likely to be lines
 			// of commented code.
-			"ignorePattern": "\/\/(\\S|\t).*",
+			ignorePattern          : '\\/\\/(\\S|\t).*',
 		}],
 		'max-params'                       : ['warn',  { max: 6 }],
 		'max-statements-per-line'          : ['error', { max: 2 }],
@@ -161,15 +168,15 @@ module.exports = {
 		'no-unneeded-ternary'              : ['warn',  { defaultAssignment: false }],
 		'no-whitespace-before-property'    :  'warn',
 		'nonblock-statement-body-position' : ['warn',  'below'],
-		'object-curly-newline'             : ['warn',  {
-			ObjectExpression : { multiline: true, minProperties: 5 },
-			ObjectPattern    : { multiline: true, minProperties: 8 },
-		}],
+		// 'object-curly-newline'             : ['warn',  {
+		// 	ObjectExpression : { multiline: true, minProperties: 5 },
+		// 	ObjectPattern    : { multiline: true, minProperties: 8 },
+		// }],
 		'object-curly-spacing'             : ['error', 'always'],
 		'one-var'                          : ['error', 'never'],
 		'operator-assignment'              : ['warn',  'always'],
 		'operator-linebreak'               : ['warn',  'before'],
-		'padded-blocks'                    : ['warn',  { blocks: 'never', 'switches': 'never', 'classes': 'always' }],
+		'padded-blocks'                    : ['warn',  { blocks: 'never', switches: 'never', classes: 'always' }],
 		'padding-line-between-statements'  : ['warn',
 			// Around directives.
 			{ blankLine: 'always', prev: 'directive',             next: '*'                     },
@@ -181,14 +188,14 @@ module.exports = {
 			{ blankLine: 'always', prev: '*',                     next: 'return'                },
 		],
 		'quote-props'                      : ['error', 'as-needed'],
-		'quotes'                           : ['error', 'single', { avoidEscape: false, allowTemplateLiterals: true }],
-		'semi'                             : ['error', 'never'],
+		quotes                             : ['error', 'single', { avoidEscape: false, allowTemplateLiterals: true }],
+		semi                               : ['error', 'never'],
 		'sort-imports'                     : ['warn',  { ignoreCase: false, ignoreMemberSort: false, memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'] }],
 		'space-before-blocks'              : ['error', 'always'],
 		'space-before-function-paren'      : ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
 		'space-in-parens'                  : ['error', 'never'],
 		'space-infix-ops'                  :  'error',
-		'space-unary-ops'                  : ['error', { words: true, nonwords: false, overrides: { '!' :true, '!!': true } }],
+		'space-unary-ops'                  : ['warn', { words: true, nonwords: false, overrides: { '!': true, '!!': true } }],
 		'spaced-comment'                   : ['warn', 'always', {
 			line  : { markers: ['/', '!'] },
 			block : { exceptions: ['*', '!'], balanced: true },
@@ -207,5 +214,23 @@ module.exports = {
 		'no-new-symbol'                    :  'error',
 		'no-this-before-super'             :  'error',
 		'no-useless-computed-key'          :  'warn',
+
+		/* eslint-enable array-element-newline, array-bracket-newline */
 	},
+
+	overrides: [
+		{
+			files: ['.*.js', 'test/**'],
+
+			parserOptions: {
+				ecmaVersion  : 11,
+				sourceType   : 'module',
+			},
+
+			// Enable all ES11/ES2020 globals.
+			env: { node: true, es2020: true },
+
+			rules: { 'capitalized-comments': 'off' },
+		},
+	],
 }
