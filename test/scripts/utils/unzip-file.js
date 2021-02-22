@@ -1,47 +1,46 @@
 import StreamZip from 'node-stream-zip'
+import { fileURLToPath } from 'url'
 import { mkdirSync } from 'fs'
+import { pathExists } from './path-utils.js'
 import { basename, dirname, relative } from 'path'
 
-export default function unzipFile(zippedFilePathName, outputFilePath) {
-	return new Promise((resolve, reject) => {
-		console.log(`\nUnzipping file ${relative(process.cwd(), zippedFilePathName)}...`)
+export default async function unzipFile(zippedFilePathName, outputFilePath) {
+	// [Sanity Checks] Make sure a file path was provided and that it exists.
+	if (! zippedFilePathName)
+		throw new ReferenceError('No zip file name provided')
+	if (! pathExists(zippedFilePathName))
+		throw new Error(`The file "${zippedFilePathName}" does not exist (or you do not have access to it)`)
 
-		const unzip = new StreamZip({
-			file                    : zippedFilePathName,
-			storeEntries            : true,
-			skipEntryNameValidation : true,
-		})
+	console.log(`\nUnzipping file ${relative(process.cwd(), zippedFilePathName)}...`)
 
-		const outputPath = dirname(zippedFilePathName)
-
-		// Unzip the folder next to the zipped file (in the same directory).
-		unzip.on('ready', () => {
-			const entries = unzip.entries()
-			const [topLevelEntryName] = Object.keys(entries)
-
-			if (! outputFilePath)
-				outputFilePath = `${outputPath}/${basename(zippedFilePathName, '.zip')}`
-
-			mkdirSync(outputFilePath)
-
-			unzip.extract(topLevelEntryName, outputFilePath, (err) => {
-				unzip.close()
-
-				if (err)
-					return reject(err)
-
-				const relativeOutputFilePath = relative(process.cwd(), outputFilePath)
-
-				console.log(`Unzipped to ${relativeOutputFilePath}/`)
-
-				resolve(relativeOutputFilePath)
-			})
-		})
-
-		unzip.on('error', err => {
-			unzip.close()
-
-			return reject(err)
-		})
+	const unzip = new StreamZip.async({ // eslint-disable-line new-cap
+		file                    : zippedFilePathName,
+		storeEntries            : true,
+		skipEntryNameValidation : true,
 	})
+
+	const outputPath = dirname(zippedFilePathName)
+
+	if (! outputFilePath)
+		outputFilePath = `${outputPath}/${basename(zippedFilePathName, '.zip')}`
+
+	const entries = await unzip.entries()
+	const [topLevelEntryName] = Object.keys(entries)
+
+	mkdirSync(outputFilePath)
+
+	await unzip.extract(topLevelEntryName, outputFilePath)
+	await unzip.close()
+
+	const relativeOutputFilePath = relative(process.cwd(), outputFilePath)
+
+	console.log(`Unzipped to ${relativeOutputFilePath}/`)
+
+	return relativeOutputFilePath
+}
+
+// If running this file directly from the command-line then call `unzipFile()` with the provided
+// arguments.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	unzipFile(...process.argv.slice(2))
 }
