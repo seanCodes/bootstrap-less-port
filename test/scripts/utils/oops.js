@@ -1,10 +1,10 @@
 import color from 'ansi-colors'
 
-export default function oops(message = '', err, { exit = true } = {}) {
+export default function oops(message = '', err, { exit = false } = {}) {
 	// Handle options object as second argument.
 	if (err && 'exit' in err) {
-		exit = err
-		err = ''
+		exit = err.exit
+		err = null
 	}
 
 	// Handle error object as first argument.
@@ -24,5 +24,5 @@ export default function oops(message = '', err, { exit = true } = {}) {
 	}
 
 	if (exit)
-		process.exit(1)
+		process.exitCode = 1
 }
