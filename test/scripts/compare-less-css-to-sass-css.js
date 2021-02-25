@@ -24,11 +24,17 @@ const LESS_ENTRY_POINT = './less/bootstrap.less'
 const LESS_COMPILED_CSS_REFERENCE_DIR = './test/less-compiled-css-reference/'
 const SASS_COMPILED_CSS_REFERENCE_DIR = './test/sass-compiled-css-reference/'
 
+function prefixError(err, messagePrefix) {
+	err.message = `${messagePrefix}:\n${err.message}`
+
+	return err
+}
+
 async function main([targetVersion]) {
 	try {
 		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 	} catch (err) {
-		return oops(err)
+		throw prefixError(err, `Error fetching Bootstrap tag data for version ${targetVersion}`)
 	}
 
 	let lessEntryPointFileContents = ''
@@ -36,14 +42,14 @@ async function main([targetVersion]) {
 	try {
 		lessEntryPointFileContents = readFileSync(LESS_ENTRY_POINT, 'utf8')
 	} catch (err) {
-		return oops(`Error reading file "${LESS_ENTRY_POINT}":`, err)
+		throw prefixError(err, `Error reading file "${LESS_ENTRY_POINT}"`)
 	}
 
 	less.logger.addListener({
-		debug(message) { console.log(`${color.cyan('[DEBUG]') } ${message}`)   },
-		info(message)  { console.log(`${color.blue('[INFO]')   } ${message}`)  },
-		warn(message)  { console.log(`${color.yellow('[WARN]') } ${message}`)  },
-		error(message) { console.error(`${color.red('[ERROR]')  } ${message}`) },
+		debug(message) { console.log(`${color.cyan('[DEBUG]')} ${message}`) },
+		info(message)  { console.log(`${color.blue('[INFO]')} ${message}`) },
+		warn(message)  { console.log(`${color.yellow('[WARN]')} ${message}`) },
+		error(message) { console.error(`${color.red('[ERROR]')} ${message}`) },
 	})
 
 	let lessCompiledOutput = {}
@@ -53,7 +59,7 @@ async function main([targetVersion]) {
 		lessCompiledOutput = await less.render(lessEntryPointFileContents, { math: 'parens', paths: [dirname(LESS_ENTRY_POINT)] })
 		console.log('Done.')
 	} catch (err) {
-		return oops(`Error compiling "${LESS_ENTRY_POINT}":`, err)
+		throw prefixError(err, `Error compiling "${LESS_ENTRY_POINT}"`)
 	}
 
 	let lessCompiledCSS = lessCompiledOutput.css
@@ -73,7 +79,7 @@ async function main([targetVersion]) {
 		mkdirSync(LESS_COMPILED_CSS_REFERENCE_DIR)
 
 	if (! canReadWrite(LESS_COMPILED_CSS_REFERENCE_DIR))
-		return oops(`Can’t read or write to folder "${LESS_COMPILED_CSS_REFERENCE_DIR}"`)
+		throw new Error(`Can’t read or write to folder "${LESS_COMPILED_CSS_REFERENCE_DIR}"`)
 
 	const lessCompiledCSSFilepath = `${LESS_COMPILED_CSS_REFERENCE_DIR}bootstrap-${targetVersion}.css`
 
@@ -82,13 +88,13 @@ async function main([targetVersion]) {
 	try {
 		writeFileSync(lessCompiledCSSFilepath, lessCompiledCSS)
 	} catch (err) {
-		return oops(`Error writing file less-compiled CSS file:`, err)
+		throw prefixError(err, `Error writing Less-compiled CSS file`)
 	}
 
 	const sassCompiledCSSFilepath = `${SASS_COMPILED_CSS_REFERENCE_DIR}bootstrap-${targetVersion}.css`
 
 	if (! pathExists(sassCompiledCSSFilepath))
-		return oops(`Path "${sassCompiledCSSFilepath}" does not exist. Have you copied the Bootstrap CSS file to the reference directory yet?`)
+		throw new Error(`Path "${sassCompiledCSSFilepath}" does not exist. Have you copied the Bootstrap CSS file to the reference directory yet?`)
 
 	// Compare!
 
@@ -98,25 +104,27 @@ async function main([targetVersion]) {
 		const { stdout, stderr } = await execPromise(`git -c color.ui=always diff --no-index --patience ${sassCompiledCSSFilepath} ${lessCompiledCSSFilepath}; exit 0`, { encoding: 'utf8' })
 
 		if (stderr)
-			return oops(`\`git diff\` output an error:\n${stderr}`)
+			throw new Error(`\`git diff\` output an error:\n${stderr}`)
 
 		diff = stdout
 	} catch (err) {
-		return oops('Error running git diff:', err)
+		throw prefixError(err, 'Error running git diff')
 	}
 
 	try {
 		writeFileSync('./test/scripts/result.diff', color.unstyle(diff))
 	} catch (err) {
-		return oops('Error writing file less-compiled CSS file:', err)
+		throw prefixError(err, 'Error writing comparison diff file')
 	}
 
 	if (diff) {
-		console.error(diff)
+		console.error(diff) // write to stderr
 
 		const differenceCount = color.unstyle(diff).match(/(^-(?!--).*\n)+(^\+.*\n)+|(^\+.*\n)+(^-(?!--).*\n)|(^\+(?!\+\+).*\n)+|(^-(?!--).*\n)+/gm).length
 
-		return oops(`${differenceCount} differences found.`)
+		oops(`${differenceCount} differences found.`, { exit: true })
+
+		return
 	}
 
 	console.log(color.green('\n\nNo differences.'))
