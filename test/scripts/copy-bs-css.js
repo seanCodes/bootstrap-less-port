@@ -19,28 +19,30 @@ const SASS_COMPILED_CSS_REFERENCE_DIR = './test/sass-compiled-css-reference/'
 const SASS_COMPILED_CSS_SOURCE_DIR    = '/dist/css/bootstrap.css'
 
 async function main([targetVersion]) {
-	try {
-		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
-	} catch (err) {
-		return oops(err)
+	({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
+
+	if (! pathExists(BOOTSTRAP_SOURCE_DIR)) {
+		oops(`Path "${BOOTSTRAP_SOURCE_DIR}" does not exist. Have you downloaded the Bootstrap source files yet?`, { exit: true })
+
+		return
 	}
 
-	if (! pathExists(BOOTSTRAP_SOURCE_DIR))
-		return oops(`Path "${BOOTSTRAP_SOURCE_DIR}" does not exist. Have you downloaded the Bootstrap source files yet?`)
-
 	if (! canReadWrite(BOOTSTRAP_SOURCE_DIR))
-		return oops(`Can’t read or write to folder "${BOOTSTRAP_SOURCE_DIR}"`)
+		throw new Error(`Can’t read or write to folder "${BOOTSTRAP_SOURCE_DIR}"`)
 
 	if (! pathExists(SASS_COMPILED_CSS_REFERENCE_DIR))
 		mkdirSync(SASS_COMPILED_CSS_REFERENCE_DIR)
 
 	if (! canReadWrite(SASS_COMPILED_CSS_REFERENCE_DIR))
-		return oops(`Can’t read or write to folder "${SASS_COMPILED_CSS_REFERENCE_DIR}"`)
+		throw new Error(`Can’t read or write to folder "${SASS_COMPILED_CSS_REFERENCE_DIR}"`)
 
 	const sassCompiledCSSFilepath = `${BOOTSTRAP_SOURCE_DIR}${targetVersion}${SASS_COMPILED_CSS_SOURCE_DIR}`
 
-	if (! pathExists(sassCompiledCSSFilepath))
-		return oops(`CSS file "${sassCompiledCSSFilepath}" does not exist. Have you downloaded the Bootstrap source files yet?`)
+	if (! pathExists(sassCompiledCSSFilepath)) {
+		oops(`CSS file "${sassCompiledCSSFilepath}" does not exist. Have you downloaded the Bootstrap source files yet?`, { exit: true })
+
+		return
+	}
 
 	copyFileSync(sassCompiledCSSFilepath, `${SASS_COMPILED_CSS_REFERENCE_DIR}/bootstrap-${targetVersion}.css`)
 }
