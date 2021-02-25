@@ -11,48 +11,50 @@
 
 import downloadFile from './utils/download-file.js'
 import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
-import oops from './utils/oops.js'
 import unzipFile from './utils/unzip-file.js'
 import { canReadWrite, pathExists } from './utils/path-utils.js'
 import { mkdirSync, unlinkSync } from 'fs'
 
 const BOOTSTRAP_SOURCE_DIR = './test/bootstrap-source/'
 
-async function main([targetVersion]) {
-	let tagZipURL = ''
+function prefixError(err, messagePrefix) {
+	err.message = `${messagePrefix}:\n${err.message}`
 
-	try {
-		({ zipball_url: tagZipURL, name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
-	} catch (err) {
-		return oops(err)
-	}
+	return err
+}
+
+async function main([targetVersion]) {
+	const { zipball_url: tagZipURL, name: version } = await fetchBootstrapRepoTagData(targetVersion)
 
 	if (! pathExists(BOOTSTRAP_SOURCE_DIR))
 		mkdirSync(BOOTSTRAP_SOURCE_DIR)
-	else if (pathExists(`${BOOTSTRAP_SOURCE_DIR}${targetVersion}`))
-		return console.log(`\nSource files for ${targetVersion} already downloaded`)
+	else if (pathExists(`${BOOTSTRAP_SOURCE_DIR}${version}`)) {
+		console.log(`\nSource files for ${version} already downloaded`)
+
+		return
+	}
 
 	if (! canReadWrite(BOOTSTRAP_SOURCE_DIR))
-		return oops(`Can’t read or write to folder "${BOOTSTRAP_SOURCE_DIR}"`)
+		throw new Error(`Can’t read or write to folder "${BOOTSTRAP_SOURCE_DIR}"`)
 
 	let zippedFilePath = ''
 
 	try {
-		zippedFilePath = await downloadFile(tagZipURL, BOOTSTRAP_SOURCE_DIR, targetVersion)
+		zippedFilePath = await downloadFile(tagZipURL, BOOTSTRAP_SOURCE_DIR, version)
 	} catch (err) {
-		return oops(`Error downloading zip file for version "${targetVersion}":`, err)
+		throw prefixError(err, `Error downloading zip file for version "${version}"`)
 	}
 
 	try {
 		await unzipFile(zippedFilePath)
 	} catch (err) {
-		return oops(`Error unzipping file ${zippedFilePath}:`, err)
+		throw prefixError(err, `Error unzipping downloaded zip file ${zippedFilePath}`)
 	}
 
 	try {
 		unlinkSync(zippedFilePath)
 	} catch (err) {
-		return oops(`Error deleting downloaded zip file ${BOOTSTRAP_SOURCE_DIR}${targetVersion}:`, err)
+		throw prefixError(err, `Error deleting downloaded zip file ${BOOTSTRAP_SOURCE_DIR}${version}`)
 	}
 }
 
