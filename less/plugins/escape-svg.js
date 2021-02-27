@@ -40,6 +40,7 @@ function rulesetToMap(context, { ruleset: { rules } } = { ruleset: { rules: [] }
 // Less Functions
 //
 
+// Requires the use of quotes around data URIs.
 functions.add('escape-svg', function (value = {}) {
 	let escapedStr = value.toCSS ? value.toCSS() : ''
 
