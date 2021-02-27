@@ -79,6 +79,13 @@
 		color: color-yiq(@color);
 		background-color: fade(@color, (@form-feedback-tooltip-opacity * 100));
 		#border-radius(@form-feedback-tooltip-border-radius);
+
+		// See https://github.com/twbs/bootstrap/pull/31557
+		// Align tooltip to form elements
+		.form-row > .col > &,
+		.form-row > [class*="col-"] > & {
+			left: (@form-grid-gutter-width / 2);
+		}
 	}
 
 	#form-validation-state-selector(@state, {
@@ -122,7 +129,7 @@
 
 			& when (@enable-validation-icons) {
 				padding-right: @custom-select-feedback-icon-padding-right;
-				background: @custom-select-background, escape-svg(@icon) @custom-select-bg no-repeat ~"@{custom-select-feedback-icon-position}/@{custom-select-feedback-icon-size}";
+				background: @custom-select-background, @custom-select-bg escape-svg(@icon) ~"@{custom-select-feedback-icon-position}/@{custom-select-feedback-icon-size}" no-repeat;
 			}
 
 			&:focus {
