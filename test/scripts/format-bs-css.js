@@ -37,9 +37,9 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 			/^ *-ms-flex-.*\n|^ *display: -ms-(inline-)?flexbox.*\n/gm,
 			''
 		)
-		// Strip certain prefixed WebKit properties.
+		// Strip certain prefixed properties.
 		.replace(
-			/^.*? -webkit-(?:transform|sticky).*;\n/gm,
+			/^.*? -(webkit|moz)-(?:transform|sticky|min-content).*;\n/gm,
 			''
 		)
 		// Strip other prefixed stuff (webkit flexbox, input placeholders, animation keyframes).
