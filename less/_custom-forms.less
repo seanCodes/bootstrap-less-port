@@ -9,6 +9,7 @@
 
 .custom-control {
 	position: relative;
+	z-index: 1;
 	display: block;
 	min-height: (@font-size-base * @line-height-base);
 	padding-left: (@custom-control-gutter + @custom-control-indicator-size);
@@ -138,10 +139,10 @@
 
 	.custom-control-input:disabled {
 		&:checked ~ .custom-control-label::before {
-			background-color: @custom-control-indicator-checked-disabled-bg;
+			#gradient-bg(@custom-control-indicator-checked-disabled-bg);
 		}
 		&:indeterminate ~ .custom-control-label::before {
-			background-color: @custom-control-indicator-checked-disabled-bg;
+			#gradient-bg(@custom-control-indicator-checked-disabled-bg);
 		}
 	}
 }
@@ -163,7 +164,7 @@
 
 	.custom-control-input:disabled {
 		&:checked ~ .custom-control-label::before {
-			background-color: @custom-control-indicator-checked-disabled-bg;
+			#gradient-bg(@custom-control-indicator-checked-disabled-bg);
 		}
 	}
 }
@@ -205,7 +206,7 @@
 
 	.custom-control-input:disabled {
 		&:checked ~ .custom-control-label::before {
-			background-color: @custom-control-indicator-checked-disabled-bg;
+			#gradient-bg(@custom-control-indicator-checked-disabled-bg);
 		}
 	}
 }
@@ -239,9 +240,10 @@
 		border-color: @custom-select-focus-border-color;
 		outline: 0;
 		& when (@enable-shadows) {
-			box-shadow: @custom-select-box-shadow, @custom-select-focus-box-shadow;
+			#box-shadow(@custom-select-box-shadow, @custom-select-focus-box-shadow);
 		}
 		& when not (@enable-shadows) {
+			// Avoid using mixin so we can pass custom focus shadow properly
 			box-shadow: @custom-select-focus-box-shadow;
 		}
 

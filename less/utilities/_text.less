@@ -74,7 +74,8 @@ each(@theme-colors, #(@value, @color) {
 .text-decoration-none { text-decoration: none !important; }
 
 .text-break {
-	word-wrap: break-word !important;
+	word-break: break-word !important; // IE & < Edge 18
+	overflow-wrap: break-word !important;
 }
 
 // Reset

@@ -519,7 +519,7 @@
 @custom-control-indicator-checked-color:        @component-active-color;
 @custom-control-indicator-checked-bg:           @component-active-bg;
 @custom-control-indicator-checked-disabled-bg:  fade(theme-color(primary), 50%);
-@custom-control-indicator-checked-box-shadow:   none;
+@custom-control-indicator-checked-box-shadow:   ~""; // LESS PORT: Sass version uses `null`
 @custom-control-indicator-checked-border-color: @custom-control-indicator-checked-bg;
 
 @custom-control-indicator-focus-box-shadow:     @input-focus-box-shadow;
@@ -527,7 +527,7 @@
 
 @custom-control-indicator-active-color:         @component-active-color;
 @custom-control-indicator-active-bg:            lighten(@component-active-bg, 35%);
-@custom-control-indicator-active-box-shadow:    none;
+@custom-control-indicator-active-box-shadow:    ~""; // LESS PORT: Sass version uses `null`
 @custom-control-indicator-active-border-color:  @custom-control-indicator-active-bg;
 
 @custom-checkbox-indicator-border-radius:       @border-radius;
@@ -536,7 +536,7 @@
 @custom-checkbox-indicator-indeterminate-bg:           @component-active-bg;
 @custom-checkbox-indicator-indeterminate-color:        @custom-control-indicator-checked-color;
 @custom-checkbox-indicator-icon-indeterminate:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'><path stroke='@{custom-checkbox-indicator-indeterminate-color}' d='M0 2h4'/></svg>");
-@custom-checkbox-indicator-indeterminate-box-shadow:   none;
+@custom-checkbox-indicator-indeterminate-box-shadow:   ~""; // LESS PORT: Sass version uses `null`
 @custom-checkbox-indicator-indeterminate-border-color: @custom-checkbox-indicator-indeterminate-bg;
 
 @custom-radio-indicator-border-radius:          50%;
