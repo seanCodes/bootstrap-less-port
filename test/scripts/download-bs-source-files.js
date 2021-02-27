@@ -11,6 +11,8 @@
 
 import downloadFile from './utils/download-file.js'
 import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
+import { fileURLToPath } from 'url'
+import oops from './utils/oops.js'
 import unzipFile from './utils/unzip-file.js'
 import { canReadWrite, pathExists } from './utils/path-utils.js'
 import { mkdirSync, unlinkSync } from 'fs'
@@ -23,7 +25,7 @@ function prefixError(err, messagePrefix) {
 	return err
 }
 
-async function main([targetVersion]) {
+export default async function downloadBootstrapSourceFiles([targetVersion]) {
 	const { zipball_url: tagZipURL, name: version } = await fetchBootstrapRepoTagData(targetVersion)
 
 	if (! pathExists(BOOTSTRAP_SOURCE_DIR))
@@ -58,4 +60,8 @@ async function main([targetVersion]) {
 	}
 }
 
-main(process.argv.slice(2))
+// If running this file directly from the command-line then call `fetchBootstrapRepoTags()` with the
+// provided arguments.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	downloadBootstrapSourceFiles(process.argv.slice(2)).catch(err => oops(err, { exit: true }))
+}

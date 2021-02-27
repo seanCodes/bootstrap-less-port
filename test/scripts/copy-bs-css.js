@@ -10,6 +10,7 @@
  */
 
 import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
+import { fileURLToPath } from 'url'
 import oops from './utils/oops.js'
 import { canReadWrite, pathExists } from './utils/path-utils.js'
 import { copyFileSync, mkdirSync } from 'fs'
@@ -18,7 +19,7 @@ const BOOTSTRAP_SOURCE_DIR            = './test/bootstrap-source/'
 const SASS_COMPILED_CSS_REFERENCE_DIR = './test/sass-compiled-css-reference/'
 const SASS_COMPILED_CSS_SOURCE_DIR    = '/dist/css/bootstrap.css'
 
-async function main([targetVersion]) {
+export default async function copyBootstrapCSS([targetVersion]) {
 	({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 
 	if (! pathExists(BOOTSTRAP_SOURCE_DIR)) {
@@ -47,4 +48,8 @@ async function main([targetVersion]) {
 	copyFileSync(sassCompiledCSSFilepath, `${SASS_COMPILED_CSS_REFERENCE_DIR}/bootstrap-${targetVersion}.css`)
 }
 
-main(process.argv.slice(2))
+// If running this file directly from the command-line then call `fetchBootstrapRepoTags()` with the
+// provided arguments.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	copyBootstrapCSS(process.argv.slice(2)).catch(err => oops(err, { exit: true }))
+}

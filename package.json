@@ -28,11 +28,15 @@
 	"scripts": {
 		"test": "node test/test.js",
 		"build": "npm run lint && npm run css",
+		"bs:download": "node test/scripts/download-bs-source-files.js",
+		"bs:versions": "node test/scripts/utils/fetch-bs-repo-tags.js",
+		"compare": "node test/scripts/compare-less-css-to-sass-css.js",
 		"css": "npm run css-compile && npm run css-prefix && npm run css-minify",
 		"css-compile": "lessc --source-map less/bootstrap.less dist/css/bootstrap.css && lessc --source-map less/bootstrap-grid.less dist/css/bootstrap-grid.css && lessc --source-map less/bootstrap-reboot.less dist/css/bootstrap-reboot.css",
 		"css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\"",
 		"css-minify": "cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --format keep-breaks --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"unzip": "node test/scripts/utils/unzip-file.js"
 	},
 	"peerDependencies": {
 		"less": "^3.9.0"

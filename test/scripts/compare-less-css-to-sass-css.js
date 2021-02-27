@@ -12,6 +12,7 @@ import color from 'ansi-colors'
 import { dirname } from 'path'
 import { exec } from 'child_process'
 import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
+import { fileURLToPath } from 'url'
 import less from 'less'
 import oops from './utils/oops.js'
 import { promisify } from 'util'
@@ -30,7 +31,7 @@ function prefixError(err, messagePrefix) {
 	return err
 }
 
-async function main([targetVersion]) {
+export default async function compareLessCSStoSassCSS([targetVersion]) {
 	try {
 		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 	} catch (err) {
@@ -52,17 +53,15 @@ async function main([targetVersion]) {
 		error(message) { console.error(`${color.red('[ERROR]')} ${message}`) },
 	})
 
-	let lessCompiledOutput = {}
+	let lessCompiledCSS = ''
 
+	console.log('Compile Less...')
 	try {
-		console.log('Compile Less...')
-		lessCompiledOutput = await less.render(lessEntryPointFileContents, { math: 'parens', paths: [dirname(LESS_ENTRY_POINT)] })
-		console.log('Done.')
+		lessCompiledCSS = (await less.render(lessEntryPointFileContents, { math: 'parens', paths: [dirname(LESS_ENTRY_POINT)] })).css
 	} catch (err) {
 		throw prefixError(err, `Error compiling "${LESS_ENTRY_POINT}"`)
 	}
-
-	let lessCompiledCSS = lessCompiledOutput.css
+	console.log('Done.')
 
 	// Format the Less-compiled CSS file slightly by sorting each group of selectors (making
 	// comparison with the Sass-compiled CSS version easier).
@@ -130,4 +129,8 @@ async function main([targetVersion]) {
 	console.log(color.green('\n\nNo differences.'))
 }
 
-main(process.argv.slice(2))
+// If running this file directly from the command-line then call `fetchBootstrapRepoTags()` with the
+// provided arguments.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	compareLessCSStoSassCSS(process.argv.slice(2)).catch(err => oops(err, { exit: true }))
+}

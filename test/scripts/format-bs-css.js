@@ -10,6 +10,7 @@
  */
 
 import fetchBootstrapRepoTagData from './utils/fetch-bs-repo-tag-data.js'
+import { fileURLToPath } from 'url'
 import oops from './utils/oops.js'
 import { pathExists } from './utils/path-utils.js'
 import { readFileSync, writeFileSync } from 'fs'
@@ -110,7 +111,7 @@ function prefixError(err, messagePrefix) {
 	return err
 }
 
-async function main([targetVersion]) {
+export default async function formatBootstrapCSS([targetVersion]) {
 	try {
 		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 	} catch (err) {
@@ -146,4 +147,8 @@ async function main([targetVersion]) {
 	console.log('Done.')
 }
 
-main(process.argv.slice(2))
+// If running this file directly from the command-line then call `fetchBootstrapRepoTags()` with the
+// provided arguments.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	formatBootstrapCSS(process.argv.slice(2)).catch(err => oops(err, { exit: true }))
+}
