@@ -1,7 +1,7 @@
 /*!
- * Bootstrap Grid v4.4.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
+ * Bootstrap Grid v4.5.0 (https://getbootstrap.com/)
+ * Copyright 2011-2020 The Bootstrap Authors
+ * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  *
  * Compiled using Bootstrap Less Port v2.3.0 (https://github.com/seanCodes/bootstrap-less-port)
@@ -188,6 +188,7 @@ html {
       flex-basis: 0;
   -ms-flex-positive: 1;
       flex-grow: 1;
+  min-width: 0;
   max-width: 100%;
 }
 .row-cols-1 > * {
@@ -385,6 +386,7 @@ html {
         flex-basis: 0;
     -ms-flex-positive: 1;
         flex-grow: 1;
+    min-width: 0;
     max-width: 100%;
   }
   .row-cols-sm-1 > * {
@@ -586,6 +588,7 @@ html {
         flex-basis: 0;
     -ms-flex-positive: 1;
         flex-grow: 1;
+    min-width: 0;
     max-width: 100%;
   }
   .row-cols-md-1 > * {
@@ -787,6 +790,7 @@ html {
         flex-basis: 0;
     -ms-flex-positive: 1;
         flex-grow: 1;
+    min-width: 0;
     max-width: 100%;
   }
   .row-cols-lg-1 > * {
@@ -988,6 +992,7 @@ html {
         flex-basis: 0;
     -ms-flex-positive: 1;
         flex-grow: 1;
+    min-width: 0;
     max-width: 100%;
   }
   .row-cols-xl-1 > * {
