@@ -20,15 +20,18 @@
 		margin-left: 0;
 	}
 
-	> .list-group:first-child {
-		.list-group-item:first-child {
-			#border-top-radius(@card-border-radius);
-		}
-	}
+	> .list-group {
+		border-top: inherit;
+		border-bottom: inherit;
 
-	> .list-group:last-child {
-		.list-group-item:last-child {
-			#border-bottom-radius(@card-border-radius);
+		&:first-child {
+			border-top-width: 0;
+			#border-top-radius(@card-inner-border-radius);
+		}
+
+		&:last-child  {
+			border-bottom-width: 0;
+			#border-bottom-radius(@card-inner-border-radius);
 		}
 	}
 }
@@ -93,6 +96,7 @@
 
 .card-footer {
 	padding: @card-spacer-y @card-spacer-x;
+	& when not (@card-cap-color = ~"") { color: @card-cap-color; }
 	background-color: @card-cap-bg;
 	border-top: @card-border-width solid @card-border-color;
 

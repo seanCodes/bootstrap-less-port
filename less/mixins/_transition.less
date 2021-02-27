@@ -14,6 +14,18 @@
 //  }
 //}
 #transition(@transition...) {
+	& when (length(@transition) = 0) {
+		@transition: @transition-base;
+	}
+
+	& when (length(@transition) > 1) {
+		each(@transition, #(@value) {
+			& when (@value = ~"") or (@value = none) {
+				warn("The keyword 'none' or '~\"\"' must be used as a single argument.");
+			}
+		});
+	}
+
 	& when (@enable-transitions) {
 		& when (length(@transition) = 0) {
 			transition: @transition-base;
@@ -34,7 +46,7 @@
 			});
 		}
 
-		& when (@enable-prefers-reduced-motion-media-query) {
+		& when (@enable-prefers-reduced-motion-media-query) and (length(@transition) > 0) and not (extract(@transition, 1) = ~"") and not (extract(@transition, 1) = none) {
 			@media (prefers-reduced-motion: reduce) {
 				transition: none;
 			}

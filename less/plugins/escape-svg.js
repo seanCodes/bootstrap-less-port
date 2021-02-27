@@ -73,11 +73,26 @@ functions.add('escape-svg', function (value = {}) {
 		// Do nothing.
 	}
 
+	let shouldAddURLWrapper = false
+
+	// Strip the `url()` wrapping the string, if present (to prevent it from being escaped).
+	if (escapedStr.startsWith('url(')) {
+		escapedStr = escapedStr.replace(/^url\(|\)$/g, '')
+		shouldAddURLWrapper = true
+	}
+
 	escapeCharsMapKeys.forEach(key => {
 		const value = escapeCharsMap[key]
 
+		if (key === ')' || key === '(')
+			key = `\\${key}`
+
 		escapedStr = escapedStr.replace(new RegExp(key, 'g'), value)
 	})
+
+	// Re-add the `url()` wrapper if necessary.
+	if (shouldAddURLWrapper)
+		escapedStr = `url(${escapedStr})`
 
 	return new tree.Quoted('', escapedStr)
 })

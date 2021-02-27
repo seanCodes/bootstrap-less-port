@@ -93,6 +93,8 @@
 	<: %3c;
 	>: %3e;
 	#: %23;
+	(: %28;
+	): %29;
 };
 
 
@@ -756,6 +758,7 @@
 @dropdown-item-padding-x:           1.5rem;
 
 @dropdown-header-color:             @gray-600;
+@dropdown-header-padding:           @dropdown-padding-y @dropdown-item-padding-x;
 
 
 // Pagination
@@ -1105,6 +1108,7 @@
 @displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex;
 @overflows: auto, hidden;
 @positions: static, relative, absolute, fixed, sticky;
+@user-selects: all, auto, none;
 
 
 // Printing

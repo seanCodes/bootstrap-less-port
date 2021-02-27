@@ -13,8 +13,9 @@
 	#deprecate("The `#bg-variant` mixin", "v4.4.0", "v5", @ignore-warning);
 }
 
-#bg-gradient-variant(@parent, @color) {
+#bg-gradient-variant(@parent, @color, @ignore-warning: false) {
 	@{parent} {
 		background: @color linear-gradient(180deg, mix(@body-bg, @color, 15%), @color) repeat-x !important;
 	}
+	#deprecate("The `bg-gradient-variant` mixin", "v4.5.0", "v5", @ignore-warning);
 }
