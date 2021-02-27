@@ -1,15 +1,16 @@
 import color from 'ansi-colors'
 import { get } from 'https'
+import oops from './oops.js'
 import { parse } from 'url'
 import { pathExists } from './path-utils.js'
 import { relative } from 'path'
 import { createWriteStream, realpathSync } from 'fs'
 
-export default function downloadFile(downloadURL, fileDownloadPath, fileDownloadName) {
+export default async function downloadFile(downloadURL, fileDownloadPath, fileDownloadName) {
 	if (! downloadURL)
-		return Promise.reject(new Error(`Invalid URL:\n\n${downloadURL}`))
+		throw new Error(`Invalid URL: ${downloadURL}`)
 	if (! pathExists(fileDownloadPath))
-		return Promise.reject(new Error(`File path does not exist:\n\n${fileDownloadPath}`))
+		throw new Error(`File path does not exist: ${fileDownloadPath}`)
 
 	console.log(`\nDownloading ${color.underline(downloadURL)} to ${fileDownloadPath}${fileDownloadName}...`)
 
@@ -24,7 +25,7 @@ export default function downloadFile(downloadURL, fileDownloadPath, fileDownload
 				'Accept-Encoding' : 'gzip,deflate',
 			},
 		}, resp => {
-			const requestNotOk = resp.statusCode !== 200
+			const requestNotOk = resp.statusCode < 200 || resp.statusCode > 299
 
 			if (requestNotOk) {
 				const requestRedirected = resp.statusCode === 302
@@ -35,7 +36,7 @@ export default function downloadFile(downloadURL, fileDownloadPath, fileDownload
 					return resolve(downloadFile(resp.headers.location, fileDownloadPath, fileDownloadName))
 				}
 
-				console.error(color.red(`Server returned ${resp.statusCode}`))
+				oops(`Server returned ${resp.statusCode}`)
 				console.log(resp.headers)
 
 				let data = ''

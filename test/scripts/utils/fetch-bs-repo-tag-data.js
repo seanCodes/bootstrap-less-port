@@ -1,12 +1,18 @@
 import fetchBootstrapRepoTags from './fetch-bs-repo-tags.js'
 
+function prefixError(err, messagePrefix) {
+	err.message = `${messagePrefix}:\n${err.message}`
+
+	return err
+}
+
 export default async function fetchBootstrapRepoTagData(targetVersion) {
 	let tags = []
 
 	try {
 		tags = await fetchBootstrapRepoTags()
 	} catch (err) {
-		return Promise.reject(err)
+		throw prefixError(err, 'Error fetching Bootstrap tags')
 	}
 
 	const versionNames = tags.map(({ name }) => name)
@@ -21,7 +27,7 @@ export default async function fetchBootstrapRepoTagData(targetVersion) {
 
 	// Ensure version exists.
 	if (! versionNames.includes(targetVersion))
-		return Promise.reject(new Error(`No tag exists for version "${targetVersion}".\nAvailable versions:\n  ${versionNames.join('\n  ')}`))
+		throw new Error(`No tag exists for version "${targetVersion}".\nAvailable versions:\n  ${versionNames.join('\n  ')}`)
 
 	const versionData = tags.find(({ name }) => name === targetVersion)
 

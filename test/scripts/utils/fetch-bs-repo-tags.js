@@ -1,8 +1,15 @@
-import https from 'https'
+import { get } from 'https'
+import oops from './oops.js'
+
+function prefixError(err, messagePrefix) {
+	err.message = `${messagePrefix}:\n${err.message}`
+
+	return err
+}
 
 export default function fetchBootstrapRepoTags() {
 	return new Promise((resolve, reject) => {
-		https.get({
+		get({
 			hostname : 'api.github.com',
 			path     : '/repos/twbs/bootstrap/tags',
 			headers  : { 'User-Agent': 'seanCodes/bootstrap-less-port' },
@@ -11,10 +18,10 @@ export default function fetchBootstrapRepoTags() {
 
 			resp.on('data', chunk => (data += chunk))
 			resp.on('end', () => {
-				const requestNotOk = resp.statusCode !== 200
+				const requestNotOk = resp.statusCode < 200 || resp.statusCode > 299
 
 				if (requestNotOk)
-					return reject(data)
+					return reject(new Error(`Failed to fetch BS repo tags:\nRequest returned ${resp.statusCode} status with data: ${data}`))
 
 				let resultJSON = {}
 
@@ -26,6 +33,6 @@ export default function fetchBootstrapRepoTags() {
 
 				resolve(resultJSON)
 			})
-		}).on('error', reject)
+		}).on('error', err => reject(prefixError(err, `Failed to fetch BS repo tags:\n${err.message}`)))
 	})
 }
