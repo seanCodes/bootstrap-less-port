@@ -43,9 +43,10 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 			/^.*? -(webkit|moz)-(?:transform|sticky|min-content).*;\n/gm,
 			''
 		)
-		// Strip other prefixed stuff (webkit flexbox, input placeholders, animation keyframes).
+		// Strip other prefixed stuff (webkit flexbox, webkit print-color-adjust, input placeholders,
+		// animation keyframes).
 		.replace(
-			/^ *-webkit-box-.*\n|^.*?:-(webkit|moz|ms)-.*?placeholder[^}]+\}\n|^@-webkit-keyframes[\s\S]+?\n\}\n/gm,
+			/^ *-webkit-box-.*\n|^ *-webkit-print-color-adjust.*\n|^.*?:-(webkit|moz|ms)-.*?placeholder[^}]+\}\n|^@-webkit-keyframes[\s\S]+?\n\}\n/gm,
 			''
 		)
 		// Strip @supports checks for prefixed properties.
