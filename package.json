@@ -47,7 +47,7 @@
 		"clean-css-cli": "^4.3.0",
 		"eslint": "^7.20.0",
 		"less": "^3.11.1",
-		"node-stream-zip": "^1.13.1",
+		"node-stream-zip": "^1.13.2",
 		"postcss-cli": "^7.1.0"
 	},
 	"files": [
