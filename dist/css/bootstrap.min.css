@@ -1,10 +1,10 @@
 /*!
- * Bootstrap v4.5.2 (https://getbootstrap.com/)
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  *
- * Compiled using Bootstrap Less Port v2.4.2 (https://github.com/seanCodes/bootstrap-less-port)
+ * Compiled using Bootstrap Less Port v2.4.3 (https://github.com/seanCodes/bootstrap-less-port)
  * A port of Bootstrap’s Sass source code to Less.
  * Copyright 2017–2020 Sean Juarez
  * Licensed under MIT (https://github.com/seanCodes/bootstrap-less-port/blob/master/LICENSE)
@@ -41,7 +41,7 @@ img{vertical-align:middle;border-style:none}
 svg{overflow:hidden;vertical-align:middle}
 table{border-collapse:collapse}
 caption{padding-top:.75rem;padding-bottom:.75rem;color:#6c757d;text-align:left;caption-side:bottom}
-th{text-align:inherit}
+th{text-align:inherit;text-align:-webkit-match-parent}
 label{display:inline-block;margin-bottom:.5rem}
 button{border-radius:0}
 button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}
@@ -728,7 +728,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 .input-group-lg>.custom-select,.input-group-sm>.custom-select{padding-right:1.75rem}
 .input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group>.input-group-append:last-child>.input-group-text:not(:last-child),.input-group>.input-group-append:not(:last-child)>.btn,.input-group>.input-group-append:not(:last-child)>.input-group-text,.input-group>.input-group-prepend>.btn,.input-group>.input-group-prepend>.input-group-text{border-top-right-radius:0;border-bottom-right-radius:0}
 .input-group>.input-group-append>.btn,.input-group>.input-group-append>.input-group-text,.input-group>.input-group-prepend:first-child>.btn:not(:first-child),.input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child),.input-group>.input-group-prepend:not(:first-child)>.btn,.input-group>.input-group-prepend:not(:first-child)>.input-group-text{border-top-left-radius:0;border-bottom-left-radius:0}
-.custom-control{position:relative;z-index:1;display:block;min-height:1.5rem;padding-left:1.5rem}
+.custom-control{position:relative;z-index:1;display:block;min-height:1.5rem;padding-left:1.5rem;-webkit-print-color-adjust:exact;color-adjust:exact}
 .custom-control-inline{display:-ms-inline-flexbox;display:inline-flex;margin-right:1rem}
 .custom-control-input{position:absolute;left:0;z-index:-1;width:1rem;height:1.25rem;opacity:0}
 .custom-control-input:checked~.custom-control-label::before{color:#fff;border-color:#007bff;background-color:#007bff}
@@ -1027,7 +1027,7 @@ a.badge-dark.focus,a.badge-dark:focus{outline:0;box-shadow:0 0 0 .2rem rgba(52,5
 .alert-heading{color:inherit}
 .alert-link{font-weight:700}
 .alert-dismissible{padding-right:4rem}
-.alert-dismissible .close{position:absolute;top:0;right:0;padding:.75rem 1.25rem;color:inherit}
+.alert-dismissible .close{position:absolute;top:0;right:0;z-index:2;padding:.75rem 1.25rem;color:inherit}
 .alert-primary{color:#004085;background-color:#cce5ff;border-color:#b8daff}
 .alert-primary hr{border-top-color:#9fcdff}
 .alert-primary .alert-link{color:#002752}
@@ -2178,7 +2178,7 @@ a.text-dark:focus,a.text-dark:hover{color:#121416!important}
 .text-white-50{color:rgba(255,255,255,.5)!important}
 .text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
 .text-decoration-none{text-decoration:none!important}
-.text-break{word-break:break-word!important;overflow-wrap:break-word!important}
+.text-break{word-break:break-word!important;word-wrap:break-word!important}
 .text-reset{color:inherit!important}
 .visible{visibility:visible!important}
 .invisible{visibility:hidden!important}
