@@ -104,24 +104,33 @@ const formatSassCompiledCSSForComparison = function (fileContents) {
 		)
 }
 
+function prefixError(err, messagePrefix) {
+	err.message = `${messagePrefix}:\n${err.message}`
+
+	return err
+}
+
 async function main([targetVersion]) {
 	try {
 		({ name: targetVersion } = await fetchBootstrapRepoTagData(targetVersion))
 	} catch (err) {
-		return oops(err)
+		throw prefixError(err, `Error fetching Bootstrap tag data for version ${targetVersion}`)
 	}
 
 	const sassCompiledCSSFilepath = `${SASS_COMPILED_CSS_REFERENCE_DIR}bootstrap-${targetVersion}.css`
 
-	if (! pathExists(sassCompiledCSSFilepath))
-		return oops(`Path "${sassCompiledCSSFilepath}" does not exist. Have you copied the Bootstrap CSS file to the reference directory yet?`)
+	if (! pathExists(sassCompiledCSSFilepath)) {
+		oops(`Path "${sassCompiledCSSFilepath}" does not exist. Have you copied the Bootstrap CSS file to the reference directory yet?`, { exit: true })
+
+		return
+	}
 
 	let fileContents = ''
 
 	try {
 		fileContents = readFileSync(sassCompiledCSSFilepath, 'utf8')
 	} catch (err) {
-		oops(`Error reading file "${sassCompiledCSSFilepath}":`, err)
+		throw prefixError(err, `Error reading file "${sassCompiledCSSFilepath}"`)
 	}
 
 	console.log('Formatting Sass-compiled CSS...')
@@ -131,7 +140,7 @@ async function main([targetVersion]) {
 	try {
 		writeFileSync(sassCompiledCSSFilepath, fileContents)
 	} catch (err) {
-		oops(`Error writing file "${sassCompiledCSSFilepath}":`, err)
+		throw prefixError(err, `Error writing file "${sassCompiledCSSFilepath}"`)
 	}
 
 	console.log('Done.')
