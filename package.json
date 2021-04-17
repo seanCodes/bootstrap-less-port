@@ -20,7 +20,7 @@
 		"url": "https://github.com/seanCodes/bootstrap-less-port/issues"
 	},
 	"engines": {
-		"node": ">=15"
+		"node": ">=6"
 	},
 	"main": "less/bootstrap.less",
 	"style": "dist/css/bootstrap.css",
