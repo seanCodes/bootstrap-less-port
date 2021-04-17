@@ -310,11 +310,11 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 
 [Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.5.0...HEAD
 [2.5.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.5.0...v2.5.1
-[2.5.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.5.0
-[2.4.3]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.3
-[2.4.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.2
-[2.4.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.1
-[2.4.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.0
+[2.5.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.4.3...v2.5.0
+[2.4.3]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.4.2...v2.4.3
+[2.4.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.4.1...v2.4.2
+[2.4.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.4.0...v2.4.1
+[2.4.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.1...v2.4.0
 [2.3.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.2.1...v2.2.2
