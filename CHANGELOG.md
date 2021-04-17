@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.5.1] – 2021-04-17
+
+Revert the `package.json` `engines.node` version bump from [2.5.0] to prevent breaking builds. (It was intended to reflect the node version used for development, but the `engines` field is meant to describe the versions required to _use_ the dependency – not develop it.)
+
+### Fixed
+- [#29](https://github.com/seanCodes/bootstrap-less-port/issues/29) – Build fails after node engine version bump in package.json
+
+
 ## [2.5.0] – 2021-02-27
 
 Aligned code with Bootstrap v4.6.0. See the [Bootstrap release notes](https://github.com/twbs/bootstrap/releases/tag/v4.6.0) for details.
@@ -301,6 +309,7 @@ Initial release. (Code aligned with Bootstrap v4.0.0-beta.2.)
 ---
 
 [Unreleased]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.5.0...HEAD
+[2.5.1]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.5.0
 [2.4.3]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.3
 [2.4.2]: https://github.com/seanCodes/bootstrap-less-port/compare/v2.3.0...v2.4.2
